@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-/*初始化*/
+/* 初始化start */
 body,ol,ul,h1,h2,h3,h4,h5,h6,p,th,td,dl,dd,form,fieldset,legend,input,textarea,select{
 	margin:0;
 	padding:0;
@@ -26,16 +26,6 @@ table{
 p{
 	word-wrap:break-word;
 }
-a{
-	color:#2d374b;
-	text-decoration:none;
-} 
-a:hover{
-	color:#cd0200;
-	text-decoration:underline;
-} 
-
-/*css为clearfix，清除浮动*/
 .clearfix::before,
 .clearfix::after{
     content: "";
@@ -45,7 +35,35 @@ a:hover{
     visibility: hidden;
     clear: both;
 }
-.clearfix:after{clear:both;} 
+.clearfix:after{
+	clear:both;
+} 
 .clearfix{ 
-    *zoom:1;/*IE/7/6*/
+    *zoom:1;
 }
+/* 初始化end */
+
+/* 快捷样式start */
+.tac{
+	text-align: center;
+}
+.tar{
+	text-align: right;
+}
+.pointer{
+
+}
+/* 快捷样式end */
+
+/* 项目风格样式start */
+a{
+	color: #1976d2;
+	text-decoration:none;
+} 
+a:hover{
+	color:gray;
+} 
+.active{
+	color: #1976d2;
+}
+/* 项目风格样式end */

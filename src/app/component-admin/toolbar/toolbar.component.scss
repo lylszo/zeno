@@ -1,0 +1,17 @@
+.toolbar{
+	position: fixed;
+	z-index: 2;
+	height: 64px;
+	width: 100vw;
+	background-color: #1972d6;
+	padding: 8px 30px;
+	box-sizing: border-box;
+}
+.logo{
+	cursor: pointer;
+	display: block;
+	width: 180px;
+	height: 48px;
+	background: url('../../../assets/imgs/logo-nav.png');
+	background-size: cover;
+}

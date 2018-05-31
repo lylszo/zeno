@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { IndexComponent } from './component/index/index.component';
-import { LoginComponent } from './component/login/login.component';
+import { IndexComponent } from './component-app/index/index.component';
+import { LoginComponent } from './component-app/login/login.component';
 
 const appRoutes: Routes = [
   { path: 'index', component: IndexComponent },

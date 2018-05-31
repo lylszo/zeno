@@ -1,0 +1,36 @@
+.sidebar{
+	position: fixed;
+	top: 64px;
+	min-width: 200px;
+	height: calc(100vh - 64px);
+	background-color: #ddd;
+	display: inline-block;
+	overflow: auto;
+	padding-bottom: 30px;
+	box-sizing: border-box;
+	.level-1{
+		height: 45px;
+		line-height: 45px;
+		cursor: pointer;
+		padding-left: 25px;
+		&:hover{
+			background-color: #aaa;
+		}
+		.active{
+			color: #1976d2;
+		}
+	}
+	.level-2{
+		font-size: 14px;
+		height: 35px;
+		line-height: 35px;
+		cursor: pointer;
+		padding-left: 45px;
+		&:hover{
+			background-color: #aaa;
+		}
+		.active{
+			color: #1976d2;
+		}
+	}
+}
