@@ -1,69 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
-/* 初始化start */
-body,ol,ul,h1,h2,h3,h4,h5,h6,p,th,td,dl,dd,form,fieldset,legend,input,textarea,select{
-	margin:0;
-	padding:0;
-} 
+@import "assets/styles/reset-bootstrap";     //重置boostraps样式
+@import "assets/styles/reset";    //重置样式
+@import "assets/styles/var";      //定义通用样式类
+@import "assets/styles/common";    //定义公共组件样式
 body{
-	font:12px "宋体" "Arial Narrow" HELVETICA;
-	background:#fff;
+	font-size: 14px;
+	color: #333;
+	font-family: "Microsoft Yahei";
+	background-color: #f5f5f5;
 	-webkit-text-size-adjust:100%;
-} 
-em{
-	font-style:normal
-} 
-li{
-	list-style:none
-} 
-img{
-	border:0;
-	vertical-align:middle;
-} 
-table{
-	border-collapse:collapse;
-	border-spacing:0;
-} 
-p{
-	word-wrap:break-word;
 }
-.clearfix::before,
-.clearfix::after{
-    content: "";
-    height: 0;
-    line-height: 0;
-    display: block;
-    visibility: hidden;
-    clear: both;
-}
-.clearfix:after{
-	clear:both;
-} 
-.clearfix{ 
-    *zoom:1;
-}
-/* 初始化end */
 
-/* 快捷样式start */
-.tac{
-	text-align: center;
-}
-.tar{
-	text-align: right;
-}
-.pointer{
-
-}
-/* 快捷样式end */
-
-/* 项目风格样式start */
-a{
-	color: #1976d2;
-	text-decoration:none;
-} 
-a:hover{
-	color:gray;
-} 
+//管理系统侧边栏高亮
 .active{
-	color: #1976d2;
+	color: $color;
 }
+//用户系统中间宽度
+.w{
+	width: 1200px;
+}
+
+.bg {
+  background:linear-gradient(to bottom right, rgba(30, 168, 247, 0.8), rgba(27, 74, 179, 0.8)),  url("assets/imgs/bg.png") no-repeat center 50% ;
+  height: auto;
+}
+
 /* 项目风格样式end */

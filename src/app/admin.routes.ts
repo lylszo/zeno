@@ -14,14 +14,14 @@ import { RuleManageComponent } from './component-admin/rule-manage/rule-manage.c
 import { DataSetComponent } from './component-admin/data-set/data-set.component';
 import { PasswordUpdateComponent } from './component-admin/password-update/password-update.component';
 import { MyInfoComponent } from './component-admin/my-info/my-info.component';
+import { AdduserComponent} from "./component-admin/user-manage/adduser/adduser.component";
 
 const adminRoutes: Routes = [
   {
-    path: 'admin', 
+    path: 'admin',
     component: AdminComponent,
     children: [
       { path: '', component: AdminIndexComponent },
-      { path: 'adminIndex', component: AdminIndexComponent },
       { path: 'userManage', component: UserManageComponent },
       { path: 'teamManage', component: TeamManageComponent },
       { path: 'memberManage', component: MemberManageComponent },
@@ -33,8 +33,9 @@ const adminRoutes: Routes = [
       { path: 'dataSet', component: DataSetComponent },
       { path: 'passwordUpdate', component: PasswordUpdateComponent },
       { path: 'myInfo', component: MyInfoComponent },
-      { path: '**', redirectTo: '/admin', pathMatch: 'full' }
-    ] 
+      { path: 'adduser', component: AdduserComponent},
+      { path: '**', redirectTo: '', pathMatch: 'full' }
+    ]
   }
 ];
 

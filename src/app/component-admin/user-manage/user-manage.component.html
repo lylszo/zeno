@@ -1,190 +1,220 @@
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
-<p>
-  user-manage works!
-</p>
+<nav class="title-lg">
+  用户管理
+</nav>
+<section class="wh-panel clearfix">
+  <header>
+     <h1 class="title-md-style">
+       筛选查询
+     </h1>
+  </header>
+  <ul class="clearfix">
+    <li class="col-lg-3 col-md-4 f-l">
+      <label for="phone">手机号码：</label>
+      <input type="text" id="phone">
+    </li>
+    <li class="col-lg-3 col-md-4 f-l">
+      <label for="username">用户姓名：</label>
+      <input type="text" id="username">
+    </li>
+    <li class="col-lg-3 col-md-4 f-l">
+      <label for="state">状态：</label>
+      <select name="state" id="state">
+        <option value="1">正常</option>
+        <option value="2">禁用</option>
+      </select>
+    </li>
+    <li class="col-lg-3 col-md-4 f-l">
+      <label for="city">工作城市：</label>
+      <input type="text" id="city">
+    </li>
+    <li class="col-lg-12 col-md-8 f-l">
+      <label for="lab">关联标签：</label>
+      <button id="lab">转店</button>
+      <button>寻址</button>
+      <button>兼职</button>
+      <button>装修</button>
+    </li>
+  </ul>
+  <div class="f-r">
+    <a class="mr8">清空搜索条件</a>
+    <button class="primary-btn">搜索</button>
+  </div>
+</section>
 
+<section class="wh-panel clearfix">
+  <header class="clearfix">
+    <h1 class="title-md-style dib">信息列表</h1>
+    <button class="primary-btn f-r" routerLink="/admin/adduser">新增</button>
+  </header>
+  <table>
+    <thead>
+    <tr>
+      <td>
+        <input type="checkbox">
+      </td>
+      <td>序号</td>
+      <td>用户姓名/手机号码</td>
+      <td>工作城市</td>
+      <td>用户角色</td>
+      <td>加入团队</td>
+      <td>状态</td>
+      <td>注册时间</td>
+      <td>操作</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>
+        <input type="checkbox">
+      </td>
+      <td>1</td>
+      <td>王小明<br>(13688881234)</td>
+      <td>深圳</td>
+      <td>-</td>
+      <td>深圳业务一组</td>
+      <td>正常</td>
+      <td>2018-04-23 15:00:01</td>
+      <td class="handle">
+        <button class="reverse-btn reverse-primary-btn mr5" (click)="openModal(edit)">编辑</button>
+        <button class="reverse-btn reverse-grey-btn mr5" (click)="openModal(template)">解散</button>
+        <button class="reverse-btn reverse-primary-btn mr5">设置角色</button>
+        <button class="reverse-btn reverse-primary-btn mr5">成员管理</button>
+        <button class="reverse-btn reverse-primary-btn" (click)="openModal(asignArea)">分配服务区域</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <pagination [boundaryLinks]="true" [totalItems]="totalItems" class="pagination-sm" (setPage)="setPage()" (pageChange)="pageChanged($event)"
+              previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
+</section>
+
+<ng-template #edit>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">编辑用户信息</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <ul>
+      <li>
+        <label for="name">用户姓名：</label>
+        <input type="text" id="name">
+      </li>
+      <li>
+        <label for="cellphone">手机号码：</label>
+        <input type="text" id="cellphone">
+      </li>
+      <li>
+        <label for="mail">邮箱地址：</label>
+        <input type="text" id="mail">
+      </li>
+      <li>
+        <label for="setCity">工作城市：</label>
+        <span id="setCity">深圳</span>
+        <a>设置</a>
+      </li>
+      <li>
+        <label for="setlab">关联标签：</label>
+        <div>
+          <span id="setlab">多区域</span>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="modal-footer">
+    <div class="f-r">
+      <button type="button" class="reverse-grey-btn">取消</button>
+      <button type="button" class="primary-btn">确定</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">禁用账号</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div>
+      确认将 用户：张三（13688881234）账号禁用吗？
+    </div>
+    <div>
+      禁用账号将不可登录
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="f-r">
+      <button type="button" class="reverse-grey-btn">取消</button>
+      <button type="button" class="primary-btn">确定</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #asignTeam>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">分配团队</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div>
+      基本信息：张三   13956981234  深圳
+    </div>
+    <div>
+      <h4>已加入团队</h4>
+      <ul>
+        <li>深圳飞虎队</li>
+        <li>深圳飞虎队</li>
+      </ul>
+    </div>
+    <div>
+      <h4>分配团队</h4>
+      <input type="text" placeholder="请输入要加入的团队名称">
+      <ul>
+        <li>深圳天鹰队</li>
+        <li>深圳天鹰队</li>
+      </ul>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="f-r">
+      <button type="button" class="reverse-grey-btn">取消</button>
+      <button type="button" class="primary-btn">确定</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #asignArea>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">分配服务区域</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="col-4">
+      <h4>已选服务区域（最多选10个）</h4>
+      <ul>
+        <li>
+          深圳
+        </li>
+        <li>
+          惠州
+        </li>
+      </ul>
+    </div>
+    <div class="col-8">
+      <h4>选择服务区域（可选国家、省、市任何一级）</h4>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="f-r">
+      <button type="button" class="reverse-grey-btn">取消</button>
+      <button type="button" class="primary-btn">确定</button>
+    </div>
+  </div>
+</ng-template>

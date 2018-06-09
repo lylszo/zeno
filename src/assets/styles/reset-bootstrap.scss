@@ -1,0 +1,24 @@
+// 模态框样式重置
+@media (min-width: 576px) {
+  .modal-dialog {
+    margin: 12rem auto;
+  }
+}
+
+.modal-content {
+  border: none;
+  border-radius: 0.1rem;
+  box-shadow: 0 0 3px 5px rgba(0, 0, 0, .1);
+}
+
+.modal-header {
+  background-color: #fafafa;
+}
+
+.modal-body {
+  padding: 1rem 3rem;
+}
+
+.modal-footer{
+  justify-content: center;
+}

@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import { AppRoutesModule } from './app.routes';
 import { AdminRoutesModule } from './admin.routes';
 import { UserRoutesModule } from './user.routes';
+import {  PaginationModule, ModalModule } from 'ngx-bootstrap';
+import {  HttpClientModule  } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule , FormGroup} from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { IndexComponent } from './component-app/index/index.component';
@@ -27,6 +30,12 @@ import { UserComponent } from './component-user/user/user.component';
 import { UserIndexComponent } from './component-user/user-index/user-index.component';
 import { ToolbarComponent } from './component-admin/toolbar/toolbar.component';
 import { NavComponent } from './component-user/nav/nav.component';
+import { PreviewimgComponent } from './component-common/previewimg/previewimg.component';
+import { ShopServiceComponent } from './component-user/shop-service/shop-service.component';
+import { RegisterComponent } from './component-app/register/register.component';
+import { ForgetPasswordComponent } from './component-app/forget-password/forget-password.component';
+import { AdduserComponent } from './component-admin/user-manage/adduser/adduser.component';
+import { StylesComponent } from './component-common/styles/styles.component';
 
 @NgModule({
   declarations: [
@@ -53,12 +62,22 @@ import { NavComponent } from './component-user/nav/nav.component';
     UserIndexComponent,
     ToolbarComponent,
     NavComponent,
+    PreviewimgComponent,
+    ShopServiceComponent,
+    RegisterComponent,
+    ForgetPasswordComponent,
+    AdduserComponent,
+    StylesComponent
   ],
   imports: [
     BrowserModule,
     AdminRoutesModule,
     UserRoutesModule,
-    AppRoutesModule
+    AppRoutesModule,
+    PaginationModule.forRoot(),
+    ModalModule.forRoot(),
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

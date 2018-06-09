@@ -1,0 +1,5 @@
+<label class="preview-label" *ngFor="let img of previewImgSrcs let i = index">
+  <img src="{{img}}" width="100px" height="100px">
+  <i class="iconfont icon-jian uploadimgremove" (click)="remove(i)"></i>
+</label>
+<label class="preview-label"><input type="file" (change)="previewPic($event)"><i class="iconfont icon-tianjia uploadimgicon"></i></label>

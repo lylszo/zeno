@@ -1,0 +1,132 @@
+//主题色
+$color: #1972d6;
+//字体常用色
+.color-333{
+  color: #333;
+}
+.color-666{
+  color: #666;
+}
+.color-999{
+  color: #666;
+}
+.red{
+  color: #dd0031;
+}
+.blue{
+  color: $color;
+}
+
+.f-l{
+  float: left;
+}
+.f-r{
+  float: right;
+}
+.tac{
+  text-align: center;
+}
+.tar{
+  text-align: right;
+}
+.pointer{
+  cursor: pointer;
+}
+.bold{
+  font-weight: bold;
+}
+.pointer{
+  cursor: pointer;
+}
+.db{
+  display: block;
+}
+.dn{
+  display: none;
+}
+.dib{
+  display: inline-block;
+}
+@for $i from 10 through 50 {
+  .f#{$i} {
+    font-size: $i*1px;
+  }
+}
+
+@for $i from 1 through 10 {
+  .w#{$i*10} {
+    width: $i*10px;
+  }
+}
+
+@for $i from 1 through 10 {
+  .h#{$i*10} {
+    height: $i*10px;
+  }
+}
+
+@for $i from 1 through 10 {
+  .lh#{$i*10} {
+    line-height: $i*10px;
+  }
+}
+
+@for $i from 0 through 100 {
+  .mt#{$i} {
+    margin-top: $i*1px;
+  }
+}
+
+@for $i from 0 through 100 {
+  .mr#{$i} {
+    margin-right: $i*1px;
+  }
+}
+
+@for $i from 0 through 100 {
+  .mb#{$i} {
+    margin-bottom: $i*1px;
+  }
+}
+
+@for $i from 0 through 100 {
+  .ml#{$i} {
+    margin-left: $i*1px;
+  }
+}
+
+@for $i from 0 through 30 {
+  .m#{$i} {
+    margin: $i*1px;
+  }
+}
+
+@for $i from 0 through 4 {
+  .pt#{$i*10} {
+    padding-top: $i*10px;
+  }
+}
+
+@for $i from 0 through 4 {
+  .pr#{$i*10} {
+    padding-right: $i*10px;
+  }
+}
+
+@for $i from 0 through 4 {
+  .pb#{$i*10} {
+    padding-bottom: $i*10px;
+  }
+}
+
+@for $i from 0 through 4 {
+  .pl#{$i*10} {
+    padding-left: $i*10px;
+  }
+}
+
+@for $i from 0 through 4 {
+  .p#{$i*10} {
+    padding: $i*10px;
+  }
+}

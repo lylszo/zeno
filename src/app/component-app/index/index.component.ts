@@ -9,6 +9,8 @@ export class IndexComponent implements OnInit {
   title = "Zeno";
   constructor() { }
 
+  previewImgFile = [];
+
   ngOnInit() {
   }
 

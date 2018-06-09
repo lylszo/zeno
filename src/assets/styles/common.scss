@@ -1,0 +1,328 @@
+//各种标题
+.title-lg {
+  font-size: 24px;
+  font-weight: bold;
+  padding: 21px 0;
+}
+
+.title-md {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.title-md-style {
+  font-size: 16px;
+  font-weight: bold;
+  position: relative;
+  padding-left: 18px;
+  &:before {
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    top: 6px;
+    left: 0;
+    content: '';
+    background-image: url('./assets/imgs/sprite.png');
+  }
+}
+
+//链接
+a, a:not([href]):not([tabindex]) {
+  color: $color;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a:hover {
+  color: gray;
+}
+
+//表格
+.z-table {
+  background-color: #fff;
+  tr{
+    th {
+      font-weight: bold;
+      height: 56px;
+      line-height: 56px;
+      font-size: 16px;
+      padding: 0 20px;
+      background-color: #fafafa;
+    }
+    td {
+      padding: 20px;
+      border-top: 1px solid #e6e6e6;
+    }
+    &:last-child td{
+      border-bottom: 1px solid #e6e6e6;
+    }    
+  }
+}
+
+//白色面板
+.wh-panel {
+  background-color: #fff;
+  margin-bottom: 30px;
+  border-radius: 2px;
+  box-shadow: 0 0 4px 1px rgba(0, 0, 0, .05);
+  padding: 20px;
+  header {
+    margin-bottom: 10px;
+  }
+}
+
+//输入框
+.z-input {
+  border: 1px solid #e6e6e6;
+  border-radius: 2px;
+  min-width: 150px;
+  padding: 5px 10px;
+  height: 38px;
+}
+
+//下拉框
+.z-select {
+  height: 38px;
+  border: 1px solid #e6e6e6;
+  display: inline-block;
+  position: relative;
+  select {
+    width: 100%;
+    height: 100%;
+    border: 1px solid transparent;
+    width: auto;
+    padding-right: 14px;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+  }
+  &:before {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 7px;
+    background: url('./assets/imgs/sprite.png') no-repeat 0px -37px;
+    background-color: #fff;
+    top: 15px;
+    right: 7px;
+    z-index: 3;
+  }
+}
+
+//复选框
+.z-checkbox {
+  input[type=checkbox] {
+    width: 16px;
+    height: 16px;
+    background-color: red;
+    visibility: hidden;
+    position: relative;
+    z-index: 2;
+    &:before {
+      content: '';
+      display: block;
+      visibility: visible;
+      cursor: pointer;
+      width: 16px;
+      height: 16px;
+      background-image: url('./assets/imgs/sprite.png');
+      background-position: -58px -74px;
+      position: absolute;
+      z-index: 1;
+    }
+    &:checked {
+      &:before {
+        background-position: -84px -74px;
+      }
+    }
+  }  
+}
+
+
+//单选框
+input[type=radio] {
+  width: 16px;
+  height: 16px;
+  background-color: red;
+  visibility: hidden;
+  position: relative;
+  z-index: 2;
+  &:before {
+    content: '';
+    display: block;
+    visibility: visible;
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    background-image: url('./assets/imgs/sprite.png');
+    background-position: -58px -74px;
+    position: absolute;
+    z-index: 1;
+  }
+  &:checked {
+    &:before {
+      background-position: 4px 4px;
+    }
+  }
+}
+
+//蓝色按钮大
+.btn-blue-lg, .btn-red-lg, .btn-grey-lg {
+  display: inline-block;
+  border: 1px solid $color;
+  background-color: $color;
+  color: #fff;
+  padding: 0 24px;
+  min-width: 100px;
+  text-align: center;
+  height: 38px;
+  line-height: 38px;
+  vertical-align: middle;
+  border-radius: 2px;
+  cursor: pointer;
+  &:hover{
+    background-color: #007bff;
+  }
+}
+
+//红色按钮大
+.btn-red-lg {
+  background-color: #dd0031;
+  border: 1px solid #dd0031;
+  &:hover{
+    background-color: red;
+  }
+}
+
+//灰色按钮大
+.btn-grey-lg {
+  background-color: #fff;
+  border: 1px solid #ccc; 
+  color: #666;
+  &:hover{
+    background-color: #ddd;
+  }
+}
+
+.primary-btn {
+  border: 1px solid $color;
+  background-color: $color;
+  color: #fff;
+}
+
+//蓝色按钮小
+.btn-blue-sm, .btn-red-sm, .btn-grey-sm {
+  display: inline-block;
+  height: 22px;
+  border: 1px solid #1972d6;
+  color: #1972d6;
+  background-color: #fff;
+  font-size: 12px;
+  line-height: 20px;
+  vertical-align: middle;
+  border-radius: 1px;
+  text-align: center;
+  cursor: pointer;
+  min-width: 60px;
+  padding: 0 5px;
+  &:hover {
+    background-color: #1972d6;
+    color: #fff;
+  }
+}
+
+//红色按钮小
+.btn-red-sm {
+  border-color: #dd0031;
+  color: #dd0031;
+  &:hover{
+    background-color: #dd0031;
+    color: #fff;
+  }
+}
+
+//灰色按钮小
+.btn-grey-sm {
+  border-color: #ccc;
+  color: #666;
+  &:hover{
+    background-color: #ccc;
+    color: #fff;
+  }
+}
+
+//已选项目
+.z-choose {
+  height: 38px;
+  display: inline-block;
+  line-height: 38px;
+  border: 1px solid #1972d6;
+  background-color: #fff;
+  border-radius: 2px;
+  padding-right: 30px;
+  padding-left: 10px;
+  position: relative;
+  .del {
+    position: absolute;
+    width: 25px;
+    height: 22px;
+    cursor: pointer;
+    line-height: 20px;
+    text-align: center;
+    color: #888888;
+    font-size: 20px;
+    top: 7px;
+    right: 2px;
+    &:hover {
+      color: #1972d6;
+    }
+  }
+}
+
+//添加项目
+.z-add {
+  height: 38px;
+  width: 38px;
+  display: inline-block;
+  border: 1px solid #1972d6;
+  border-radius: 2px;
+  cursor: pointer;
+  background-color: #fff;
+  position: relative;
+  vertical-align: bottom;
+  &:before {
+    position: absolute;
+    content: '+';
+    width: 20px;
+    height: 20px;
+    line-height: 12px;
+    font-size: 26px;
+    color: #888;
+    top: 10px;
+    left: 8px;
+  }
+  &:hover {
+    border-color: #1972d6;
+    &:before {
+      color: #1972d6;
+    }
+  }
+}
+
+//提示信息红色
+.info-red, .info-green {
+  padding: 0 4px;
+  background-color: #dd0031;
+  color: #fff;
+  border-radius: 1px;
+  font-size: 12px;
+  line-height: 18px;
+  display: inline-block;
+}
+
+//提示信息绿色
+.info-green{
+  background-color: #0aaf7f;
+}
+
+

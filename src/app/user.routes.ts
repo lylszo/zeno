@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { UserComponent } from './component-user/user/user.component';
 import { UserIndexComponent } from './component-user/user-index/user-index.component';
+import { ShopServiceComponent } from './component-user/shop-service/shop-service.component';
 
 const userRoutes: Routes = [
   {
@@ -11,7 +12,8 @@ const userRoutes: Routes = [
     children: [
       { path: '', component: UserIndexComponent },
       { path: 'userIndex', component: UserIndexComponent },
-      { path: '**', redirectTo: '/user', pathMatch: 'full' }
+      { path: 'shopService', component: ShopServiceComponent },
+      { path: '**', redirectTo: '', pathMatch: 'full' }
     ] 
   }
 ];
