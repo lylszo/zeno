@@ -1,18 +1,18 @@
-<nav class="title-lg">
+<nav class="z-title-lg">
   团队管理
 </nav>
-<section class="wh-panel clearfix">
+<section class="z-bg-white clearfix">
   <header>
-    <h1 class="title-md-style">
+    <h1 class="z-title-md-style">
       筛选查询
     </h1>
   </header>
   <ul class="clearfix">
-    <li class="col-lg-3 col-md-4 col-sm-4">
+    <li class="col-lg-3 col-md-4 col-sm-4 f-l">
       <label for="teamname">团队名称：</label>
-      <input type="text" id="teamname">
+      <input class="z-input" type="text" id="teamname">
     </li>
-    <li class="col-lg-3 col-md-4 col-sm-4">
+    <li class="col-lg-3 col-md-4 col-sm-4 f-l">
       <label for="teamtype">团队类型：</label>
       <select id="teamtype">
         <option value="0">---请选择---</option>
@@ -20,7 +20,7 @@
         <option value="2">加盟店</option>
       </select>
     </li>
-    <li class="col-lg-3 col-md-4 col-sm-4">
+    <li class="col-lg-3 col-md-4 col-sm-4 f-l">
       <label for="teamstate">状态：</label>
       <select name="state" id="teamstate">
         <option value="0">---请选择---</option>
@@ -28,30 +28,31 @@
         <option value="2">无效</option>
       </select>
     </li>
-    <li class="col-lg-3 col-md-4 col-sm-4">
+    <li class="col-lg-3 col-md-4 col-sm-4 f-l">
       <label for="area">所在区域：</label>
-      <input type="text" id="area">
+      <input class="z-input" type="text" id="area">
     </li>
-    <li class="col-lg-12 col-md-8 col-sm-8">
+    <li class="col-lg-12 col-md-8 col-sm-8 f-l">
       <label for="lab">关联标签：</label>
-      <button id="lab">转店</button>
-      <button>寻址</button>
-      <button>兼职</button>
-      <button>装修</button>
+      <div class="z-tag-del mr5" id="lab">转店<span class="del"></span></div>
+      <div class="z-tag-del mr5">寻址<span class="del"></span></div>
+      <div class="z-tag-del mr5">兼职<span class="del"></span></div>
+      <div class="z-tag-del mr5">装修<span class="del"></span></div>
+      <div class="z-add"></div>
     </li>
   </ul>
   <div class="f-r">
     <a class="mr8">清空搜索条件</a>
-    <button class="primary-btn">搜索</button>
+    <button class="z-btn-blue-lg">搜索</button>
   </div>
 </section>
 
-<section class="wh-panel clearfix">
-  <header class="clearfix">
-    <h1 class="title-md-style dib">信息列表</h1>
-    <button class="primary-btn f-r" (click)="openModal(newUser)">新增</button>
+<section class="z-bg-white clearfix">
+  <header class="clearfix mb10">
+    <h1 class="z-title-md-style dib">信息列表</h1>
+    <button class="z-btn-blue-lg f-r" routerLink="/admin/addTeam">创建</button>
   </header>
-  <table>
+  <table class="table">
     <thead>
     <tr>
       <td>
@@ -80,13 +81,11 @@
       <td>正常</td>
       <td>2018-04-23 15:00:01</td>
       <td class="handle">
-        <button class="reverse-btn reverse-primary-btn mr5" (click)="openModal(edit)">编辑</button>
-        <button class="reverse-btn reverse-grey-btn mr5" (click)="openModal(template)">禁用账号</button>
-        <button class="reverse-btn reverse-red-btn mr5">删除</button>
-        <button class="reverse-btn reverse-primary-btn mr5">设置角色</button>
-        <button class="reverse-btn reverse-primary-btn mr5">单独赋权</button>
-        <button class="reverse-btn reverse-primary-btn mr5" (click)="openModal(asignTeam)">分配团队</button>
-        <button class="reverse-btn reverse-primary-btn" (click)="openModal(asignArea)">分配服务区域</button>
+        <button class="z-btn-blue-sm mr5" (click)="openModal(edit)">编辑</button>
+        <button class="z-btn-grey-sm mr5" (click)="openModal(template)">解散</button>
+        <button class="z-btn-blue-sm mr5">设置角色</button>
+        <button class="z-btn-blue-sm mr5" routerLink="/admin/memberManage">成员管理</button>
+        <button class="z-btn-blue-sm" (click)="openModal(asignArea)">分配服务区域</button>
       </td>
     </tr>
     </tbody>
@@ -94,46 +93,6 @@
   <pagination [boundaryLinks]="true" [totalItems]="totalItems" class="pagination-sm" (setPage)="setPage()" (pageChange)="pageChanged($event)"
               previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
 </section>
-
-<ng-template #newUser>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">新增用户</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <ul>
-      <li>
-        <label for="addname">用户姓名：</label>
-        <input type="text" id="addname">
-      </li>
-      <li>
-        <label for="addcellphone">手机号码：</label>
-        <input type="text" id="addcellphone">
-      </li>
-      <li>
-        <label for="addmail">邮箱地址：</label>
-        <input type="text" id="addmail">
-      </li>
-      <li>
-        <label for="addsetCity">工作城市：</label>
-        <span id="addsetCity">深圳</span>
-        <a>设置</a>
-      </li>
-      <li>
-        <label for="addlabel">关联标签：</label>
-        <div id="addlabel">
-          <span>多区域</span>
-        </div>
-      </li>
-    </ul>
-    <div class="f-r">
-      <button type="button" class="btn btn-primary">取消</button>
-      <button type="button" class="btn btn-default">确定</button>
-    </div>
-  </div>
-</ng-template>
 
 <ng-template #edit>
   <div class="modal-header">
@@ -146,15 +105,15 @@
     <ul>
       <li>
         <label for="name">用户姓名：</label>
-        <input type="text" id="name">
+        <input class="z-input" type="text" id="name">
       </li>
       <li>
         <label for="cellphone">手机号码：</label>
-        <input type="text" id="cellphone">
+        <input class="z-input" type="text" id="cellphone">
       </li>
       <li>
         <label for="mail">邮箱地址：</label>
-        <input type="text" id="mail">
+        <input class="z-input" type="text" id="mail">
       </li>
       <li>
         <label for="setCity">工作城市：</label>
@@ -162,15 +121,17 @@
         <a>设置</a>
       </li>
       <li>
-        <label for="setCity">关联标签：</label>
+        <label for="setlab">关联标签：</label>
         <div>
-          <span>多区域</span>
+          <span id="setlab">多区域</span>
         </div>
       </li>
     </ul>
+  </div>
+  <div class="modal-footer">
     <div class="f-r">
-      <button type="button" class="btn btn-primary">取消</button>
-      <button type="button" class="btn btn-default">确定</button>
+      <button type="button" class="z-btn-grey-lg mr7">取消</button>
+      <button type="button" class="z-btn-blue-lg">确定</button>
     </div>
   </div>
 </ng-template>
@@ -189,9 +150,11 @@
     <div>
       禁用账号将不可登录
     </div>
+  </div>
+  <div class="modal-footer">
     <div class="f-r">
-      <button type="button" class="btn btn-primary">取消</button>
-      <button type="button" class="btn btn-default">确定</button>
+      <button type="button" class="z-btn-grey-lg mr7">取消</button>
+      <button type="button" class="z-btn-blue-lg">确定</button>
     </div>
   </div>
 </ng-template>
@@ -222,9 +185,11 @@
         <li>深圳天鹰队</li>
       </ul>
     </div>
+  </div>
+  <div class="modal-footer">
     <div class="f-r">
-      <button type="button" class="btn btn-primary">取消</button>
-      <button type="button" class="btn btn-default">确定</button>
+      <button type="button" class="z-btn-grey-lg mr7">取消</button>
+      <button type="button" class="z-btn-blue-lg">确定</button>
     </div>
   </div>
 </ng-template>
@@ -251,9 +216,12 @@
     <div class="col-8">
       <h4>选择服务区域（可选国家、省、市任何一级）</h4>
     </div>
+  </div>
+  <div class="modal-footer">
     <div class="f-r">
-      <button type="button" class="btn btn-primary">取消</button>
-      <button type="button" class="btn btn-default">确定</button>
+      <button type="button" class="z-btn-grey-lg mr7">取消</button>
+      <button type="button" class="z-btn-blue-lg">确定</button>
     </div>
   </div>
 </ng-template>
+

@@ -6,15 +6,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./styles.component.scss']
 })
 export class StylesComponent implements OnInit {
-  list = [
-  	{value: 2, name: "苹果"},
-  	{value: 2, name: "苹果"},
-  	{value: 2, name: "苹果"},
-  	{value: 2, name: "苹果"},
-  	{value: 2, name: "苹果"},
-  	{value: 2, name: "苹果"},
-  	{value: 2, name: "苹果"}
+  value = true;
+  radio = true;
+
+  fruitSelect = [
+  	{code: 1001, name: '苹果'},
+  	{code: 1002, name: '橙子橙子橙子橙子橙子橙子橙子橙子橙子橙子'},
+  	{code: 1003, name: '香蕉'},
+  	{code: 1004, name: '梨'},
+  	{code: 1005, name: '榴莲'},
   ];
+
+  $checked: boolean = false;
+
   constructor() { }
 
   ngOnInit() {

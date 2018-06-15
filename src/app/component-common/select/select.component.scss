@@ -1,0 +1,59 @@
+:host {
+	height: 38px;
+	.select{
+		position: relative;
+		display: inline-block;
+		height: 38px;
+		width: 180px;
+		div {
+			width: 100%;
+			height: 38px;
+			overflow: hidden;
+			border-radius: 2px;
+			border: 1px solid #ccc;
+			display: inline-block;
+			line-height: 38px;
+			color: #888888;
+			padding-left: 10px;
+			padding-right: 33px;
+			position: relative;
+			cursor: pointer;
+			&:before {
+				content: '';
+				width: 13px;
+				height: 7px;
+				position: absolute;
+				top: 15px;
+				right: 10px;
+				background-image: url('../../../assets/imgs/sprite.png');
+				background-position: -1px -56px;
+			}
+			&.active:before {
+				background-position-y: -29px;
+			}
+		}
+		ul {
+			position: absolute;
+			cursor: pointer;
+			padding-top: 5px;
+			border: 1px solid #ccc;
+			top: 41px;
+			left: -1px;
+			width: 100%;
+			background-color: #fff;
+			border-radius: 2px;
+			li {
+				line-height: 38px;
+				height: 38px;
+				overflow: hidden;
+				padding: 0 10px;
+				&:hover {
+					background-color: #f0f0f0;
+				}
+				&.active {
+					color: #1972d6;
+				}
+			}	
+		}
+	}
+}

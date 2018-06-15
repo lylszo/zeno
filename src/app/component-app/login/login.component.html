@@ -1,19 +1,22 @@
-<div class="userLogin">
-  <div class="userHeader">
-    <img src="../../../assets/imgs/logo_user.png"/>
-    <p>铺铺旺大数据系统</p>
-  </div>
+<div class="box">
+  <div class="userLogin">
+    <div class="userHeader">
+      <img src="../../../assets/imgs/logo_user.png"/>
+      <p>铺铺旺大数据系统</p>
+    </div>
 
-  <form class="user userForm" #userLogin="ngForm" name="userLogin">
-    <input type="text" name="account" [(ngModel)]="account" placeholder="请输入手机号码" required>
-    <input type="password" name="password" [(ngModel)]="password" placeholder="请输入密码" required>
-    <button [ngClass]="{'buttonBgDis':userLogin.invalid,'buttonBgOk':userLogin.valid}"
-    [disabled]="userLogin.invalid">登录</button>
-  </form>
+    <form class="user userForm" #userLogin="ngForm" name="userLogin">
+      <input type="text" name="account" [(ngModel)]="account" placeholder="请输入手机号码" required>
+      <input type="password" name="password" [(ngModel)]="password" placeholder="请输入密码" required>
+      <button [ngClass]="{'buttonBgDis':userLogin.invalid,'buttonBgOk':userLogin.valid}"
+      [disabled]="userLogin.invalid">登录</button>
+    </form>
 
-  <div class="user userFooter">
-    <a class="userToRes" routerLink="/register">立即注册</a>
-    <a class="userToPass" routerLink="/forgetPassword">忘记密码</a>
-  </div>
+    <div class="user userFooter">
+      <a class="userToRes" routerLink="/register">立即注册</a>
+      <a class="userToPass" routerLink="/forgetPassword">忘记密码</a>
+    </div>
+  </div>  
 </div>
+
 

@@ -1,0 +1,32 @@
+.step-line, .step1, .step2 {
+  display: inline-block;
+}
+.step1, .step2 {
+  width: 52px;
+  height: 52px;
+  line-height: 47px;
+  background: #fff;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  color: #ccc;
+  font-size: 28px;
+}
+.step-line{
+  height: 3px;
+  width: 20%;
+  background-color: #ccc;
+  position: relative;
+  top: -7px;
+}
+.active{
+  color: #fff;
+  border-color: #1972D6;
+  background-color: #1972D6;
+}
+
+
+p {
+  margin-top: 50px;
+  margin-bottom: 60px;
+  font-size: 18px;
+}

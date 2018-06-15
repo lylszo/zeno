@@ -1,3 +1,29 @@
-<p>
-  role-manage works!
-</p>
+<nav class="z-title-lg">
+  角色管理
+</nav>
+<div class="role-manage clearfix">
+  <ul class="body-ul clearfix">
+    <li class="side-li">
+      <ul>
+        <li  class="role-name tac" *ngFor="let role of roles">
+          {{role.name}}
+        </li>
+      </ul>
+    </li>
+    <li class="operator-li">
+      <ul>
+        <li class="role-operate" *ngFor="let menu of menus">
+          {{menu.name}}
+          <ul>
+            <li class="menu-item clearfix" *ngFor="let menuItem of menuItems">
+              <ul>
+                <li class="items" *ngFor="let item of items">
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>

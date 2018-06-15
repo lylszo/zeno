@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2} from '@angular/core';
+import { Component, OnInit, OnDestroy, Renderer2} from '@angular/core';
 import {UserService} from '../../service/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
@@ -8,7 +8,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./login.component.scss'],
   providers:[UserService]
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   login:any;
   account:string;
@@ -20,6 +20,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
 
+  }
+  ngOnDestroy(){
+    this.renderer.removeClass(document.body, 'bg');
   }
 
 }

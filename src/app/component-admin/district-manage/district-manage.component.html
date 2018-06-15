@@ -1,3 +1,42 @@
-<p>
-  district-manage works!
-</p>
+<nav class="z-title-lg">
+  区域管理
+</nav>
+
+<div class="dis-manage">
+  <ul class="clearfix disblock-title">
+    <li class="title-li f-l" *ngFor="let item of districtTitle">
+      {{item}}
+    </li>
+  </ul>
+  <ul class="clearfix disblock-body">
+    <li class="f-l disblock-li">
+      <ul>
+        <li class="disItem-li" *ngFor="let provice of provices">
+          {{provice.name}}
+        </li>
+      </ul>
+    </li>
+    <li class="f-l disblock-li">
+      <ul>
+        <li class="disItem-li" *ngFor="let provice of provices">
+          {{provice.name}}
+        </li>
+      </ul>
+    </li>
+    <li class="f-l disblock-li">
+      <ul>
+        <li class="disItem-li" *ngFor="let provice of provices">
+          {{provice.name}}
+        </li>
+      </ul>
+    </li>
+    <li class="f-l disblock-li">
+      <ul>
+        <li class="disItem-li" *ngFor="let provice of provices">
+          {{provice.name}}
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+

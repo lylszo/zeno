@@ -1,3 +1,91 @@
-<p>
-  member-manage works!
-</p>
+<nav class="z-title-lg clearfix">
+  成员管理
+  <button class="z-btn-blue-sm f-r" (click)="goback()">返回</button>
+</nav>
+<div class="col-sm-5 f-l mr20">
+  <div class="z-bg-white mb20 clearfix">
+    <header>
+      <h1 class="z-title-md-style">
+        筛选查询
+      </h1>
+    </header>
+    <ul class="clearfix">
+      <li>
+        <label for="username">用户姓名：</label>
+        <input class="z-input" id="username">
+      </li>
+      <li>
+        <label for="phone">手机号码：</label>
+        <input class="z-input" id="phone">
+      </li>
+    </ul>
+    <div class="f-r">
+      <a class="mr5">清空搜索条件</a>
+      <button class="z-btn-blue-lg">搜索</button>
+    </div>
+  </div>
+  <div class="z-bg-white">
+    <header class="clearfix mb20">
+      <h1 class="f-l z-title-md-style">
+        选择用户
+      </h1>
+      <button class="f-r z-btn-blue-lg">加入</button>
+    </header>
+    <table class="table">
+      <thead>
+      <tr>
+        <td><input type="checkbox"></td>
+        <td>用户/号码</td>
+        <td>工作城市</td>
+        <td>当前状态</td>
+        <td>已加入团队数量</td>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let item of users">
+        <td><input type="checkbox"></td>
+        <td>{{item.name}} <br> {{item.phone}}</td>
+        <td>{{item.workingCity.name}}</td>
+        <td>{{item.states}}</td>
+        <td>-</td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="z-bg-white f-l">
+  <header>
+    <h1 class="z-title-md-style">
+      成员列表【深圳南邮组】
+    </h1>
+  </header>
+  <table class="table mt20">
+    <thead>
+    <tr>
+      <td><input type="checkbox"></td>
+      <td>序号</td>
+      <td>用户/号码</td>
+      <td>状态</td>
+      <td>成员身份</td>
+      <td>邀请者</td>
+      <td>加入时间</td>
+      <td>操作</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of groupMerbers">
+      <td><input type="checkbox"></td>
+      <td>{{index}}</td>
+      <td>{{item.workingCity.name}}</td>
+      <td>{{item.states}}</td>
+      <td>-</td>
+      <td>-</td>
+      <td>-</td>
+      <td>
+        <a class="mr5">取消组长</a>
+        <a>移除</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>

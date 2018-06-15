@@ -7,8 +7,14 @@ $color: #1972d6;
 .color-666{
   color: #666;
 }
+.color-888{
+  color: #888;
+}
 .color-999{
   color: #666;
+}
+.lightgrey {
+  color: #b3b3b3;
 }
 .red{
   color: #dd0031;
@@ -16,7 +22,6 @@ $color: #1972d6;
 .blue{
   color: $color;
 }
-
 .f-l{
   float: left;
 }
@@ -65,9 +70,9 @@ $color: #1972d6;
   }
 }
 
-@for $i from 1 through 10 {
-  .lh#{$i*10} {
-    line-height: $i*10px;
+@for $i from 1 through 100 {
+  .lh#{$i*1} {
+    line-height: $i*1px;
   }
 }
 
@@ -95,38 +100,38 @@ $color: #1972d6;
   }
 }
 
-@for $i from 0 through 30 {
+@for $i from 0 through 100 {
   .m#{$i} {
     margin: $i*1px;
   }
 }
 
-@for $i from 0 through 4 {
-  .pt#{$i*10} {
-    padding-top: $i*10px;
+@for $i from 0 through 60 {
+  .pt#{$i*1} {
+    padding-top: $i*1px;
   }
 }
 
-@for $i from 0 through 4 {
-  .pr#{$i*10} {
-    padding-right: $i*10px;
+@for $i from 0 through 60 {
+  .pr#{$i*1} {
+    padding-right: $i*1px;
   }
 }
 
-@for $i from 0 through 4 {
-  .pb#{$i*10} {
-    padding-bottom: $i*10px;
+@for $i from 0 through 60 {
+  .pb#{$i*1} {
+    padding-bottom: $i*1px;
   }
 }
 
-@for $i from 0 through 4 {
-  .pl#{$i*10} {
-    padding-left: $i*10px;
+@for $i from 0 through 60 {
+  .pl#{$i*1} {
+    padding-left: $i*1px;
   }
 }
 
-@for $i from 0 through 4 {
-  .p#{$i*10} {
-    padding: $i*10px;
+@for $i from 0 through 60 {
+  .p#{$i*1} {
+    padding: $i*1px;
   }
 }

@@ -1,0 +1,28 @@
+.func-manage{
+  width: 100%;
+}
+.body-ul > li{
+  float: left;
+  border: 1px solid #dddddd;
+  padding:10px 20px;
+}
+.side-li{
+  width: 30%;
+  height: 100%;
+  border-bottom: none;
+  background: #f8f9fa;
+  font-size: 14px;
+  box-shadow: 10px 0 8px -2px rgba(0, 0, 0, 0.15);
+}
+.operator-li{
+  width: 70%;
+  background: #ffffff;
+}
+.func-name{
+  padding: 10px 2px;
+  cursor: pointer;
+}
+.func-name:hover{
+  color: #1972d6;
+  background: #f0f0f0;
+}

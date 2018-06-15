@@ -9,7 +9,8 @@ export class SmsService {
   constructor(public httpService:HttpService) { }
 
   getVCode(mobile:any,callback:Function){
-    return this.httpService.httpPost("vcode/send_sms",{mobile:mobile}, (data) => {
+    let param = {"mobile":mobile, "purpose": "REGISTRY"};
+    return this.httpService.httpPostNoToken("vcode/send_sms",param, (data) => {
       callback(data);
       });
   }

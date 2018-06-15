@@ -1,0 +1,50 @@
+.step {
+  margin-bottom: 45px;
+  .step-line, .step1, .step2 {
+    display: inline-block;
+  }
+  .step1, .step2 {
+    width: 52px;
+    height: 52px;
+    line-height: 47px;
+    background: #fff;
+    border: 2px solid #ccc;
+    border-radius: 50%;
+    color: #ccc;
+    font-size: 28px;
+  }
+  .step-line{
+    height: 3px;
+    width: 20%;
+    background-color: #ccc;
+    position: relative;
+    top: -7px;
+  }
+  .active{
+    color: #fff;
+    border-color: #1972D6;
+    background-color: #1972D6;
+  }
+}
+ul{
+  width: 25%;
+  margin: 0 auto;
+  li{
+    margin-bottom: 20px;
+    .z-input{
+      width: 100%;
+    }
+    .z-input.code{
+      width: 63%;
+      float: left;
+    }
+    .code-btn{
+      width: 20%;
+      float: right;
+    }
+  }
+}
+.lose-btn{
+  width: 25%;
+  margin: 30px 0 100px 0;
+}

@@ -1,0 +1,17 @@
+.choose-city{
+  position: absolute;
+  background: #ffffff;
+  width: 360px;
+  border: 1px solid #ccc;
+  height: 220px;
+  overflow: scroll;
+  z-index: 100;
+}
+.choose-text{
+  padding:2px 15px;
+  cursor: pointer;
+}
+.choose-text:hover{
+  color:#1976d2;
+  background: #cccccc;
+}

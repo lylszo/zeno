@@ -32,6 +32,8 @@ export class UserManageComponent implements OnInit {
     this.modalRef = this.modalService.show(template);
   }
 
+  showLab = false;
+
   ngOnInit() {
   }
 

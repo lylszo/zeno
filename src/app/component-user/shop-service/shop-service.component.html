@@ -1,7 +1,120 @@
-<h1 class="title-lg">店铺大厅</h1>
+<h1 class="z-title-lg">店铺大厅</h1>
 <div class="part1 p20">
-	<h2 class="title-md-style">筛选条件</h2>
-	<div class="mt20">
-		
-	</div>
+	<h2 class="z-title-md-style">筛选条件</h2>
+	<form class="clearfix">
+		<div class="left">
+			<div class="group">
+				<span class="tag">行业</span>
+				<div class="content">
+					<div class="z-tag-del">美容美发-美甲店<span class="del"></span></div>
+					<div class="z-add ml10"></div>
+				</div>				
+			</div>
+			
+			<div class="group">
+				<span class="tag"></span>
+				<div class="content">
+					<input type="checkbox">当前经营
+					<input class="ml20" type="checkbox">适合经营
+					<input class="ml20" type="checkbox">推荐经营
+				</div>				
+			</div>
+			
+			<div class="group">
+				<span class="tag">区域</span>
+				<div class="content">
+					<select class="z-select">
+						<option>深圳</option>
+					</select>
+					<select class="z-select ml5">
+						<option>南山区</option>
+					</select>
+				</div>				
+			</div>
+			
+			<div class="group">
+				<span class="tag">中心点位置</span>
+				<div class="content">
+					<i class="iconfont icon-dingwei blue"></i>
+					<span class="ml10">116.474408，39.991926</span>
+				</div>				
+			</div>
+			
+			<div class="group">
+				<span class="tag">位置描述</span>
+				<div class="content">
+					<select class="z-select ml5">
+						<option>街道转交</option>
+					</select>
+					<input type="checkbox" class="ml20"> 临街
+				</div>				
+			</div>
+		</div>
+		<div class="right">
+			<div class="group">
+				<span class="tag">面积</span>
+				<div class="content">
+					<input [style.width.px]=160 type="text" class="z-input" placeholder="最小"> -
+					<input [style.width.px]=160 type="text" class="z-input" placeholder="最大"> <span class="color-999"> 平米</span>
+				</div>				
+			</div>
+
+			<div class="group">
+				<span class="tag">门宽</span>
+				<div class="content">
+					<input [style.width.px]=160 type="text" class="z-input" placeholder="最短"> -
+					<input [style.width.px]=160 type="text" class="z-input" placeholder="最长"> <span class="color-999"> 米</span>
+				</div>				
+			</div>
+
+			<div class="group">
+				<span class="tag">关键词</span>
+				<div class="content">
+					<input [style.width.px]=334 type="text" class="z-input" placeholder="店铺名称/地址">
+				</div>				
+			</div>
+
+			<div class="group">
+				<span class="tag"></span>
+				<div class="content">
+					<input [style.width.px]=334 type="text" class="z-input" placeholder="手机号码">
+				</div>				
+			</div>
+		</div>
+		<button type="submit" class="z-btn-blue-lg search">查询</button>
+	</form>
+</div>
+<div class="part2 p20 mt20" [style.height.px]=400 [style.overflow]="'auto'">
+	<h1 class="z-title-md-style">
+		信息列表
+		<button class="f-r z-btn-red-lg">我要发布</button>
+	</h1>
+	<table class="z-table mt20">
+		<tr>
+			<th>物业建筑</th>
+			<th>面积</th>
+			<th>当前店铺</th>
+			<th>租金</th>
+			<th>转让情况</th>
+			<th>操作</th>			
+		</tr>
+		<tr *ngFor="let item of [1, 2, 3, 4, 5, 6, 7]">
+			<td>
+				<div>
+					<span class="z-title-md">深圳南山区</span><span class="info-green ml5">商铺</span>
+				</div>
+				<p class="color-888">登良路26号公园道大厦8层，靠近星卡可咖啡</p>
+				<p class="district">临街 街道转角</p>
+			</td>
+			<td>
+				<p class="z-title-md">158㎡</p>
+
+			</td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+
+	</table>
 </div>

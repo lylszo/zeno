@@ -1,0 +1,49 @@
+.role-manage{
+  width: 80%;
+}
+.body-ul{
+
+}
+.body-ul > li{
+  float: left;
+  border: 1px solid #dddddd;
+  padding:10px 20px;
+}
+.side-li{
+  width: 15%;
+  height: 100%;
+  border-bottom: none;
+  background: #f8f9fa;
+  font-size: 16px;
+  box-shadow: 10px 0 8px -2px rgba(0, 0, 0, 0.15);
+}
+.operator-li{
+  margin-left: 3px;
+  width: 80%;
+  background: #ffffff;
+}
+.role-name{
+  padding: 10px 2px;
+  cursor: pointer;
+}
+.role-name:hover{
+  color: #1972d6;
+  background: #f0f0f0;
+}
+.role-operate{
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 10px;
+}
+.menu-item{
+  font-size: 14px;
+  font-weight: bold;
+}
+.items{
+  float: left;
+  font-size: 14px;
+  font-weight: normal;
+}
+.lyl {
+  font-weight: bold;
+}

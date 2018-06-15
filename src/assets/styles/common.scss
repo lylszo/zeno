@@ -1,16 +1,38 @@
+//链接
+a, a:not([href]):not([tabindex]) {
+  color: $color;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a:hover {
+  color: gray;
+}
+
+//白色背景
+.z-bg-white {
+  background-color: #fff;
+  margin-bottom: 30px;
+  border-radius: 2px;
+  box-shadow: 0 0 4px 1px rgba(0, 0, 0, .05);
+  padding: 20px;
+}
+
 //各种标题
-.title-lg {
+.z-title-lg {
   font-size: 24px;
   font-weight: bold;
   padding: 21px 0;
 }
 
-.title-md {
+//中标题
+.z-title-md {
   font-size: 16px;
   font-weight: bold;
 }
 
-.title-md-style {
+//中标题加样式
+.z-title-md-style {
   font-size: 16px;
   font-weight: bold;
   position: relative;
@@ -26,48 +48,27 @@
   }
 }
 
-//链接
-a, a:not([href]):not([tabindex]) {
-  color: $color;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-a:hover {
-  color: gray;
-}
-
 //表格
 .z-table {
+  width: 100%;
   background-color: #fff;
-  tr{
+  tr {
     th {
       font-weight: bold;
       height: 56px;
       line-height: 56px;
       font-size: 16px;
-      padding: 0 20px;
       background-color: #fafafa;
-    }
+      padding-left: 20px;
+      border-top: 1px solid #e6e6e6;
+    }      
     td {
       padding: 20px;
       border-top: 1px solid #e6e6e6;
     }
     &:last-child td{
       border-bottom: 1px solid #e6e6e6;
-    }    
-  }
-}
-
-//白色面板
-.wh-panel {
-  background-color: #fff;
-  margin-bottom: 30px;
-  border-radius: 2px;
-  box-shadow: 0 0 4px 1px rgba(0, 0, 0, .05);
-  padding: 20px;
-  header {
-    margin-bottom: 10px;
+    }
   }
 }
 
@@ -80,99 +81,75 @@ a:hover {
   height: 38px;
 }
 
-//下拉框
-.z-select {
-  height: 38px;
-  border: 1px solid #e6e6e6;
+//表单必选标题
+.z-required:before{
+  content: '*';
   display: inline-block;
-  position: relative;
-  select {
-    width: 100%;
-    height: 100%;
-    border: 1px solid transparent;
-    width: auto;
-    padding-right: 14px;
-    cursor: pointer;
-    position: relative;
-    z-index: 2;
-  }
-  &:before {
-    content: '';
-    position: absolute;
-    width: 16px;
-    height: 7px;
-    background: url('./assets/imgs/sprite.png') no-repeat 0px -37px;
-    background-color: #fff;
-    top: 15px;
-    right: 7px;
-    z-index: 3;
-  }
+  color: #dd0031;
+  margin-right: 5px;
 }
 
 //复选框
-.z-checkbox {
+label.z-checkbox {
+  cursor: pointer;
+  position: relative;
+  padding-left: 13px;
   input[type=checkbox] {
+    background-image: url('./assets/imgs/sprite.png');
+    background-position: -62px -236px;
+    visibility: hidden;
+  }
+  i {
+    position: absolute;
     width: 16px;
     height: 16px;
-    background-color: red;
-    visibility: hidden;
-    position: relative;
-    z-index: 2;
-    &:before {
-      content: '';
-      display: block;
-      visibility: visible;
-      cursor: pointer;
-      width: 16px;
-      height: 16px;
-      background-image: url('./assets/imgs/sprite.png');
-      background-position: -58px -74px;
-      position: absolute;
-      z-index: 1;
-    }
-    &:checked {
-      &:before {
-        background-position: -84px -74px;
-      }
-    }
-  }  
+    top: 3px;
+    left: 0px;
+    background-image: url(./assets/imgs/sprite.png);
+    background-position: -62px -236px;
+  }
+  input[type=checkbox]:checked + i {
+    background-position-y: -288px;
+  }
 }
-
 
 //单选框
-input[type=radio] {
-  width: 16px;
-  height: 16px;
-  background-color: red;
-  visibility: hidden;
+label.z-radio {
+  cursor: pointer;
   position: relative;
-  z-index: 2;
-  &:before {
-    content: '';
-    display: block;
-    visibility: visible;
-    cursor: pointer;
-    width: 16px;
-    height: 16px;
-    background-image: url('./assets/imgs/sprite.png');
-    background-position: -58px -74px;
-    position: absolute;
-    z-index: 1;
-  }
-  &:checked {
-    &:before {
-      background-position: 4px 4px;
+  padding-left: 15px;
+  input[type=radio] {
+    visibility: hidden;
+    &:checked + i {
+      background-position-y: -150px;
     }
+  }
+  i {
+    width: 18px;
+    height: 18px;
+    position: absolute;
+    left: 0px;
+    top: 2px;
+    background-image: url('./assets/imgs/sprite.png');
+    background-position: -62px -94px;
   }
 }
 
+//错误提示信息
+.z-error {
+  color: #dd0031;
+  font-size: 12px;
+}
+
+
 //蓝色按钮大
-.btn-blue-lg, .btn-red-lg, .btn-grey-lg {
+.z-btn-blue-lg, .z-btn-red-lg, .z-btn-grey-lg {
   display: inline-block;
+  font-size: 14px;
   border: 1px solid $color;
   background-color: $color;
   color: #fff;
-  padding: 0 24px;
+  padding: 0 21px;
   min-width: 100px;
   text-align: center;
   height: 38px;
@@ -183,35 +160,46 @@ input[type=radio] {
   &:hover{
     background-color: #007bff;
   }
+  &[disabled]:hover {
+    background-color: $color;
+    cursor: no-drop;
+  }
 }
 
 //红色按钮大
-.btn-red-lg {
+.z-btn-red-lg {
   background-color: #dd0031;
   border: 1px solid #dd0031;
-  &:hover{
+  &:hover {
     background-color: red;
+  }
+  &[disabled]:hover {
+    background-color: #dd0031;
+    cursor: no-drop;
   }
 }
 
 //灰色按钮大
-.btn-grey-lg {
+.z-btn-grey-lg {
   background-color: #fff;
-  border: 1px solid #ccc; 
+  border: 1px solid #ccc;
   color: #666;
   &:hover{
     background-color: #ddd;
   }
+  &[disabled]:hover {
+    background-color: #fff;
+    cursor: no-drop;
+  }
 }
 
-.primary-btn {
-  border: 1px solid $color;
-  background-color: $color;
-  color: #fff;
+//大按钮disabled
+.z-btn-blue-lg[disabled], .z-btn-red-lg[disabled], .z-btn-grey-lg[disabled] {
+  opacity: 0.5;
 }
 
 //蓝色按钮小
-.btn-blue-sm, .btn-red-sm, .btn-grey-sm {
+.z-btn-blue-sm, .z-btn-red-sm, .z-btn-green-sm, .z-btn-grey-sm {
   display: inline-block;
   height: 22px;
   border: 1px solid #1972d6;
@@ -225,34 +213,84 @@ input[type=radio] {
   cursor: pointer;
   min-width: 60px;
   padding: 0 5px;
+  margin: 2px 0;
   &:hover {
     background-color: #1972d6;
     color: #fff;
   }
+  &[disabled]:hover{
+    background-color: #fff;
+    color: #1972d6;
+    cursor: no-drop;
+  }
 }
 
 //红色按钮小
-.btn-red-sm {
+.z-btn-red-sm {
   border-color: #dd0031;
   color: #dd0031;
   &:hover{
     background-color: #dd0031;
     color: #fff;
   }
+  &[disabled]:hover{
+    background-color: #fff;
+    color: #dd0031;
+    cursor: no-drop;
+  }
+}
+
+//绿色按钮小
+.z-btn-green-sm {
+  border-color: #099d72;
+  color: #099d72;
+  &:hover{
+    background-color: #099d72;
+    color: #fff;
+  }
+  &[disabled]:hover{
+    background-color: #fff;
+    color: #099d72;
+    cursor: no-drop;
+  }
 }
 
 //灰色按钮小
-.btn-grey-sm {
+.z-btn-grey-sm {
   border-color: #ccc;
   color: #666;
   &:hover{
     background-color: #ccc;
     color: #fff;
   }
+  &[disabled]:hover{
+    background-color: #fff;
+    color: #666;
+    cursor: no-drop;
+  }
 }
 
-//已选项目
-.z-choose {
+//小按钮disabled
+.z-btn-blue-sm[disabled], .z-btn-red-sm[disabled], .z-btn-green-sm[disabled], .z-btn-grey-sm[disabled] {
+  opacity: 0.5;
+}
+
+//普通标签
+.z-tag {
+  height: 38px;
+  display: inline-block;
+  line-height: 38px;
+  border: 1px solid #e6e6e6;
+  background-color: #fff;
+  border-radius: 2px;
+  padding: 0 10px;
+  &.active {
+    border-color: #1972d6;
+  }
+}
+
+//可删除标签、可添加标签
+.z-tag-del, .z-tag-add {
   height: 38px;
   display: inline-block;
   line-height: 38px;
@@ -262,20 +300,27 @@ input[type=radio] {
   padding-right: 30px;
   padding-left: 10px;
   position: relative;
-  .del {
+  .del, .add {
     position: absolute;
     width: 25px;
     height: 22px;
     cursor: pointer;
-    line-height: 20px;
+    line-height: 22px;
     text-align: center;
     color: #888888;
-    font-size: 20px;
-    top: 7px;
+    font-size: 22px;
+    font-family: 'Arial';
+    top: 8px;
     right: 2px;
     &:hover {
       color: #1972d6;
     }
+    &:before {
+      content: '×';
+    }
+  }
+  .add:before {
+    content: '+';
   }
 }
 
@@ -289,40 +334,78 @@ input[type=radio] {
   cursor: pointer;
   background-color: #fff;
   position: relative;
-  vertical-align: bottom;
   &:before {
     position: absolute;
     content: '+';
     width: 20px;
     height: 20px;
     line-height: 12px;
+    text-align: center;
     font-size: 26px;
+    font-family: 'Arial';
     color: #888;
-    top: 10px;
+    top: 12px;
     left: 8px;
   }
   &:hover {
-    border-color: #1972d6;
     &:before {
       color: #1972d6;
     }
   }
 }
 
-//提示信息红色
-.info-red, .info-green {
+//方形标签和分组标签 蓝绿、蓝、绿、黄、橙、红
+.z-group-cyan, .z-group-blue, .z-group-green, .z-group-yellow, .z-group-orange, .z-group-red,
+.z-square-cyan, .z-square-blue, .z-square-green, .z-square-yellow, .z-square-orange, .z-square-red {
+  display: inline-block;
+  height: 18px;
   padding: 0 4px;
-  background-color: #dd0031;
+  background-color: #00a3ff;
   color: #fff;
-  border-radius: 1px;
+  border-radius: 2px;
   font-size: 12px;
   line-height: 18px;
-  display: inline-block;
 }
 
-//提示信息绿色
-.info-green{
+//分组标签 蓝绿、蓝、绿、黄、橙、红
+.z-group-cyan, .z-group-blue, .z-group-green, .z-group-yellow, .z-group-orange, .z-group-red {
+  padding-left: 10px;
+  border-radius: 2px 2px 2px 18px; 
+}
+
+//方形标签蓝色、分组标签蓝色
+.z-group-blue, .z-square-blue{
+  background-color: #1972d6;
+}
+
+//方形标签绿色、分组标签绿色
+.z-group-green, .z-square-green{
   background-color: #0aaf7f;
 }
 
+//方形标签黄色、分组标签黄色
+.z-group-yellow, .z-square-yellow{
+  background-color: #fabb00;
+}
+
+//方形标签橙色、分组标签橙色
+.z-group-orange, .z-square-orange{
+  background-color: #f57200;
+}
+
+//方形标签红色、分组标签红色
+.z-group-red, .z-square-red{
+  background-color: #dd0031;
+}
+
+//未查询到数据提示
+.z-empty {
+  padding: 20px;
+  border-radius: 4px;
+  background-color: #d1ecf1;
+  border-color: #bee5eb;
+  font-style: 14px;
+  display: block;
+  text-align: center;
+}
 

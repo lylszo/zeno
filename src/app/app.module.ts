@@ -3,9 +3,11 @@ import { NgModule } from '@angular/core';
 import { AppRoutesModule } from './app.routes';
 import { AdminRoutesModule } from './admin.routes';
 import { UserRoutesModule } from './user.routes';
-import {  PaginationModule, ModalModule } from 'ngx-bootstrap';
-import {  HttpClientModule  } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule , FormGroup} from '@angular/forms';
+import { PaginationModule , ModalModule} from 'ngx-bootstrap';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule, FormGroup} from '@angular/forms';
+
+import { CookieService } from 'ngx-cookie-service';
 
 import { AppComponent } from './app.component';
 import { IndexComponent } from './component-app/index/index.component';
@@ -36,6 +38,17 @@ import { RegisterComponent } from './component-app/register/register.component';
 import { ForgetPasswordComponent } from './component-app/forget-password/forget-password.component';
 import { AdduserComponent } from './component-admin/user-manage/adduser/adduser.component';
 import { StylesComponent } from './component-common/styles/styles.component';
+import { SelectComponent } from './component-common/select/select.component';
+import { UserDataSetComponent } from './component-user/user-data-set/user-data-set.component';
+import { ChangePhoneComponent } from './component-user/change-phone/change-phone.component';
+import { ChooseCityComponent } from './component-common/choose-city/choose-city.component';
+import { HistoryLogComponent } from './component-user/history-log/history-log.component';
+import { ChangePwdComponent } from './component-user/change-pwd/change-pwd.component';
+import { NewsComponent } from './component-user/news/news.component';
+import { SetCategoryComponent } from './component-user/release-store/set-category/set-category.component';
+import { FillInformComponent } from './component-user/release-store/fill-inform/fill-inform.component';
+import { ReleaseOkComponent } from './component-user/release-store/release-ok/release-ok.component';
+import { AddTeamComponent } from './component-admin/team-manage/add-team/add-team.component';
 
 @NgModule({
   declarations: [
@@ -67,7 +80,18 @@ import { StylesComponent } from './component-common/styles/styles.component';
     RegisterComponent,
     ForgetPasswordComponent,
     AdduserComponent,
-    StylesComponent
+    StylesComponent,
+    UserDataSetComponent,
+    SelectComponent,
+    ChangePhoneComponent,
+    ChooseCityComponent,
+    HistoryLogComponent,
+    ChangePwdComponent,
+    NewsComponent,
+    SetCategoryComponent,
+    FillInformComponent,
+    ReleaseOkComponent,
+    AddTeamComponent
   ],
   imports: [
     BrowserModule,
@@ -79,7 +103,8 @@ import { StylesComponent } from './component-common/styles/styles.component';
     HttpClientModule,
     FormsModule
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

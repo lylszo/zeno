@@ -1,149 +1,234 @@
 <div class="styles">
-	下拉框、单选按钮和多选按钮样式暂定
+	<div class="z-title-md mb10 red lh25">
+		<h2>清除浮动使用.clearfix，常用快捷样式如字体大小、字体颜色、margin、padding、浮动等请参考assets/styles/var.scss</h2>
+		<h2>表单元素统一样式：高度38px, 上下间距20px, 标题到表单左侧之间距离20px</h2>		
+		<h2>当使用+-×÷类似这种符号时，使用“Arial”字体会好看些</h2>		
+	</div>
 	<table class="z-table">
-		<tr>
-			<th>样式名称</th>
-			<th>类名</th>
-			<th>效果</th>
-		</tr>
-		<tr>
-			<td>表格</td>
-			<td>.z-table</td>
-			<td>
-				就像这个表格
-			</td>
-		</tr>
-		<tr>
-			<td>大标题</td>
-			<td>.title-lg</td>
-			<td>
-				<p class="title-lg">大标题</p>
-			</td>
-		</tr>
-		<tr>
-			<td>中标题</td>
-			<td>.title-md</td>
-			<td>
-				<p class="title-md">中标题</p>
-			</td>
-		</tr>
-		<tr>
-			<td>中标题加样式</td>
-			<td>.title-md-style</td>
-			<td>
-				<p class="title-md-style">中标题加样式</p>
-			</td>
-		</tr>
-		<tr>
-			<td>输入框</td>
-			<td>.z-input</td>
-			<td>
-				<input type="text" class="z-input">
-			</td>
-		</tr>
-		<tr>
-			<td>下拉框</td>
-			<td>.z-select</td>
-			<td>
-				<label class="z-select" for="lyl">
-					<select id="lyl">
-						<option *ngFor="let item of list" [value]="item.value">{{item.name}}</option>
-					</select>					
-				</label>
-			</td>
-		</tr>
-		<tr>
-			<td>单选框</td>
-			<td>直接使用</td>
-			<td>
-				<input class="mr5" type="radio" name="demo">
-				<input class="mr5" type="radio" name="demo">
-				<input class="mr5" type="radio" name="demo">
-				<input class="mr5" type="radio" name="demo">
-			</td>
-		</tr>
-		<tr>
-			<td>复选框</td>
-			<td>直接使用</td>
-			<td>
-				<input class="mr5" type="checkbox">
-				<input class="mr5" type="checkbox">
-				<input class="mr5" type="checkbox">
-				<input class="mr5" type="checkbox">
-			</td>
-		</tr>
-		<tr>
-			<td>蓝色按钮大</td>
-			<td>.btn-blue-lg</td>
-			<td>
-				<button class="btn-blue-lg">蓝色按钮大</button>
-			</td>
-		</tr>
-		<tr>
-			<td>红色按钮大</td>
-			<td>.btn-red-lg</td>
-			<td>
-				<p class="btn-red-lg">红色按钮大</p>
-			</td>
-		</tr>
-		<tr>
-			<td>灰色按钮大</td>
-			<td>.btn-grey-lg</td>
-			<td>
-				<button class="btn-grey-lg">灰色按钮大</button>
-			</td>
-		</tr>
-		<tr>
-			<td>蓝色按钮小</td>
-			<td>.btn-blue-sm</td>
-			<td>
-				<p class="btn-blue-sm">蓝色按钮小</p>
-			</td>
-		</tr>
-		<tr>
-			<td>红色按钮小</td>
-			<td>.btn-red-sm</td>
-			<td>
-				<p class="btn-red-sm">红色按钮小</p>
-			</td>
-		</tr>
-		<tr>
-			<td>灰色按钮小</td>
-			<td>.btn-grey-sm</td>
-			<td>
-				<button class="btn-grey-sm">灰色按钮小</button>
-			</td>
-		</tr>
-		<tr>
-			<td>已选项目<br>已选项目删除符号&times;</td>
-			<td>.z-choose<br>.z-choose >.del</td>
-			<td>
-				<div class="z-choose">
-					已选项目
-					<span class="del">&times;</span>
-				</div>
-			</td>
-		</tr>
-		<tr>
-			<td>添加项目</td>
-			<td>.z-add</td>
-			<td>
-				<div class="z-add"></div>
-			</td>
-		</tr>
-		<tr>
-			<td>提示信息红</td>
-			<td>.info-red</td>
-			<td>
-				<p class="info-red">提示信息红</p>
-			</td>
-		</tr>
-		<tr>
-			<td>提示信息绿</td>
-			<td>.info-green</td>
-			<td>
-				<p class="info-green">提示信息绿</p>
-			</td>
-		</tr>
-	</table>	
+		<thead>
+			<tr>
+				<th width="20%">样式名称</th>
+				<th width="20%">类名</th>
+				<th width="60%">效果</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>链接</td>
+				<td>a标签</td>
+				<td>
+					<a>链接</a>
+				</td>
+			</tr>
+			<tr>
+				<td>白色背景（页面主结构区域）</td>
+				<td>.z-bg-white</td>
+				<td [style.backgroundColor]="'#f2f3f5'">
+					<div class="z-bg-white"></div>
+				</td>
+			</tr>
+			<tr>
+				<td>表格</td>
+				<td>.z-table</td>
+				<td>
+					就像这个表格
+				</td>
+			</tr>
+			<tr>
+				<td>大标题</td>
+				<td>.z-title-lg</td>
+				<td>
+					<p class="z-title-lg">大标题</p>
+				</td>
+			</tr>
+			<tr>
+				<td>中标题</td>
+				<td>.z-title-md</td>
+				<td>
+					<p class="z-title-md">中标题</p>
+				</td>
+			</tr>
+			<tr>
+				<td>中标题加样式</td>
+				<td>.z-title-md-style</td>
+				<td>
+					<p class="z-title-md-style">中标题加样式</p>
+				</td>
+			</tr>
+			<tr>
+				<td>输入框</td>
+				<td>.z-input</td>
+				<td>
+					<input type="text" class="z-input">
+				</td>
+			</tr>
+			<tr>
+				<td>表单必选元素标题</td>
+				<td>.z-required</td>
+				<td>
+					<span class="z-required">必选元素标题</span>
+				</td>
+			</tr>
+			<tr>
+				<td>单选框</td>
+				<td>
+					label.z-radio>input[type=radio]
+					<br>
+					注意：input元素后请紧跟着一个i元素用来替换样式
+				</td>
+				<td>
+					<label class="z-radio">
+						<input type="radio" name="ly"><i></i>加盟店铺
+					</label>
+					<label class="z-radio">
+						<input type="radio" name="ly"><i></i>加盟店铺
+					</label>
+				</td>
+			</tr>
+			<tr>
+				<td>复选框</td>
+				<td>
+					label.z-radio>input[type=checkbox]
+					<br>
+					注意：input元素后请紧跟着一个i元素用来替换样式
+				</td>
+				<td>
+					<label class="z-checkbox">
+						<input type="checkbox"><i></i>加盟店铺
+					</label>
+				</td>
+			</tr>
+			<tr>
+				<td>下拉框</td>
+				<td>使用select组件</td>
+				<td>
+					<app-select [list]='fruitSelect' [(selectedItem)]="demo" [(selectedCode)]="code"></app-select>{{code}}{{demo.name}}
+				</td>
+			</tr>
+			<tr>
+				<td>错误提示信息</td>
+				<td>.z-error</td>
+				<td>
+					<p class="z-error">错误提示信息</p>
+				</td>
+			</tr>
+			<tr>
+				<td>大按钮</td>
+				<td>
+					<p class="info45">.z-btn-blue-lg</p>
+					<p class="info45">.z-btn-red-lg</p>
+					<p class="info45">.z-btn-grey-lg</p>
+				</td>
+				<td>
+					<div class="info45"><button class="z-btn-blue-lg">蓝色按钮大</button></div>
+					<div class="info45"><button class="z-btn-red-lg">红色按钮大</button></div>
+					<div class="info45"><button class="z-btn-grey-lg">灰色按钮大</button></div>
+				</td>
+			</tr>
+			<tr>
+				<td>小按钮</td>
+				<td>
+					<p class="info45">.z-btn-blue-sm</p>
+					<p class="info45">.z-btn-red-sm</p>
+					<p class="info45">.z-btn-green-sm</p>
+					<p class="info45">.z-btn-grey-sm</p>
+				</td>
+				<td>
+					<div class="info45"><button class="z-btn-blue-sm">蓝色按钮小</button></div>
+					<div class="info45"><button class="z-btn-red-sm">红色按钮小</button></div>
+					<div class="info45"><button class="z-btn-green-sm">绿色按钮小</button></div>
+					<div class="info45"><button class="z-btn-grey-sm">灰色按钮小</button></div>
+				</td>
+			</tr>
+			<tr>
+				<td>普通标签</td>
+				<td>
+					<div class="info45">普通标签.z-tag</div>
+					<div class="info45">普通标签被选中.z-tag.active</div>
+				</td>
+				<td>
+					<div class="info45">
+						<div class="z-tag mr10">普通标签</div>
+					</div>
+					<div class="info45">
+						<div class="z-tag active">普通标签被选中</div>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>可删除标签<br>可删除标签删除符号&times;</td>
+				<td>.z-tag-del<br>.z-tag-del >.del</td>
+				<td>
+					<div class="z-tag-del">
+						可删除标签
+						<span class="del"></span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>可添加标签<br>可添加标签添加符号+</td>
+				<td>.z-tag-add<br>.z-tag-add >.add</td>
+				<td>
+					<div class="z-tag-add">
+						可添加标签
+						<span class="add"></span>
+					</div>
+				</td>
+			</tr>
+			<tr>
+				<td>添加项目</td>
+				<td>.z-add</td>
+				<td>
+					<div class="z-add"></div>
+				</td>
+			</tr>
+			<tr>
+				<td>分组标签</td>
+				<td>
+					<p>.z-group-cyan</p>
+					<p>.z-group-blue</p>
+					<p>.z-group-green</p>
+					<p>.z-group-yellow</p>
+					<p>.z-group-orange</p>
+					<p>.z-group-red</p>
+				</td>
+				<td>
+					<div><span class="z-group-cyan">分组标签蓝绿</span></div>
+					<div><span class="z-group-blue">分组标签蓝</span></div>
+					<div><span class="z-group-green">分组标签绿</span></div>
+					<div><span class="z-group-yellow">分组标签黄</span></div>
+					<div><span class="z-group-orange">分组标签橙</span></div>
+					<div><span class="z-group-red">分组标签红</span></div>
+				</td>
+			</tr>
+			<tr>
+				<td>方形标签</td>
+				<td>
+					<p>.z-square-cyan</p>
+					<p>.z-square-blue</p>
+					<p>.z-square-green</p>
+					<p>.z-square-yellow</p>
+					<p>.z-square-orange</p>
+					<p>.z-square-red</p>
+				</td>
+				<td>
+					<div><span class="z-square-cyan">方形标签蓝绿</span></div>
+					<div><span class="z-square-blue">方形标签蓝</span></div>
+					<div><span class="z-square-green">方形标签绿</span></div>
+					<div><span class="z-square-yellow">方形标签黄</span></div>
+					<div><span class="z-square-orange">方形标签橙</span></div>
+					<div><span class="z-square-red">方形标签红</span></div>
+				</td>
+			</tr>
+			<tr>
+				<td>未查询到相关信息</td>
+				<td>
+					.z-empty
+				</td>
+				<td>
+					<p class="z-empty">未查询到相关信息</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 </div>

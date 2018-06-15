@@ -1,0 +1,51 @@
+.step-line, .step1, .step2 {
+  display: inline-block;
+}
+.step1, .step2 {
+  width: 52px;
+  height: 52px;
+  line-height: 47px;
+  background: #fff;
+  border: 2px solid #ccc;
+  border-radius: 50%;
+  color: #ccc;
+  font-size: 28px;
+}
+.step-line{
+  height: 3px;
+  width: 20%;
+  background-color: #ccc;
+  position: relative;
+  top: -7px;
+}
+.active{
+  color: #fff;
+  border-color: #1972D6;
+  background-color: #1972D6;
+}
+
+
+dl{
+  width: 40%;
+  margin: 0 auto;
+  box-shadow: 0 0 2px 2px rgba(0,0,0,.1);
+  border-radius: 3px;
+  line-height: 45px;
+  dt{
+    line-height: 60px;
+    background: #fafafa;
+  }
+  dd{
+    cursor: pointer;
+    &:hover{
+      background: #fafafa;
+      color: #1972D6;
+    }
+  }
+  dd.cate-active{
+    color: #fafafa;
+    background: #1972D6;
+    box-shadow: 0 0 0 1px #1972D6;
+    border-radius: 2px;
+  }
+}

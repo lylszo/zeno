@@ -1,3 +1,21 @@
-<p>
-  module-manage works!
-</p>
+<nav class="z-title-lg">
+  功能字典管理
+</nav>
+<div class="func-manage clearfix">
+  <ul class="body-ul clearfix">
+    <li class="side-li">
+      <ul>
+        <li  class="func-name" *ngFor="let dictionary of dicMenu">
+          {{dictionary.name}}
+        </li>
+      </ul>
+    </li>
+    <li class="operator-li">
+      <div>
+        <form>
+          <span class="required">类型</span>
+        </form>
+      </div>
+    </li>
+  </ul>
+</div>

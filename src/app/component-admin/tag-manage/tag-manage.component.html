@@ -1,3 +1,39 @@
-<p>
-  tag-manage works!
-</p>
+<nav class="z-title-lg">
+  标签管理
+</nav>
+<section class="z-bg-white clearfix">
+  <header class="clearfix">
+    <h1 class="z-title-md-style">
+      标签库
+    </h1>
+    <button class="f-r z-btn-red-lg" (click)="openModal()">标签添加</button>
+  </header>
+  <table class="z-table tac" width="100%">
+    <thead>
+    <tr>
+      <th width="10%">标签ID</th>
+      <th width="15%">标签名称</th>
+      <th width="15%">标签应用对象</th>
+      <th width="15%">创建人</th>
+      <th width="25%">创建时间</th>
+      <th width="20%">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>111</td>
+      <td>111</td>
+      <td>111</td>
+      <td>111</td>
+      <td>111</td>
+      <td>
+        <span class="z-btn-blue-sm">编辑</span><br>
+        <span class="z-btn-red-sm">删除</span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <pagination [boundaryLinks]="true" [totalItems]="totalItems" class="pagination-sm" (setPage)="setPage()" (pageChange)="pageChanged($event)"
+              previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
+</section>

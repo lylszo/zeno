@@ -1,0 +1,40 @@
+.dis-manage{
+  margin: auto;
+}
+.disblock-title{
+  border: 1px solid #dddddd;
+  border-bottom: none;
+}
+.dis-manage ul{
+  width: 100%;
+}
+.disblock-li ul{
+  border: 1px solid #dddddd;
+}
+.title-li{
+  width: 25%;
+  padding: 20px;
+  font-weight: bold;
+  height: 56px;
+  line-height: 1;
+  font-size: 16px;
+  background-color: #fafafa;
+}
+.disblock-li{
+  width: 25%;
+}
+.disblock-li ul{
+  overflow-y: scroll;
+}
+.disItem-li{
+  margin: 0;
+  padding: 8px 15px;
+  line-height: 1;
+  font-size: 14px;
+  background-color: #ffffff;
+  cursor: pointer;
+}
+.disItem-li:hover{
+  background-color: #f0f0f0;
+  color: #1972d6;
+}
