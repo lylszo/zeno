@@ -76,7 +76,7 @@ a:hover {
 .z-input {
   border: 1px solid #e6e6e6;
   border-radius: 2px;
-  min-width: 150px;
+  width: 180px;
   padding: 5px 10px;
   height: 38px;
 }
@@ -137,6 +137,15 @@ label.z-radio {
     background-image: url('./assets/imgs/sprite.png');
     background-position: -62px -94px;
   }
+}
+
+//文本框
+.z-textarea {
+  border-radius: 2px;
+  border-color: #e6e6e6;
+  width: 400px;
+  height: 120px;
+  padding: 5px 10px;
 }
 
 //错误提示信息
@@ -217,7 +226,6 @@ label.z-radio {
   cursor: pointer;
   min-width: 40px;
   padding: 0 5px;
-  margin: 2px 0;
   &:hover {
     background-color: #1972d6;
     color: #fff;

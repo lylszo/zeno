@@ -1,3 +1,429 @@
-<p>
-  shop-edit works!
-</p>
+<div class="edit">
+	<div class="z-bg-white">
+		<h1 class="f20 bold blue">物业建筑信息</h1>
+		<hr>
+		<h2 class="z-title-md-style">位置信息</h2>
+		<div class="edit-group mt20">
+			<span class="edit-title z-required">所在区域：</span>
+			<div class="edit-content">
+				<app-select width=120 [list]="cities"></app-select>
+				<app-select width=120 [list]="districts" class="ml5"></app-select>
+				<app-select [list]="businessAreas" class="ml5"></app-select>
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title z-required">详细地址：</span>
+			<div class="edit-content">
+				<input type="text" class="z-input" [style.width.px]=350 placeholder="请输入道路、门牌等详细地址信息（50字以内）">
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">坐标位置：</span>
+			<div class="edit-content">
+				<span class="ml10">116.474408，39.991926</span>
+				<i class="iconfont icon-dingwei blue"></i>
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">方位描述：</span>
+			<div class="edit-content">
+				<app-select [list]="descriptions"></app-select>
+				<label class="z-checkbox ml20">
+					<input type="checkbox"><i></i>临街
+				</label>
+			</div>
+		</div>
+		<h2 class="z-title-md-style">建筑信息</h2>
+		<div class="edit-group mt20">
+			<span class="edit-title z-required">建筑面积：</span>
+			<div class="edit-content">
+				<input type="text" class="z-input" placeholder="请填写建筑面积"> 平米
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">使用面积：</span>
+			<div class="edit-content">
+				<input type="text" class="z-input" placeholder="请填写使用面积"> 平米
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">开间：</span>
+			<div class="edit-content">
+				<input type="text" class="z-input" placeholder="请填写开间"> 米
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">进深：</span>
+			<div class="edit-content">
+				<input type="text" class="z-input" placeholder="请填写进深"> 米
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">门宽：</span>
+			<div class="edit-content">
+				<input type="text" class="z-input" placeholder="请填写门宽"> 米
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">层高：</span>
+			<div class="edit-content">
+				<input type="text" class="z-input" placeholder="请填写层高"> 米
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">所处楼层：</span>
+			<div class="edit-content">
+				<input type="text" class="z-input" placeholder="请填写所处楼层"> 楼
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">总层数：</span>
+			<div class="edit-content">
+				<input type="text" class="z-input" placeholder="请填写总层数"> 层
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">适合经营行业：</span>
+			<div class="edit-content">
+				<div class="z-tag-del">美容美发-美甲店<span class="del"></span></div>
+				<div class="z-add ml10 vat"></div>
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">推荐经营行业：</span>
+			<div class="edit-content">
+				<div class="z-tag-del">美容美发-美甲店<span class="del"></span></div>
+				<div class="z-add ml10 vat"></div>
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">不宜经营行业：</span>
+			<div class="edit-content">
+				<div class="z-tag-del">美容美发-美甲店<span class="del"></span></div>
+				<div class="z-add ml10 vat"></div>
+			</div>
+		</div>
+		<h2 class="z-title-md-style">物业信息</h2>
+		<div class="edit-group mt20">
+			<span class="edit-title">上级物业：</span>
+			<div class="edit-content">
+				<app-select [list]="choose"></app-select>
+			</div>
+		</div>
+		<div class="edit-group property">
+			<span class="edit-title">物业配套：</span>
+			<div class="edit-content">
+				<label class="z-checkbox" *ngFor="let item of properties">
+					<input type="checkbox" [(checked)]="item.value"><i></i>{{item.name}}
+				</label>
+			</div>
+		</div>
+		<div class="edit-group fee">
+			<span class="edit-title">费用成本：</span>
+			<div class="edit-content">
+				<table>
+					<tr>
+						<td width="40" class="bold">水费</td>
+						<td width="300">
+							<input type="text" class="z-input" placeholder="请填写水费"> 元/吨
+						</td>
+						<td width="40" class="bold">电费</td>
+						<td width="300">
+							<input type="text" class="z-input" placeholder="请填写电费"> 元/度
+						</td>
+					</tr>
+					<tr>
+						<td width="40" class="bold">物业</td>
+						<td width="300">
+							<input type="text" class="z-input" placeholder="请填写物业"> 元/平米/月
+						</td>
+						<td class="bold">租金</td>
+						<td>
+							<input type="text" class="z-input" placeholder="请填写租金"> 元
+						</td>
+					</tr>
+					<tr>
+						<td class="bold">燃气</td>
+						<td>
+							<input type="text" class="z-input" placeholder="请填写燃气"> 元
+						</td>
+						<td class="bold">暖气</td>
+						<td>
+							<input type="text" class="z-input" placeholder="请填写暖气"> 元
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">建筑形状：</span>
+			<div class="edit-content">
+				<app-select [list]="choose"></app-select>
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">产权类型：</span>
+			<div class="edit-content">
+				<app-select [list]="choose"></app-select>
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">拆迁风险：</span>
+			<div class="edit-content">
+				<app-select [list]="choose"></app-select>
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">风险备注：</span>
+			<div class="edit-content">
+				<textarea class="z-textarea" placeholder="请填写拆迁风险详情（50个字以内）"></textarea>
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">房东姓名：</span>
+			<div class="edit-content">
+				<input type="text" class="z-input" placeholder="请填写房东姓名"> 
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">房东电话：</span>
+			<div class="edit-content">
+				<input type="number" class="z-input" placeholder="请填写房东电话">
+			</div>
+		</div>
+	</div>	
+
+	<div class="z-bg-white">
+		<h1 class="f20 bold blue">当前店铺</h1>
+		<hr>
+		<h2 class="z-title-md-style">基本信息</h2>
+		<div class="edit-group">
+			<span class="edit-title">店名：</span>
+			<div class="edit-content">
+				<input type="text" class="z-input" placeholder="请输入店铺名称">
+				<label class="z-checkbox ml30">
+					<input type="checkbox"><i></i>品牌店铺
+				</label>
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">经营行业：</span>
+			<div class="edit-content">
+				<app-select [list]="choose"></app-select>
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">开业日期：</span>
+			<div class="edit-content">
+				<input type="text" class="z-input" placeholder="请选择日期">
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">经营状态：</span>
+			<div class="edit-content">
+				<app-select [list]="choose"></app-select>
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">联系人：</span>
+			<div class="edit-content">
+				<input type="text" class="z-input" placeholder="请填写联系人">
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">联系电话：</span>
+			<div class="edit-content">
+				<input type="number" class="z-input" placeholder="请填写联系电话">
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">外卖电话：</span>
+			<div class="edit-content">
+				<input type="number" class="z-input" placeholder="请填写外卖电话">
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">营业时间：</span>
+			<div class="edit-content">
+				<input type="text" class="z-input" placeholder="待完善">
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">装修档次：</span>
+			<div class="edit-content">
+				<app-select [list]="choose"></app-select>
+			</div>
+		</div>
+		<div class="edit-group service">
+			<span class="edit-title">提供服务：</span>
+			<div class="edit-content">
+				<label class="z-checkbox" *ngFor="let item of serviceItems">
+					<input type="checkbox" [(checked)]="item.value"><i></i>{{item.name}}
+				</label>
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">店铺租金：</span>
+			<div class="edit-content">
+				<input type="number" class="z-input vat mr5" placeholder="请选择日期">
+				<app-select [list]="[{name: '元/月'}]" width=90></app-select>
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">支付方式：</span>
+			<div class="edit-content">
+				付
+				<input type="number" [style.width.px]=80 class="z-input">
+				月
+				<span class="ml15">押 </span>
+				<input type="number" [style.width.px]=80 class="z-input">
+				月
+
+				<a class="ml30">更多租金内容</a>
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">客单价：</span>
+			<div class="edit-content">
+				<input type="text" class="z-input" placeholder="请填写客单价">
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">日均营业额：</span>
+			<div class="edit-content">
+				<input type="text" class="z-input" placeholder="请填写日均营业额">
+				<a class="ml30">更多营业内容</a>
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">店铺描述：</span>
+			<div class="edit-content">
+				<textarea class="z-textarea" placeholder="请填写店铺描述"></textarea>
+			</div>
+		</div>
+		<h2 class="z-title-md-style">老板信息</h2>
+		<div class="edit-group">
+			<table class="shopTable mt20">
+				<tr>
+					<th>身份</th>
+					<th>姓名</th>
+					<th>参股比例</th>
+					<th>联系方式</th>
+					<th>出生年月</th>
+					<th>地址</th>
+					<th>社交账号</th>
+					<th>操作</th>
+				</tr>
+				<tr>
+					<td>老板</td>
+					<td>张三</td>
+					<td>40%</td>
+					<td>13798763687</td>
+					<td>1956-04-07</td>
+					<td>公园道大厦</td>
+					<td>社交账号</td>
+					<td>
+						<div class="z-btn-blue-sm mr3">编辑</div>
+						<div class="z-btn-red-sm">删除</div>
+					</td>	
+				</tr>
+				<tr>
+					<td colspan="7"></td>
+					<td align="right">
+						<div class="z-btn-green-sm">添加</div>
+					</td>	
+				</tr>
+			</table>
+		</div>
+		<h2 class="z-title-md-style">员工信息</h2>
+		<div class="edit-group">
+			<table class="shopTable mt20">
+				<tr>
+					<th>员工姓名</th>
+					<th>职位</th>
+					<th>联系号码</th>
+					<th>入职日期</th>
+					<th>工作内容</th>
+					<th>是否离职</th>
+					<th>离职日期</th>
+					<th>操作</th>
+				</tr>
+				<tr>
+					<td>老板</td>
+					<td>服务员</td>
+					<td>13798763687</td>
+					<td>2016-04-07</td>
+					<td>-</td>
+					<td>-</td>
+					<td>2017-08-07</td>
+					<td>
+						<div class="z-btn-blue-sm mr5">编辑</div>
+						<div class="z-btn-red-sm">删除</div>
+					</td>	
+				</tr>
+				<tr>
+					<td colspan="7"></td>
+					<td align="right">
+						<div class="z-btn-green-sm">添加</div>
+					</td>	
+				</tr>
+			</table>
+		</div>
+		<h2 class="z-title-md-style">图片信息</h2>
+		<div class="mt20">
+			<a>门面</a>
+			<a class="ml10">环境</a>			
+		</div>
+		<div class="z-tag-add mb20">
+			上传图片
+			<div class="add"></div>
+		</div>
+		<h2 class="z-title-md-style">证件信息</h2>
+		<div class="mt20">
+			<div class="z-tag-add">
+				上传图片
+				<div class="add"></div>
+			</div>
+		</div>
+	</div>
+
+	<div class="z-bg-white transfer">
+		<h1 class="f20 bold blue">转让信息</h1>
+		<hr>
+		<div class="edit-group mt20">
+			<span class="edit-title">转让状态：</span>
+			<div class="edit-content">
+				<label class="z-radio" *ngFor="let item of transferStatus">
+					<input type="radio" name="transferStatus"><i></i>{{item.name}}
+				</label>
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">转让状态：</span>
+			<div class="edit-content">
+				<input type="number" class="z-input"> 万元
+				<label class="z-checkbox ml30">
+					<input type="checkbox"><i></i> 可面议
+				</label>
+ 			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">可否空转：</span>
+			<div class="edit-content">
+				<label class="z-checkbox mr26">
+					<input type="checkbox"><i></i> 不可空转
+				</label>
+				<label class="z-checkbox">
+					<input type="checkbox"><i></i> 可空转
+				</label>
+ 			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">空转转让费：</span>
+			<div class="edit-content">
+				<input type="number" class="z-input"> 万元
+ 				<a class="ml30">更多转让信息</a>
+ 			</div>
+		</div>
+	</div>
+</div>

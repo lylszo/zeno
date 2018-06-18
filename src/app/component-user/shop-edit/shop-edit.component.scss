@@ -1,0 +1,53 @@
+.edit {
+	.edit-group {
+		margin-bottom: 20px;
+		.edit-title {
+			width: 15%;
+			text-align: right;
+			display: inline-block;
+			vertical-align: top;
+		}
+		.edit-content {
+			padding-left: 20px;
+			width: 75%;
+			display: inline-block;
+		}
+		&.property, &.service {
+			label.z-checkbox {
+				width: 170px;
+				margin-bottom: 10px;
+			}
+		}
+		&.fee {
+			table {
+				margin-bottom: -10px;
+				tr>td{
+					padding-bottom: 10px;
+				}
+			}
+		}
+	}
+	.transfer {
+		.z-radio {
+			margin-right: 40px;
+		}		
+	}
+	.shopTable {
+		width: 100%;
+		tr {
+			th {
+				background-color: #efefef;
+				border-bottom: 1px solid #ccc;
+				height: 40px;
+				padding: 10px;
+			}
+			td {
+				padding: 10px;
+				border-bottom: 1px solid #ccc;
+			}
+			&:last-child td{
+				border: none;
+			}
+		}
+	}
+}
