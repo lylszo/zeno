@@ -2,101 +2,106 @@
 <div class="part1 p20">
 	<h2 class="z-title-md-style">筛选条件</h2>
 	<form class="clearfix">
-		<div class="left">
-			<div class="group">
-				<span class="tag">行业</span>
-				<div class="content">
-					<div class="z-tag-del">美容美发-美甲店<span class="del"></span></div>
-					<div class="z-add ml10"></div>
-				</div>				
+		<div class="clearfix">
+			<div class="left">
+				<div class="group">
+					<span class="tag">行业</span>
+					<div class="content">
+						<div class="z-tag-del">美容美发-美甲店<span class="del"></span></div>
+						<div class="z-add ml10 vat"></div>
+					</div>				
+				</div>
+				
+				<div class="group">
+					<span class="tag"></span>
+					<div class="content">
+						<label class="z-checkbox">
+							<input type="checkbox" name=""><i></i>当前经营
+						</label>
+						<label class="z-checkbox ml20">
+							<input type="checkbox" name=""><i></i>适合经营
+						</label>
+						<label class="z-checkbox ml20">
+							<input type="checkbox" name=""><i></i>推荐经营
+						</label>
+					</div>				
+				</div>
+				
+				<div class="group">
+					<span class="tag">区域</span>
+					<div class="content">
+						<app-select width=120 [list]="cities"></app-select>
+						<app-select width=120 [list]="districts" class="ml5"></app-select>
+						<app-select [list]="businessAreas" class="ml5"></app-select>
+					</div>				
+				</div>
+				
+				<div class="group">
+					<span class="tag">中心点位置</span>
+					<div class="content">
+						<i class="iconfont icon-dingwei blue"></i>
+						<span class="ml10">116.474408，39.991926</span>
+					</div>				
+				</div>
+				
+				<div class="group">
+					<span class="tag">位置描述</span>
+					<div class="content">
+						<app-select [list]="descriptions"></app-select>
+						<label class="z-checkbox ml20">
+							<input type="checkbox"><i></i>临街
+						</label>
+					</div>				
+				</div>
 			</div>
-			
-			<div class="group">
-				<span class="tag"></span>
-				<div class="content">
-					<input type="checkbox">当前经营
-					<input class="ml20" type="checkbox">适合经营
-					<input class="ml20" type="checkbox">推荐经营
-				</div>				
-			</div>
-			
-			<div class="group">
-				<span class="tag">区域</span>
-				<div class="content">
-					<select class="z-select">
-						<option>深圳</option>
-					</select>
-					<select class="z-select ml5">
-						<option>南山区</option>
-					</select>
-				</div>				
-			</div>
-			
-			<div class="group">
-				<span class="tag">中心点位置</span>
-				<div class="content">
-					<i class="iconfont icon-dingwei blue"></i>
-					<span class="ml10">116.474408，39.991926</span>
-				</div>				
-			</div>
-			
-			<div class="group">
-				<span class="tag">位置描述</span>
-				<div class="content">
-					<select class="z-select ml5">
-						<option>街道转交</option>
-					</select>
-					<input type="checkbox" class="ml20"> 临街
-				</div>				
-			</div>
-		</div>
-		<div class="right">
-			<div class="group">
-				<span class="tag">面积</span>
-				<div class="content">
-					<input [style.width.px]=160 type="text" class="z-input" placeholder="最小"> -
-					<input [style.width.px]=160 type="text" class="z-input" placeholder="最大"> <span class="color-999"> 平米</span>
-				</div>				
-			</div>
+			<div class="right">
+				<div class="group">
+					<span class="tag">面积</span>
+					<div class="content">
+						<input [style.width.px]=160 type="text" class="z-input" placeholder="最小"> -
+						<input [style.width.px]=160 type="text" class="z-input" placeholder="最大"> <span class="color-999"> 平米</span>
+					</div>				
+				</div>
 
-			<div class="group">
-				<span class="tag">门宽</span>
-				<div class="content">
-					<input [style.width.px]=160 type="text" class="z-input" placeholder="最短"> -
-					<input [style.width.px]=160 type="text" class="z-input" placeholder="最长"> <span class="color-999"> 米</span>
-				</div>				
-			</div>
+				<div class="group">
+					<span class="tag">门宽</span>
+					<div class="content">
+						<input [style.width.px]=160 type="text" class="z-input" placeholder="最短"> -
+						<input [style.width.px]=160 type="text" class="z-input" placeholder="最长"> <span class="color-999"> 米</span>
+					</div>				
+				</div>
 
-			<div class="group">
-				<span class="tag">关键词</span>
-				<div class="content">
-					<input [style.width.px]=334 type="text" class="z-input" placeholder="店铺名称/地址">
-				</div>				
-			</div>
+				<div class="group">
+					<span class="tag">关键词</span>
+					<div class="content">
+						<input [style.width.px]=334 type="text" class="z-input" placeholder="店铺名称/地址">
+					</div>				
+				</div>
 
-			<div class="group">
-				<span class="tag"></span>
-				<div class="content">
-					<input [style.width.px]=334 type="text" class="z-input" placeholder="手机号码">
-				</div>				
-			</div>
+				<div class="group">
+					<span class="tag"></span>
+					<div class="content">
+						<input [style.width.px]=334 type="text" class="z-input" placeholder="手机号码">
+					</div>				
+				</div>
+			</div>			
 		</div>
 		<button type="submit" class="z-btn-blue-lg search">查询</button>
 	</form>
 </div>
-<div class="part2 p20 mt20" [style.height.px]=400 [style.overflow]="'auto'">
+<div class="part2 p20 mt20">
 	<h1 class="z-title-md-style">
 		信息列表
 		<button class="f-r z-btn-red-lg">我要发布</button>
 	</h1>
 	<table class="z-table mt20">
 		<tr>
-			<th>物业建筑</th>
-			<th>面积</th>
-			<th>当前店铺</th>
-			<th>租金</th>
-			<th>转让情况</th>
-			<th>操作</th>			
+			<th width="18%">物业建筑</th>
+			<th width="18%">面积</th>
+			<th width="20%">当前店铺</th>
+			<th width="18%">租金</th>
+			<th width="18%">转让情况</th>
+			<th width="8%">操作</th>			
 		</tr>
 		<tr *ngFor="let item of [1, 2, 3, 4, 5, 6, 7]">
 			<td>
@@ -104,17 +109,44 @@
 					<span class="z-title-md">深圳南山区</span><span class="info-green ml5">商铺</span>
 				</div>
 				<p class="color-888">登良路26号公园道大厦8层，靠近星卡可咖啡</p>
-				<p class="district">临街 街道转角</p>
+				<p class="lightgrey f12">临街 街道转角</p>
 			</td>
 			<td>
 				<p class="z-title-md">158㎡</p>
-
+				<p>
+					<span class="color-888">门宽：3.5m</span>
+					<span class="ml10 color-888">层高：4m</span>
+				</p>
+				<p>
+					<span class="color-888">开间：3.5m</span>
+					<span class="ml10 color-888">进深：4m</span>
+				</p>
 			</td>
-			<td></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			<td>
+				<span class="z-title-md">肯德基（公园道VIP）</span>
+				<span class="z-square-red">品牌</span>
+				<p class="color-888">快餐</p>
+				<p class="color-888">老板：李先生</p>
+				<p class="lightgrey f12">&lt;100m</p>
+			</td>
+			<td>
+				<p class="z-title-md">2000元/1月</p>
+				<p class="color-888">支付：一月一付</p>
+				<p class="color-888">租约：24个月</p>
+			</td>
+			<td>
+				<p class="z-title-md">230万</p>
+				<p class="color-888">含：家具、设备、桌椅板凳等</p>
+				<p class="color-888">可以空转</p>
+			</td>
+			<td>
+				<div>
+					<a class="z-btn-green-sm" routerLink="/user/shopDetail/{{0}}">详情</a>
+				</div>
+				<div>
+					<a class="z-btn-blue-sm" routerLink="/user/shopEdit/{{0}}">编辑</a>
+				</div>
+			</td>
 		</tr>
-
 	</table>
 </div>

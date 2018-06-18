@@ -49,6 +49,8 @@ import { SetCategoryComponent } from './component-user/release-store/set-categor
 import { FillInformComponent } from './component-user/release-store/fill-inform/fill-inform.component';
 import { ReleaseOkComponent } from './component-user/release-store/release-ok/release-ok.component';
 import { AddTeamComponent } from './component-admin/team-manage/add-team/add-team.component';
+import { ShopDetailComponent } from './component-user/shop-detail/shop-detail.component';
+import { ShopEditComponent } from './component-user/shop-edit/shop-edit.component';
 
 @NgModule({
   declarations: [
@@ -91,7 +93,9 @@ import { AddTeamComponent } from './component-admin/team-manage/add-team/add-tea
     SetCategoryComponent,
     FillInformComponent,
     ReleaseOkComponent,
-    AddTeamComponent
+    AddTeamComponent,
+    ShopDetailComponent,
+    ShopEditComponent
   ],
   imports: [
     BrowserModule,

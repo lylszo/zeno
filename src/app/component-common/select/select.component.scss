@@ -3,6 +3,7 @@
 	.select{
 		position: relative;
 		display: inline-block;
+		vertical-align: middle;
 		height: 38px;
 		width: 180px;
 		div {
@@ -13,7 +14,6 @@
 			border: 1px solid #ccc;
 			display: inline-block;
 			line-height: 38px;
-			color: #888888;
 			padding-left: 10px;
 			padding-right: 33px;
 			position: relative;
@@ -34,6 +34,7 @@
 		}
 		ul {
 			position: absolute;
+			z-index: 3;
 			cursor: pointer;
 			padding-top: 5px;
 			border: 1px solid #ccc;

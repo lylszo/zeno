@@ -4,6 +4,8 @@ import {RouterModule, Routes} from '@angular/router';
 import {UserComponent} from './component-user/user/user.component';
 import {UserIndexComponent} from './component-user/user-index/user-index.component';
 import {ShopServiceComponent} from './component-user/shop-service/shop-service.component';
+import {ShopDetailComponent} from './component-user/shop-detail/shop-detail.component';
+import {ShopEditComponent} from './component-user/shop-edit/shop-edit.component';
 import {UserDataSetComponent} from "./component-user/user-data-set/user-data-set.component";
 import {ChangePhoneComponent} from "./component-user/change-phone/change-phone.component";
 import {ChangePwdComponent} from "./component-user/change-pwd/change-pwd.component";
@@ -21,6 +23,8 @@ const userRoutes: Routes = [
       {path: '', component: UserIndexComponent},
       {path: 'userIndex', component: UserIndexComponent},
       {path: 'shopService', component: ShopServiceComponent},
+      {path: 'shopDetail/:id', component: ShopDetailComponent},
+      {path: 'shopEdit/:id', component: ShopEditComponent},
       {path: 'dataSet', component: UserDataSetComponent},
       {path: 'changePhone', component: ChangePhoneComponent},
       {path: 'changePwd', component: ChangePwdComponent},

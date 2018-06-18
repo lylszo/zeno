@@ -12,7 +12,7 @@ a:hover {
 //白色背景
 .z-bg-white {
   background-color: #fff;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   border-radius: 2px;
   box-shadow: 0 0 4px 1px rgba(0, 0, 0, .05);
   padding: 20px;
@@ -95,9 +95,13 @@ label.z-checkbox {
   position: relative;
   padding-left: 13px;
   input[type=checkbox] {
-    background-image: url('./assets/imgs/sprite.png');
-    background-position: -62px -236px;
     visibility: hidden;
+    &:checked + i {
+      background-position-y: -288px;
+    }
+    &[disabled] + i {
+      cursor: no-drop;
+    }
   }
   i {
     position: absolute;
@@ -107,9 +111,6 @@ label.z-checkbox {
     left: 0px;
     background-image: url(./assets/imgs/sprite.png);
     background-position: -62px -236px;
-  }
-  input[type=checkbox]:checked + i {
-    background-position-y: -288px;
   }
 }
 
@@ -122,6 +123,9 @@ label.z-radio {
     visibility: hidden;
     &:checked + i {
       background-position-y: -150px;
+    }
+    &[disabled] + i{
+      cursor: no-drop;
     }
   }
   i {
@@ -211,7 +215,7 @@ label.z-radio {
   border-radius: 1px;
   text-align: center;
   cursor: pointer;
-  min-width: 60px;
+  min-width: 40px;
   padding: 0 5px;
   margin: 2px 0;
   &:hover {
