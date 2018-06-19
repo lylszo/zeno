@@ -1,0 +1,76 @@
+.rule-ul{
+  width: 100%;
+}
+.rule-li{
+  //width: 50%;
+}
+.rule-condition{
+  width: 100%;
+}
+.rule-condition li{
+  float: left;
+  margin-left: 10px;
+}
+.rule-user li{
+  width:15% ;
+}
+.rule-data li{
+  width: 16%;
+}
+
+.span-el{
+  display: inline-block;
+  position: relative;
+  width: 30px;
+  height: 30px;
+  margin-right: 15px;
+  top: 4px;
+  margin-left: 7px;
+  cursor: pointer;
+}
+.span-after{
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  position: absolute;
+  font-family: "Arial";
+  font-size: 34px;
+  font-weight: 300;
+}
+.add{
+  @extend .span-el;
+  border-radius: 15px;
+  border: 1px solid #666666;
+  &:after{
+    @extend .span-after;
+    content: '+';
+    color: #999999;
+    bottom: 14px;
+    left: 4px;
+  }
+  &:hover{
+    border: 1px solid #1972d6;
+  }
+  &:hover:after{
+    color: #1972d6;
+  }
+}
+.delete{
+  @extend .span-el;
+  border-radius: 15px;
+  border: 1px solid #666666;
+  &:after{
+    @extend .span-after;
+    content: 'x';
+    color: #999999;
+    bottom: 16px;
+    left: 5px;
+  }
+  &:hover{
+    border: 1px solid #1972d6;
+  }
+  &:hover:after{
+    color: #1972d6;
+  }
+}
+

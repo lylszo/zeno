@@ -1,7 +1,7 @@
 .box {
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
+  overflow: scroll;
   background:linear-gradient(to bottom right, rgba(30, 168, 247, 0.8), rgba(27, 74, 179, 0.8)),  url("../../../assets/imgs/bg.png") no-repeat center 50% ;
   .userLogin{
     width: 460px;
@@ -49,6 +49,7 @@
   .buttonBgDis{
     color: #999999;
     background-color: #e5e5e5;
+    cursor: pointer;
   }
   .buttonBgOk{
     background-color: #1976d2;

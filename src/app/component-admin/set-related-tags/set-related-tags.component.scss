@@ -1,0 +1,24 @@
+.lab-modal{
+  width: 40%;
+  position: absolute;
+  background: #fff;
+  z-index: 100;
+  left: 85px;
+  box-shadow: 0 0 2px 2px rgba(0,0,0,.2);
+}
+.type-nav{
+  padding: .5rem 1rem;
+  color: #333;
+  cursor: pointer;
+  &:hover, &.active{
+    color: #1972D6;
+  }
+}
+
+.tag{
+  cursor: pointer;
+  &:hover, &.active{
+    color: #1972D6;
+    border: 1px solid #1972D6;
+  }
+}

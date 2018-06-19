@@ -1,0 +1,25 @@
+<section class="dib">
+  <label for="lab">关联标签：</label>
+  <div class="z-tag-del mr5" *ngFor="let i of tagList">{{i.name}}<span class="del" (click)="delTag()"></span></div>
+  <div class="z-add vab" (click)="showModal()"></div>
+  <div class="lab-modal" *ngIf="isModalShown">
+    <div class="modal-header">
+      <h4 class="modal-title pull-left">关联标签</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <span aria-hidden="true" (click)="hideModal()">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-3">
+          <p class="type-nav" [ngClass]="{'active':i.active}" *ngFor="let i of lists" (click)="typeChoosed(i)">{{i.type}}</p>
+        </div>
+        <div class="col-9">
+          <div class="z-tag tag mr5" [ngClass]="{'active':i.active}" *ngFor="let i of childList" (click)="tagChoosed(i)">{{i.name}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+

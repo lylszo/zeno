@@ -1,33 +1,33 @@
-<div class="sidebar">
+<div class="sidebar" id="sidebar">
 	<div class="level-1" routerLink="admin" routerLinkActive="active">
 		首页
 	</div>
 
-	<div class="level-1" [class.active]="user" (click)="user=!user">
+	<div class="level-1" data-toggle="collapse" data-target="#collapseUserManage" aria-expanded="true" aria-controls="collapseUserManage">
 		用户管理
-		<i class="iconfont icon-arrow-right f16 bold"></i>
+		<i class="iconfont icon-ai-arrow-down f12 bold f-r mr12"></i>
 	</div>
-	<div class="children">
+	<div id="collapseUserManage" class="collapse" data-parent="#sidebar">
 		<div class="level-2" routerLink="/admin/userManage" routerLinkActive="active">
 			用户管理
-		</div>	
+		</div>
 	</div>
 
-	<div class="level-1" [class.active]="team" (click)="team=!team">
+	<div class="level-1" data-toggle="collapse" data-target="#collapseTeamManage" aria-expanded="true" aria-controls="collapseTeamManage">
 		团队管理
-		<i class="iconfont icon-arrow-right f16 bold"></i>
+		<i class="iconfont icon-ai-arrow-down f12 bold f-r mr12"></i>
 	</div>
-	<div class="children">
+	<div id="collapseTeamManage" class="collapse" data-parent="#sidebar">
 		<div class="level-2" routerLink="/admin/teamManage" routerLinkActive="active">
 			团队管理
 		</div>
 	</div>
 
-	<div class="level-1" [class.active]="system" (click)="system=!system">
+	<div class="level-1" data-toggle="collapse" data-target="#collapseSystemManage" aria-expanded="true" aria-controls="collapseSystemManage">
 		系统管理
-		<i class="iconfont icon-arrow-right f16 bold"></i>
+		<i class="iconfont icon-ai-arrow-down f12 bold f-r mr12"></i>
 	</div>
-	<div class="children">
+	<div id="collapseSystemManage" class="collapse" data-parent="#sidebar">
 		<div class="level-2" routerLink="/admin/roleManage" routerLinkActive="active">
 			角色管理
 		</div>
@@ -45,11 +45,11 @@
 		</div>
 	</div>
 
-	<div class="level-1" [class.active]="person" (click)="person=!person">
+	<div class="level-1" data-toggle="collapse" data-target="#collapsePersonalCenter" aria-expanded="true" aria-controls="collapsePersonalCenter">
 		个人中心
-		<i class="iconfont icon-arrow-right f16 bold"></i>
+		<i class="iconfont icon-ai-arrow-down f12 bold f-r mr12"></i>
 	</div>
-	<div class="children">
+	<div id="collapsePersonalCenter" class="collapse" data-parent="#sidebar">
 		<div class="level-2" routerLink="/admin/dataSet" routerLinkActive="active">
 			资料设置
 		</div>

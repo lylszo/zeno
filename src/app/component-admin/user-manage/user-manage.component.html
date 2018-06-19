@@ -28,23 +28,7 @@
       <input class="z-input" type="text" id="city">
     </li>
     <li class="col-lg-12 col-md-8 f-l">
-      <label for="lab">关联标签：</label>
-      <div class="z-tag-del mr5" id="lab">转店<span class="del"></span></div>
-      <div class="z-tag-del mr5">寻址<span class="del"></span></div>
-      <div class="z-tag-del mr5">兼职<span class="del"></span></div>
-      <div class="z-tag-del mr5">装修<span class="del"></span></div>
-      <div class="z-add" (click)="showLab=true"></div>
-      <div class="lab-modal" *ngIf="showLab">
-        <div class="modal-header">
-          <h4 class="modal-title pull-left">关联标签</h4>
-          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-            <span aria-hidden="true" (click)="showLab=false">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-
-        </div>
-      </div>
+      <app-set-related-tags></app-set-related-tags>
     </li>
   </ul>
   <div class="f-r">
@@ -89,6 +73,7 @@
       <td class="handle">
         <button class="z-btn-blue-sm mr5" (click)="openModal(edit)">编辑</button>
         <button class="z-btn-grey-sm mr5" (click)="openModal(template)">解散</button>
+        <button class="z-btn-red-sm mr5" (click)="openModal(template)">删除</button>
         <button class="z-btn-blue-sm mr5">设置角色</button>
         <button class="z-btn-blue-sm mr5">成员管理</button>
         <button class="z-btn-blue-sm" (click)="openModal(asignArea)">分配服务区域</button>

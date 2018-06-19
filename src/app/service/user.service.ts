@@ -18,7 +18,7 @@ export class UserService {
   login(params:any,callback:Function) {
     return this.httpService.httpPost("user/login", params,
       (data) => {
-        this.cookie.set("Authorization", "Bearer " + data);  // 登录的时候将token保存在cookie里面
+        this.cookie.set("Authorization", "Bearer " + data.token);  // 登录的时候将token保存在cookie里面
         callback(data);
       });
   }

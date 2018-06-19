@@ -61,7 +61,7 @@ a:hover {
       background-color: #fafafa;
       padding-left: 20px;
       border-top: 1px solid #e6e6e6;
-    }      
+    }
     td {
       padding: 20px;
       border-top: 1px solid #e6e6e6;
@@ -298,6 +298,7 @@ label.z-radio {
   padding: 0 10px;
   &.active {
     border-color: #1972d6;
+    color: #1972d6;
   }
 }
 
@@ -382,7 +383,7 @@ label.z-radio {
 //分组标签 蓝绿、蓝、绿、黄、橙、红
 .z-group-cyan, .z-group-blue, .z-group-green, .z-group-yellow, .z-group-orange, .z-group-red {
   padding-left: 10px;
-  border-radius: 2px 2px 2px 18px; 
+  border-radius: 2px 2px 2px 18px;
 }
 
 //方形标签蓝色、分组标签蓝色

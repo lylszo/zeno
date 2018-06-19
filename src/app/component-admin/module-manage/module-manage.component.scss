@@ -26,3 +26,69 @@
   color: #1972d6;
   background: #f0f0f0;
 }
+.span-el{
+  display: inline-block;
+  position: relative;
+  width: 16px;
+  height: 16px;
+  margin-right: 7px;
+  top: 4px;
+  margin-left: 7px;
+}
+.span-after{
+  display: inline-block;
+  position: absolute;
+  font-family: "Arial";
+}
+.folder{
+  @extend .span-el;
+  border:  1px solid #1972d6;
+  &:after{
+    @extend .span-after;
+    content: '-';
+    color: #1972d6;
+    bottom: -3px;
+    left: 5px;
+  }
+}
+.open{
+  @extend .span-el;
+  border:  1px solid #1972d6;
+  &:after{
+    @extend .span-after;
+    content: '+';
+    color: #1972d6;
+    bottom: -4px;
+    left: 3px;
+  }
+}
+.func-label{
+  display: inline-block;
+  width: 100px;
+  text-align: right;
+}
+.add{
+  @extend .span-el;
+  border-radius: 8px;
+  border: 1px solid #333333;
+  &:after{
+    @extend .span-after;
+    content: '+';
+    color: #666666;
+    bottom: -4px;
+    left: 3px;
+
+  }
+}
+.delete{
+  @extend .span-el;
+  border-radius: 8px;
+  border: 1px solid #333333;
+  &:after{
+    @extend .span-after;
+    content: 'x';
+    color: #666666;
+    bottom: -3px;
+    left: 3px;
+  }
+}

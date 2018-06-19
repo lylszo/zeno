@@ -1,37 +1,59 @@
 .sidebar{
 	position: fixed;
 	top: 64px;
-	min-width: 200px;
+	width: 240px;
 	height: calc(100vh - 64px);
-	background-color: #ddd;
-	display: inline-block;
+	background-color: #fafafa;
+	box-shadow: 6px 0 6px rgba(0,0,0,.1);
 	overflow: auto;
-	padding-bottom: 30px;
-	box-sizing: border-box;
-  z-index: 1000;
-	.level-1{
-		height: 45px;
-		line-height: 45px;
-		cursor: pointer;
-		padding-left: 25px;
-		&:hover{
-			background-color: #aaa;
-		}
-		&.active{
-			color: #1976d2;
-		}
-	}
+    z-index: 1000;
+    padding: 10px 3px 30px 15px;
+    .level-1, .level-2{
+    	height: 37px;
+    	padding: 5px;
+    	border-radius: 2px;
+    	cursor: pointer;
+    	line-height: 27px;
+    	transition: background-color .2s;
+    	position: relative;
+    	&:hover {
+    		background-color: #dbdbdb;
+    		color: #1976d2;
+    	}
+    	&.active {
+    		& + .children {
+	    		visibility: visible;
+			    opacity: 1;
+			    max-height: 4000px;
+			    transition: visibility .5s,opacity .5s,max-height .5s;
+			    transition-timing-function: cubic-bezier(0.46, 0.03, 0.52, 0.96);
+	    	}
+	    	i {
+				transform: rotate(90deg);	    	
+			}
+    	}
+    	i {
+    		position: absolute;
+			top: 6px;
+			left: 190px;
+			transition: transform .1s;
+			transition-timing-function: ease-in-out;
+    	}
+    }
 	.level-2{
-		font-size: 14px;
-		height: 35px;
-		line-height: 35px;
-		cursor: pointer;
-		padding-left: 45px;
-		&:hover{
-			background-color: #aaa;
+		&.active {
+    		color: #1976d2;
 		}
-		&.active{
-			color: #1976d2;
-		}
+		height: 32px;
+		margin-left: 13px;
+		line-height: 22px;
+		color: #6e6e6e;
+	}
+	.children {
+	    visibility: hidden;
+	    opacity: 0;
+	    max-height: 1px;
+	    transition: visibility 275ms,opacity 275ms,max-height 280ms;
+	    transition-timing-function: ease-out;
 	}
 }

@@ -1,1 +1,62 @@
+<nav class="z-title-lg">
+  规则管理
+</nav>
+<section class="z-bg-white clearfix">
+  <header class="clearfix">
+    <h1 class="z-title-md-style">
+      筛选条件
+    </h1>
+    <button class="f-r z-btn-blue-lg" (click)="openModal()">搜索</button>
+  </header>
+  <ul class="clearfix">
+    <li class="col-lg-3 col-md-4 f-l">
+      <label for="name">规则名称：</label>
+      <input class="z-input" type="text" id="name">
+    </li>
+    <li class="col-lg-3 col-md-4 f-l">
+      <label for="probation">试用对象：</label>
+      <select name="probation" id="probation">
+        <option value="1">正常</option>
+        <option value="2">禁用</option>
+      </select>
+    </li>
+  </ul>
+</section>
+<section class="z-bg-white clearfix">
+  <header class="clearfix">
+    <h1 class="z-title-md-style mb20">
+      信息列表
+    </h1>
+    <a class="f-r z-btn-red-lg" routerLink="/admin/addRule">规则添加</a>
+  </header>
+  <table class="z-table tac" width="100%">
+    <thead>
+    <tr>
+      <th width="10%">规则ID</th>
+      <th width="10%">规则名称</th>
+      <th width="15%">适用功能对象</th>
+      <th width="25%">条件描述</th>
+      <th width="10%">创建人</th>
+      <th width="20%">创建时间</th>
+      <th width="10%">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>111</td>
+      <td>111</td>
+      <td>111</td>
+      <td>111</td>
+      <td>111</td>
+      <td>111</td>
+      <td>
+        <span class="z-btn-blue-sm">编辑</span><br>
+        <span class="z-btn-red-sm">删除</span>
+      </td>
+    </tr>
+    </tbody>
+  </table>
 
+  <pagination [boundaryLinks]="true" [totalItems]="totalItems" class="pagination-sm" (setPage)="setPage()" (pageChange)="pageChanged($event)"
+              previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
+</section>

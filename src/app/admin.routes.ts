@@ -16,6 +16,8 @@ import { PasswordUpdateComponent } from './component-admin/password-update/passw
 import { MyInfoComponent } from './component-admin/my-info/my-info.component';
 import { AdduserComponent} from "./component-admin/user-manage/adduser/adduser.component";
 import {AddTeamComponent} from "./component-admin/team-manage/add-team/add-team.component";
+import { RuleAddComponent} from './component-admin/rule-add/rule-add.component';
+
 
 const adminRoutes: Routes = [
   {
@@ -36,6 +38,7 @@ const adminRoutes: Routes = [
       { path: 'myInfo', component: MyInfoComponent },
       { path: 'adduser', component: AdduserComponent},
       { path: 'addTeam', component: AddTeamComponent},
+      { path: 'addRule', component: RuleAddComponent},
       { path: '**', redirectTo: '', pathMatch: 'full' }
     ]
   }

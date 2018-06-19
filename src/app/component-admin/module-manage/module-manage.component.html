@@ -6,14 +6,30 @@
     <li class="side-li">
       <ul>
         <li  class="func-name" *ngFor="let dictionary of dicMenu">
-          {{dictionary.name}}
+          <span class="folder"></span>
+          <span class="open"></span>
+         <span>{{dictionary.name}}</span>
+          <span class="editor"></span>
+          <span class="add"></span>
+          <span class="delete"></span>
         </li>
       </ul>
     </li>
     <li class="operator-li">
       <div>
         <form>
-          <span class="required">类型</span>
+          <div class="mt15">
+            <span class="z-required func-label mr20">类型</span>
+            <input type="text" [readonly]="true" class="z-input">
+          </div>
+          <div class="mt15">
+            <span class="z-required func-label mr20">名称</span>
+            <input type="text" [readonly]="true" class="z-input">
+          </div>
+          <div class="mt15">
+            <span class="z-required func-label mr20">归属父级</span>
+            <input type="text" [readonly]="true" class="z-input">
+          </div>
         </form>
       </div>
     </li>

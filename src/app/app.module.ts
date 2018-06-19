@@ -6,6 +6,7 @@ import { UserRoutesModule } from './user.routes';
 import { PaginationModule , ModalModule} from 'ngx-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule, FormGroup} from '@angular/forms';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { CookieService } from 'ngx-cookie-service';
 
@@ -51,6 +52,8 @@ import { ReleaseOkComponent } from './component-user/release-store/release-ok/re
 import { AddTeamComponent } from './component-admin/team-manage/add-team/add-team.component';
 import { ShopDetailComponent } from './component-user/shop-detail/shop-detail.component';
 import { ShopEditComponent } from './component-user/shop-edit/shop-edit.component';
+import { RuleAddComponent } from './component-admin/rule-add/rule-add.component';
+import { SetRelatedTagsComponent } from './component-admin/set-related-tags/set-related-tags.component';
 
 @NgModule({
   declarations: [
@@ -95,7 +98,9 @@ import { ShopEditComponent } from './component-user/shop-edit/shop-edit.componen
     ReleaseOkComponent,
     AddTeamComponent,
     ShopDetailComponent,
-    ShopEditComponent
+    ShopEditComponent,
+    RuleAddComponent,
+    SetRelatedTagsComponent
   ],
   imports: [
     BrowserModule,
@@ -105,7 +110,8 @@ import { ShopEditComponent } from './component-user/shop-edit/shop-edit.componen
     PaginationModule.forRoot(),
     ModalModule.forRoot(),
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

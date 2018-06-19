@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, Renderer2} from '@angular/core';
+import {Component, OnInit, OnDestroy} from '@angular/core';
 import { UserService } from '../../service/user.service';
 import { SmsService } from '../../service/sms.service';
 
@@ -14,8 +14,9 @@ export class ForgetPasswordComponent implements OnInit, OnDestroy {
   password1:string = '';
   password2:string = '';
 
-  constructor(public userService:UserService,public smsService: SmsService,private renderer:Renderer2) {
-    this.renderer.addClass(document.body, 'bg');
+  clicked:boolean=false;
+
+  constructor(public userService:UserService,public smsService: SmsService) {
   }
 
   getVC() {
@@ -24,10 +25,11 @@ export class ForgetPasswordComponent implements OnInit, OnDestroy {
     })
   }
 
-  ForgetSubmit(){
-    if(this.password1!=this.password2){
-      alert("密码不对应")
-    } else {
+  ForgetSubmit(valid){
+    this.clicked=true;
+    if(!valid){
+      return
+    }else{
       let userRegisterParam = {
         mobile:this.account,
         password:this.password1,
@@ -35,7 +37,7 @@ export class ForgetPasswordComponent implements OnInit, OnDestroy {
         // city:this.city
       };
       this.userService.register(userRegisterParam,(data) => {
-        console.log("register",data)
+        console.log("forget",data)
       })
     }
 
@@ -45,7 +47,6 @@ export class ForgetPasswordComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(){
-    this.renderer.removeClass(document.body, 'bg');
   }
 
 }

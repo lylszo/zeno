@@ -16,6 +16,8 @@ export class RegisterComponent implements OnInit, OnDestroy {
   password1:string = '';
   password2:string = '';
 
+  clicked:boolean=false;
+
   showCityPanel:boolean = false;
 
   constructor(public userService:UserService,public smsService: SmsService,private renderer:Renderer2) {
@@ -23,6 +25,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   registerSubmit(){
+    this.clicked=true;
     if(this.password1!=this.password2){
       alert("密码不对应")
     } else {

@@ -18,10 +18,7 @@ export class HttpService {
 
   constructor(public http: HttpClient, private cookie:CookieService) {
     this.auth = this.cookie.get("Authorization");
-    this.headers = new HttpHeaders();
-    // headers.append()
-    this.headers.append("Authorization", this.auth);  // 在头部加入token
-    this.headers.append("Access-Control-Allow-Origin", "*");
+    this.headers = new HttpHeaders({"Authorization": this.auth});
   }
   // 需要token的post请求
   httpPost(path: string, param: any, callback: Function) {
@@ -74,9 +71,16 @@ export class HttpService {
   //       console.log(error)
   //     })
   // }
-  httpGet(path: string,  param?: any) {
+  httpGet(path: string,  param: any, callback:Function) {
+    console.log("header", this.headers);
     this.url = this.bathUrl + path;
-    return this.http.get(this.url,{headers:this.headers});
+    return this.http.get(this.url,{params: param, headers:this.headers})
+      .subscribe((data) => {
+        callback(data)
+      },
+        (error) => {
+          console.log("http或服务器发生错误", error);
+      });
   }
 
   httpGetNoToken(path: string, param: any, callback:Function) {

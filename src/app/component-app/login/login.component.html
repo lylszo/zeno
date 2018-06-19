@@ -6,17 +6,31 @@
     </div>
 
     <form class="user userForm" #userLogin="ngForm" name="userLogin">
-      <input type="text" name="account" [(ngModel)]="account" placeholder="请输入手机号码" required>
-      <input type="password" name="password" [(ngModel)]="password" placeholder="请输入密码" required>
+      <input type="text" name="account" [(ngModel)]="account" #userMobile="ngModel" pattern="^1[3456789]\d{9}"
+             placeholder="请输入手机号码" required>
+      <div class="user-error" *ngIf="clicked">
+        <span *ngIf="userMobile.errors?.pattern">手机号码格式不正确</span>
+        <span *ngIf="userMobile.errors?.required">请输入手机号码</span>
+        <span *ngIf="userMobile.errors" class="error-icon">!</span>
+      </div>
+
+      <input type="password" name="password" [(ngModel)]="password" #password0="ngModel" placeholder="请输入密码" required
+             pattern="^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,12}$">
+      <div class="user-error" *ngIf="clicked">
+        <span *ngIf="password0.errors?.pattern">请输入6-12位数字和字符</span>
+        <span *ngIf="password0.errors?.required">请输入密码</span>
+        <span *ngIf="password0.errors" class="error-icon">!</span>
+      </div>
+
       <button [ngClass]="{'buttonBgDis':userLogin.invalid,'buttonBgOk':userLogin.valid}"
-      [disabled]="userLogin.invalid">登录</button>
+      (click)="loginIn()">登录</button>
     </form>
 
     <div class="user userFooter">
       <a class="userToRes" routerLink="/register">立即注册</a>
       <a class="userToPass" routerLink="/forgetPassword">忘记密码</a>
     </div>
-  </div>  
+  </div>
 </div>
 
 

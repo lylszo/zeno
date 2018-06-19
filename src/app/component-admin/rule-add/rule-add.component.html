@@ -1,0 +1,83 @@
+<nav class="z-title-lg">
+  规则管理
+</nav>
+<section  class="z-bg-white clearfix">
+  <ul class="rule-ul">
+    <li class="rule-li">
+      <div>
+        <label class="z-required mr15">规则名称</label>
+        <input type="text" class="z-input">
+      </div>
+      <div class="mt15">
+        <p class="z-required">用户筛选条件：</p>
+        <ul class="rule-condition rule-user clearfix">
+          <li class="pl20">用户属性</li>
+          <li class="pl20">匹配关系</li>
+          <li class="pl20">值</li>
+        </ul>
+        <ul class="rule-condition clearfix">
+          <li>
+            <app-select [list]='fruitSelect' [(selectedItem)]="demo" [(selectedCode)]="code"></app-select>
+          </li>
+          <li>
+            <app-select  [list]='fruitSelect' [(selectedItem)]="demo" [(selectedCode)]="code"></app-select>
+          </li>
+          <li>
+            <input type="text" class="z-input">
+          </li>
+          <li>
+            <span class="add"></span>
+            <span class="delete"></span>
+          </li>
+        </ul>
+      </div>
+
+    </li>
+    <li class="rule-li mt50">
+      <div>
+        <label class="z-required mr15">数据对象</label>
+        <input type="text" class="z-input">
+      </div>
+      <div class="mt15">
+        <div>
+          <p class="z-required">数据筛选条件：</p>
+          <ul class="rule-condition rule-data clearfix">
+            <li>左数据对象</li>
+            <li>属性</li>
+            <li>匹配关系</li>
+            <li>右数据对象</li>
+            <li>属性</li>
+          </ul>
+          <ul class="rule-condition clearfix">
+            <li>
+              <app-select [list]='fruitSelect' [(selectedItem)]="demo" [(selectedCode)]="code"></app-select>
+            </li>
+            <li>
+              <app-select  [list]='fruitSelect' [(selectedItem)]="demo" [(selectedCode)]="code"></app-select>
+            </li>
+            <li>
+              <app-select [list]='fruitSelect' [(selectedItem)]="demo" [(selectedCode)]="code"></app-select>
+            </li>
+            <li>
+              <app-select [list]='fruitSelect' [(selectedItem)]="demo" [(selectedCode)]="code"></app-select>
+            </li>
+            <li>
+              <app-select [list]='fruitSelect' [(selectedItem)]="demo" [(selectedCode)]="code"></app-select>
+            </li>
+            <li>
+              <span class="add"></span>
+              <span class="delete"></span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </li>
+    <li class="rule-li mt50">
+      <p class="z-required">条件描述</p>
+      <div>
+
+      </div>
+    </li>
+  </ul>
+
+</section>
