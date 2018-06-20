@@ -32,22 +32,4 @@
 			margin-right: 40px;
 		}		
 	}
-	.shopTable {
-		width: 100%;
-		tr {
-			th {
-				background-color: #efefef;
-				border-bottom: 1px solid #ccc;
-				height: 40px;
-				padding: 10px;
-			}
-			td {
-				padding: 10px;
-				border-bottom: 1px solid #ccc;
-			}
-			&:last-child td{
-				border: none;
-			}
-		}
-	}
 }

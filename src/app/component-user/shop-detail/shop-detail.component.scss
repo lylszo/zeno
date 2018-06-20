@@ -4,27 +4,35 @@
 			width: 590px;
 			height: 520px;
 			float: left;
-			.img-left {
+			position: relative;
+			.img-left ,.img-right{
 				width: 20px;
 				float: left;
 				margin-right: 5px;
 				height: 100px;
 				cursor: pointer;
-				background-color: blue;
+				background-color: rgba(25, 114, 214, 0.6);
+				transition: background-color .2s;
+				text-align: center;
+				&:hover {
+					background-color: rgba(25, 114, 214, 0.8);
+				}
+				i {
+					font-size: 18px;
+					line-height: 100px;
+					color: #fff;
+				}
 			}
 			.img-right {
-				width: 20px;
-				float: left;
 				margin-left: 5px;
-				height: 100px;
-				cursor: pointer;
-				background-color: blue;
+				margin-right: 0;
 			}
 			.img-content {
 				width: 540px;
 				overflow: hidden;
 				float: left;
 				ul {
+					transition: margin-left .3s;
 					width: 2000px;
 					li {
 						float: left;
@@ -36,6 +44,17 @@
 						}
 					}
 				}
+			}
+			.num {
+				width: 35px;
+				height: 22px;
+				line-height: 22px;
+				color: #fff;
+				background-color: rgba(25, 114, 214, 0.8);
+				position: absolute;
+				right: 0px;
+				top: 378px;
+				text-align: center;
 			}
 		}
 		.right {
@@ -82,10 +101,10 @@
 				margin-bottom: -13px;
 				li {
 					float: left;
-					width: 280px;
-					margin-right: 13px;
+					width: 220px;
+					margin-right: 15px;
 					margin-bottom: 15px;
-					&:nth-child(4n+4) {
+					&:nth-child(5n+5) {
 						margin-right: 0;
 					}
 				}
@@ -93,7 +112,30 @@
 		}
 		.position {
 			height: 500px;
-			background-color: red;
+		}
+		.picInfo {
+			span {
+				display: inline-block;
+				color: #333;
+				font-weight: bold;
+				cursor: pointer;
+				margin-right: 10px;
+				margin-bottom: 10px;
+				padding: 0 10px;
+				height: 30px;
+				border-radius: 2px;
+				line-height: 30px;
+				text-align: center;
+				border: 1px solid #fff;
+				&:hover {
+					color: #1972D6;
+				}
+				&.active {
+					color: #1972D6;
+					background-color: #f9f9f9;
+					border-color: #ccc;
+				}
+			}
 		}
 	}
 }

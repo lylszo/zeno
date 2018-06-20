@@ -54,6 +54,7 @@ import { ShopDetailComponent } from './component-user/shop-detail/shop-detail.co
 import { ShopEditComponent } from './component-user/shop-edit/shop-edit.component';
 import { RuleAddComponent } from './component-admin/rule-add/rule-add.component';
 import { SetRelatedTagsComponent } from './component-admin/set-related-tags/set-related-tags.component';
+import { MapComponent } from './component-common/map/map.component';
 
 @NgModule({
   declarations: [
@@ -100,7 +101,8 @@ import { SetRelatedTagsComponent } from './component-admin/set-related-tags/set-
     ShopDetailComponent,
     ShopEditComponent,
     RuleAddComponent,
-    SetRelatedTagsComponent
+    SetRelatedTagsComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,

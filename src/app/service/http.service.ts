@@ -72,7 +72,6 @@ export class HttpService {
   //     })
   // }
   httpGet(path: string,  param: any, callback:Function) {
-    console.log("header", this.headers);
     this.url = this.bathUrl + path;
     return this.http.get(this.url,{params: param, headers:this.headers})
       .subscribe((data) => {

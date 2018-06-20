@@ -43,17 +43,29 @@ export class ShopDetailComponent implements OnInit {
 		{code: 9, name: '手撕发票', value: true}
 	];
 
-	//大图url
-	bigImgUrl: string = this.imgs[0].url;
+	//当前图片的index
+	idx: number = 0;
+	//图片列表margin-left
+	imgLeft: number = 0;
 
-  constructor() { }
+	constructor() { }
 
-  ngOnInit() {
-  	
-  }
+	ngOnInit() {
+		
+	}
 
-  changeBigImg(url) {
-  	this.bigImgUrl = url;
-  }
+	//点击箭头切换图片
+	turn(sort, list = []) {
+		if(sort == 'left'){
+			this.idx == 0 ? this.idx = list.length - 1 : this.idx--;
+		}else if(sort == 'right'){
+			this.idx == list.length - 1 ? this.idx = 0 : this.idx++;
+		}
+		if(this.idx == 0){
+			this.imgLeft = 0;
+		}else if(this.idx > 3){
+			this.imgLeft = -(this.idx - 3) * 135;
+		}
+	}
 
 }

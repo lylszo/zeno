@@ -22,7 +22,4 @@ export class UserService {
         callback(data);
       });
   }
-  getData(){
-    return this.httpService.httpGet("../../assets/data.json")
-  }
 }

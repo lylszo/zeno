@@ -1,6 +1,6 @@
 <section class="dib">
-  <label for="lab">关联标签：</label>
-  <div class="z-tag-del mr5" *ngFor="let i of tagList">{{i.name}}<span class="del" (click)="delTag()"></span></div>
+  <label>关联标签：</label>
+  <div class="z-tag-del mr5" *ngFor="let item of tagList; let i = index">{{item.name}}<span class="del" (click)="delTag(i)"></span></div>
   <div class="z-add vab" (click)="showModal()"></div>
   <div class="lab-modal" *ngIf="isModalShown">
     <div class="modal-header">
@@ -20,6 +20,5 @@
       </div>
     </div>
   </div>
-
 </section>
 

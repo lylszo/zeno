@@ -69,8 +69,9 @@ export class SetRelatedTagsComponent {
     ];
   }
 
-  delTag(): void {
-    this.tagList.splice(this, 1);
+  delTag(i): void {
+    console.log(i)
+    this.tagList.splice(i, 1);
   }
 
   addTag(): void {
