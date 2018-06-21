@@ -8,7 +8,7 @@ export class PermissionService {
 
   constructor(public http:HttpService) { }
 
-  getPermission(page:number,pageSize:number, callback:Function, parentCode?:any){
+  getPermission( parentCode:any, page:number,pageSize:number, callback:Function){
     let params = {
       parentCode:parentCode,
       page:page,

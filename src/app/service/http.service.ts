@@ -32,7 +32,7 @@ export class HttpService {
           }
         },
         (error) => {
-          console.log("http或服务器发生错误", error);
+          // console.log("http或服务器发生错误", error);
         });
   }
   // 不需要header的post接口
@@ -47,8 +47,8 @@ export class HttpService {
           }
         },
         (error) => {
-          console.log("http或服务器发生错误", error);
-          console.log("body",param)
+          // console.log("http或服务器发生错误", error);
+          // console.log("body",param)
         });
   }
 
@@ -78,7 +78,7 @@ export class HttpService {
         callback(data)
       },
         (error) => {
-          console.log("http或服务器发生错误", error);
+          // console.log("http或服务器发生错误", error);
       });
   }
 
@@ -93,7 +93,7 @@ export class HttpService {
           }
         },
         (error) => {
-          console.log("http或服务器发生错误", error);
+          // console.log("http或服务器发生错误", error);
         });
   }
 
@@ -102,9 +102,15 @@ export class HttpService {
     return this.http.delete(this.url,{headers:this.headers});
   }
 
-  httpPut(path: string, params: any) {
+  httpPut(path: string, params: any, callback:Function) {
     this.url = this.bathUrl + path;
-    return this.http.put(this.url, params,{headers:this.headers});
+    return this.http.put(this.url,params, {headers:this.headers})
+      .subscribe((data) => {
+        callback(data)
+      },
+      (error) => {
+        // console.log("http或服务器发生错误", error);
+      })
   }
 
 }

@@ -13,24 +13,16 @@
       <input class="z-input" type="text" id="teamname">
     </li>
     <li class="col-lg-3 col-md-4 col-sm-4 f-l">
-      <label for="teamtype">团队类型：</label>
-      <select id="teamtype">
-        <option value="0">---请选择---</option>
-        <option value="1">自营</option>
-        <option value="2">加盟店</option>
-      </select>
+      <label>团队类型：</label>
+      <app-select [list]="teamType"></app-select>
     </li>
     <li class="col-lg-3 col-md-4 col-sm-4 f-l">
-      <label for="teamstate">状态：</label>
-      <select name="state" id="teamstate">
-        <option value="0">---请选择---</option>
-        <option value="1">有效</option>
-        <option value="2">无效</option>
-      </select>
+      <label>状态：</label>
+      <app-select [list]="teamState"></app-select>
     </li>
     <li class="col-lg-3 col-md-4 col-sm-4 f-l">
-      <label for="area">所在区域：</label>
-      <input class="z-input" type="text" id="area">
+      <label>所在区域：</label>
+      <app-select [list]="cityList"></app-select>
     </li>
     <li class="col-lg-12 col-md-8 col-sm-8 f-l">
       <app-set-related-tags></app-set-related-tags>
@@ -38,7 +30,7 @@
   </ul>
   <div class="f-r">
     <a class="mr8">清空搜索条件</a>
-    <button class="z-btn-blue-lg">搜索</button>
+    <button class="z-btn-blue-lg" (click)="submit()">搜索</button>
   </div>
 </section>
 
@@ -47,20 +39,20 @@
     <h1 class="z-title-md-style dib">信息列表</h1>
     <button class="z-btn-blue-lg f-r" routerLink="/admin/addTeam">创建</button>
   </header>
-  <table class="table">
+  <table class="z-table-sm">
     <thead>
     <tr>
-      <td>
+      <th>
         <input type="checkbox">
-      </td>
-      <td>序号</td>
-      <td>用户姓名/手机号码</td>
-      <td>工作城市</td>
-      <td>用户角色</td>
-      <td>加入团队</td>
-      <td>状态</td>
-      <td>注册时间</td>
-      <td>操作</td>
+      </th>
+      <th>序号</th>
+      <th>用户姓名/手机号码</th>
+      <th>工作城市</th>
+      <th>用户角色</th>
+      <th>加入团队</th>
+      <th>状态</th>
+      <th>注册时间</th>
+      <th>操作</th>
     </tr>
     </thead>
     <tbody>
@@ -76,11 +68,15 @@
       <td>正常</td>
       <td>2018-04-23 15:00:01</td>
       <td class="handle">
-        <button class="z-btn-blue-sm mr5" (click)="openModal(edit)">编辑</button>
-        <button class="z-btn-grey-sm mr5" (click)="openModal(template)">解散</button>
-        <button class="z-btn-blue-sm mr5">设置角色</button>
-        <button class="z-btn-blue-sm mr5" routerLink="/admin/memberManage">成员管理</button>
-        <button class="z-btn-blue-sm" (click)="openModal(asignArea)">分配服务区域</button>
+        <p class="pb3">
+          <button class="z-btn-blue-sm mr5" (click)="openModal(edit)">编辑</button>
+          <button class="z-btn-grey-sm mr5" (click)="openModal(template)">解散</button>
+          <button class="z-btn-blue-sm mr5">设置角色</button>
+        </p>
+        <p>
+          <button class="z-btn-blue-sm mr5" routerLink="/admin/memberManage">成员管理</button>
+          <button class="z-btn-blue-sm" (click)="openModal(asignArea)">分配服务区域</button>
+        </p>
       </td>
     </tr>
     </tbody>

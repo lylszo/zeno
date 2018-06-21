@@ -48,6 +48,8 @@ export class ShopDetailComponent implements OnInit {
 	//图片列表margin-left
 	imgLeft: number = 0;
 
+	position = {lng: 114.02597366, lat: 22.54605355};
+
 	constructor() { }
 
 	ngOnInit() {

@@ -1,96 +1,81 @@
-import {Component, TemplateRef} from '@angular/core';
+import {Component, OnInit, Output, TemplateRef} from '@angular/core';
 
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {BsModalRef} from 'ngx-bootstrap/modal/bs-modal-ref.service';
 
+
+// 数据模型
 import {Tag} from "./tags.model";
-import {fakeAsync} from "@angular/core/testing";
+
+// 服务
+import {HttpService} from "../../service/http.service";
 
 @Component({
   selector: 'app-set-related-tags',
   templateUrl: './set-related-tags.component.html',
   styleUrls: ['./set-related-tags.component.scss']
 })
-export class SetRelatedTagsComponent {
+export class SetRelatedTagsComponent implements OnInit {
+
+  // @Output tagList;
 
   isModalShown: Boolean = false;
 
   tagList: Tag[];
 
-  lists = [{
-    type: '用户',
-    attr: 'yonghu',
-    active: true,
-    childs: [
-      {
-        creator: "nicole",
-        id: 0,
-        name: "大学生",
-      }, {
-        creator: "nicole",
-        id: 0,
-        name: "兼职",
-      }
-    ]
-  }, {
-    type: '团队',
-    attr: 'tuandui',
-    active: false,
-    childs: [
-      {
-        creator: "nicole",
-        id: 0,
-        name: "大区经理",
-      }, {
-        creator: "nicole",
-        id: 0,
-        name: "业务员"
-      }
-    ]
-  }];
+  pType: number;
 
-  childList = [{
-    creator: "nicole",
-    id: 0,
-    name: "大区经理",
-    active: false
-  }, {
-    creator: "nicole",
-    id: 0,
-    name: "业务员",
-    active: false
-  }];
+  lists = [];
 
-  constructor(private modalService: BsModalService) {
-    this.tagList = [
-      new Tag(1, '转店'),
-      new Tag(2, '寻址'),
-      new Tag(3, '兼职')
-    ];
+  childList = [];
+
+  constructor(private modalService: BsModalService, private http: HttpService) {
+    this.tagList = [];
   }
 
+  ngOnInit() {
+    this.getTagList();
+  }
+
+  // 请求标签接口
+  getTagList() {
+    let tagParam = {
+      page: 1,
+      pageSize: 100,
+      Authorization: this.http.auth
+    };
+    this.http.httpGet('tag', tagParam, (data) => {
+      this.lists = data.items;
+      this.lists.forEach((v) => {
+        if (v.type === 1) {
+          this.childList.push(v);
+        }
+      });
+      console.log(data)
+    })
+  }
+
+  getTagChild(num) {
+    this.pType = num;
+    this.childList = [];
+    this.lists.forEach((v) => {
+      if (v.type === num) {
+        this.childList.push(v);
+      }
+    })
+  }
+
+  // 删除标签
   delTag(i): void {
-    console.log(i)
     this.tagList.splice(i, 1);
   }
 
-  addTag(): void {
-    this.tagList.push(new Tag(4, 'test'));
-  }
-
-  typeChoosed(obj) {
-    obj.active = true;
-  }
-
+  // 选择标签
   tagChoosed(obj) {
-    if (!obj.active) {
-      obj.active = true;
-      this.tagList.push(new Tag(obj.id, obj.name));
-    } else {
-      obj.active = false;
-    }
+      this.tagList.push(obj);
   }
 
+  // 模态框
   modalRef: BsModalRef;
 
   showModal(): void {

@@ -1,6 +1,8 @@
 <section class="dib">
   <label>关联标签：</label>
-  <div class="z-tag-del mr5" *ngFor="let item of tagList; let i = index">{{item.name}}<span class="del" (click)="delTag(i)"></span></div>
+  <div class="z-tag-del mr5" *ngFor="let item of tagList; let i = index">
+    {{item.name}}<span class="del" (click)="delTag(i)"></span>
+  </div>
   <div class="z-add vab" (click)="showModal()"></div>
   <div class="lab-modal" *ngIf="isModalShown">
     <div class="modal-header">
@@ -12,10 +14,20 @@
     <div class="modal-body">
       <div class="row">
         <div class="col-3">
-          <p class="type-nav" [ngClass]="{'active':i.active}" *ngFor="let i of lists" (click)="typeChoosed(i)">{{i.type}}</p>
+          <div class="nav flex-column nav-pills" role="tablist">
+            <a class="nav-link active"  data-toggle="pill" href="#s0" (click)="getTagChild(1)">用户</a>
+            <a class="nav-link"  data-toggle="pill" href="#s1" (click)="getTagChild(2)">团队</a>
+          </div>
         </div>
         <div class="col-9">
-          <div class="z-tag tag mr5" [ngClass]="{'active':i.active}" *ngFor="let i of childList" (click)="tagChoosed(i)">{{i.name}}</div>
+          <div class="tab-content">
+            <div class="tab-pane fade" [ngClass]="{'show active':i==0}" id="#s{{i}}"
+                 *ngFor="let item of lists; let i =  index">
+              <div class="z-tag tag mr5" [ngClass]="{'active':n==0}" *ngFor="let c of childList; let n = index"
+                   (click)="tagChoosed(c)">{{c.name}}
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

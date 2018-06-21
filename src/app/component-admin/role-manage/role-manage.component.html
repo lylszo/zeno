@@ -5,25 +5,41 @@
   <ul class="body-ul clearfix">
     <li class="side-li">
       <ul>
-        <li  class="role-name" *ngFor="let role of roles">
-          <span>{{role.name}}</span>
+        <li  class="role-name" *ngFor="let role of roles, let i=index" [ngClass]="{'target':role.liclicked}" (click)="facusli(i)">
+          <div class="role-name-div" *ngIf="!role.clicked">
+            <span class="pl5 role-name-span">{{role.name}}</span>
+            <span class="role-modify" (click)="modifyRole(i)"></span>
+          </div>
+          <div *ngIf="role.clicked">
+            <form #roleForm{{i}}="ngForm" name="roleForm">
+              <div>
+                <input autocomplete="off" type="text" name="name" [(ngModel)]="role.name" #roleName="ngModel" required maxlength="20">
+                <span class="save" (click)="saveModify(roleName.errors,i)">保存</span>
+                <span class="cancel" (click)="cancelModify(i)">取消</span>
+              </div>
+              <div *ngIf="role.saved">
+                <span class="red" *ngIf="roleName.errors?.required">请填写角色名称</span>
+                <span class="red" *ngIf="roleName.errors?.maxlength">角色名称不能超过20字</span>
+              </div>
+            </form>
+          </div>
         </li>
         <li>
-          <div *ngIf="addClicked" class="mb10">
-            <form #roleForm="ngForm">
+          <div *ngIf="addClicked" class="mb10 mt10">
+            <form #roleForm="ngForm" name="roleForm">
               <div>
-                <input autocomplete="off" type="text" name="name" [(ngModel)]="addRole" #roleName="ngModel" maxlength="20" minlength="1">
-                <span class="ml10 save" (click)="ceateRole(roleForm.valid)">保存</span>
-                <span class="ml10 cancel" (click)="cancel()">取消</span>
+                <input autocomplete="off" type="text" name="name" [(ngModel)]="addRole" #roleName="ngModel" required maxlength="20">
+                <span class="save" (click)="ceateRole(roleForm.valid)">保存</span>
+                <span class="cancel" (click)="cancelRole()">取消</span>
               </div>
-              <div>
-                <span *ngIf="roleName.errors?.minlength">请填写角色名称</span>
-                <span *ngIf="roleName.errors?.maxlength">角色名称不能超过20字</span>
+              <div *ngIf="saved">
+                <span class="red" *ngIf="roleName.errors?.required">请填写角色名称</span>
+                <span class="red" *ngIf="roleName.errors?.maxlength">角色名称不能超过20字</span>
               </div>
             </form>
           </div>
 
-          <button class="z-btn-red-lg" (click)="addclick()">角色添加</button>
+          <button *ngIf="!addClicked" class="mt10 z-btn-blue-lg" (click)="addclick()">角色添加</button>
         </li>
       </ul>
     </li>
@@ -32,13 +48,23 @@
         <li class="role-operate" *ngFor="let menu of menus">
           {{menu.name}}
           <ul>
-            <li class="menu-item clearfix" *ngFor="let menuItem of menuItems">
+            <li class="clearfix mt15" *ngFor="let menuItem of menu.childs">
+              <label class="menu-item z-checkbox">
+                <input type="checkbox" [(ngModel)]="menuItem.$checked"><i></i>{{menuItem.name}}
+              </label>
               <ul>
-                <li class="items" *ngFor="let item of items">
+                <li class="items mr30 mt10" *ngFor="let item of menuItem.childs">
+                  <label class="z-checkbox">
+                    <input type="checkbox" [(ngModel)]="item.checked"><i></i>{{item.name}}
+                  </label>
                 </li>
               </ul>
             </li>
           </ul>
+        </li>
+        <li class="mt40">
+          <button class="z-btn-blue-lg">确定</button>
+          <button class="z-btn-grey-lg ml50">取消</button>
         </li>
       </ul>
     </li>

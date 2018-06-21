@@ -335,6 +335,7 @@ label.z-radio {
   padding-right: 30px;
   padding-left: 10px;
   position: relative;
+  vertical-align: middle;
   .del, .add {
     position: absolute;
     width: 25px;
@@ -369,6 +370,7 @@ label.z-radio {
   cursor: pointer;
   background-color: #fff;
   position: relative;
+  vertical-align: middle;
   &:before {
     position: absolute;
     content: '+';

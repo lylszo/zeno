@@ -4,7 +4,7 @@ import { AppRoutesModule } from './app.routes';
 import { AdminRoutesModule } from './admin.routes';
 import { UserRoutesModule } from './user.routes';
 import { PaginationModule , ModalModule} from 'ngx-bootstrap';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule, FormGroup} from '@angular/forms';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
@@ -113,7 +113,8 @@ import { MapComponent } from './component-common/map/map.component';
     ModalModule.forRoot(),
     HttpClientModule,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientJsonpModule
   ],
   providers: [CookieService],
   bootstrap: [AppComponent]

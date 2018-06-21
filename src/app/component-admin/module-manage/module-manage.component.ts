@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PermissionService} from '../../service/permission.service';
 
 @Component({
   selector: 'app-module-manage',
@@ -7,23 +8,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ModuleManageComponent implements OnInit {
   dicMenu: any;
+  nextMenu:any;
 
-  constructor() {
+  constructor(public permit:PermissionService) {
+    this.permit.getPermission(0,1,100,(data)=>{
+      console.log("permit", data);
+      this.dicMenu = data.items
+
+    })
+  }
+
+  getNextMenu(index){
+    this.permit.getPermission(this.dicMenu[index].code,1,100,(data)=>{
+      console.log("next", data);
+      this.nextMenu = data.items
+
+    })
   }
 
   ngOnInit() {
-    this.dicMenu = [{
-      value: 1,
-      name: "服务大厅"
-    }, {
-      value: 2,
-      name: "用户管理"
-    }, {
-      value: 3,
-      name: "团队管理"
-    }, {
-      value: 4,
-      name: "财务管理"
-    }]
+
   }
 }

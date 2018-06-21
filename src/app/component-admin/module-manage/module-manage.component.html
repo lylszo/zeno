@@ -5,13 +5,13 @@
   <ul class="body-ul clearfix">
     <li class="side-li">
       <ul>
-        <li  class="func-name" *ngFor="let dictionary of dicMenu">
+        <li  class="func-name" *ngFor="let dictionary of dicMenu, let i=index">
           <span class="folder"></span>
-          <span class="open"></span>
+          <span class="open" (click)="getNextMenu(i)"></span>
          <span>{{dictionary.name}}</span>
-          <span class="editor"></span>
-          <span class="add"></span>
-          <span class="delete"></span>
+          <!--<span class="editor"></span>-->
+          <!--<span class="add"></span>-->
+          <!--<span class="delete"></span>-->
         </li>
       </ul>
     </li>
