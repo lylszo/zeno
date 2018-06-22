@@ -1,0 +1,34 @@
+<div>
+	<div style="width: 500px; height: 300px;">
+		<app-map [(point)]="pt"></app-map>
+	</div>
+	<button *ngIf="!point" (click)="mapModal.show()">请选择位置</button>
+	
+	<span *ngIf="point" (click)="mapModal.show()">
+		<i class="iconfont icon-dingwei f14 blue"></i>
+		{{point.lng}}，{{point.lat}}
+	</span>
+</div>
+<div bsModal #mapModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+	    <h4 class="modal-title pull-left">选择位置</h4>
+	    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+	      <span aria-hidden="true">&times;</span>
+	    </button>
+	  </div>
+	  <div class="modal-body">
+	    <div class="mapContainer">
+	    	<app-map [(point)]="point"></app-map>
+	    </div>
+	  </div>
+	  <div class="modal-footer">
+	    <div class="f-r">
+	      <button type="button" class="z-btn-grey-lg mr7">取消</button>
+	      <button type="button" class="z-btn-blue-lg">确定</button>
+	    </div>
+	  </div>
+    </div>
+  </div>
+</div>
