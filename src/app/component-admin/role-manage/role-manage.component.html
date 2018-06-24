@@ -50,12 +50,12 @@
           <ul>
             <li class="clearfix mt15" *ngFor="let menuItem of menu.childs">
               <label class="menu-item z-checkbox">
-                <input type="checkbox" [(ngModel)]="menuItem.$checked"><i></i>{{menuItem.name}}
+                <input type="checkbox" [(ngModel)]="menuItem.checked" (click)="changeChecked(menuItem)"><i></i>{{menuItem.name}}
               </label>
               <ul>
                 <li class="items mr30 mt10" *ngFor="let item of menuItem.childs">
                   <label class="z-checkbox">
-                    <input type="checkbox" [(ngModel)]="item.checked"><i></i>{{item.name}}
+                    <input type="checkbox" [(ngModel)]="item.checked" (click)="changeChecked(item)"><i></i>{{item.name}}
                   </label>
                 </li>
               </ul>
@@ -63,7 +63,7 @@
           </ul>
         </li>
         <li class="mt40">
-          <button class="z-btn-blue-lg">确定</button>
+          <button class="z-btn-blue-lg" (click)="submit()">确定</button>
           <button class="z-btn-grey-lg ml50">取消</button>
         </li>
       </ul>

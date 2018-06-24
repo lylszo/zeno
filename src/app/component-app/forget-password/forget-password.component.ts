@@ -15,28 +15,43 @@ export class ForgetPasswordComponent implements OnInit, OnDestroy {
   password2:string = '';
 
   clicked:boolean=false;
+  time:any="获取验证码";
 
   constructor(public userService:UserService,public smsService: SmsService) {
   }
 
-  getVC() {
-    this.smsService.getVCode(this.account, (data) => {
-      console.log("mydata", data)
-    })
+  getVC(invalid) {
+    if(invalid){
+      alert("请输入正确手机号码");
+    }else{
+      this.smsService.getVCode(this.account, "RESETPWD",(data) => {
+        console.log("mydata", data);
+      });
+      this.time=60;
+      let timer = setInterval(() => {
+        this.time = this.time - 1;
+        if(this.time === -1){
+          clearInterval(timer);
+          this.time="获取验证码"
+        }
+      }, 1000);
+    }
   }
 
   ForgetSubmit(valid){
     this.clicked=true;
     if(!valid){
-      return
-    }else{
-      let userRegisterParam = {
+      alert("参数填写不正确")
+    }else if(this.password1!=this.password2){
+      alert("密码不对应")
+    } else{
+      let userResetPasswordParam = {
         mobile:this.account,
         password:this.password1,
         vcode:this.code,
         // city:this.city
       };
-      this.userService.register(userRegisterParam,(data) => {
+      this.userService.resetPassword(userResetPasswordParam,(data) => {
         console.log("forget",data)
       })
     }

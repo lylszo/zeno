@@ -10,29 +10,25 @@ import { RoleService} from '../../service/role.service';
 })
 export class RoleManageComponent implements OnInit {
 
+  datas:Array<any>=[];
   roles:any;
-  menus:any;
-  menuItems:any;
-  items:any;
+  menus:Array<any>=[];
+  menuItems:Array<any>=[];
+  items:Array<any>=[];
   addRole:any;
   addClicked:boolean=false;
   saved:boolean=false;
   liindex:number=0;  // 控制侧边的按钮点击
   checkedRoleName:string='';
+
+  permissions:Array<any>=[];
+
   constructor(public permit:PermissionService, public role:RoleService) {
     this.permit.getPermission(0,1,100,(data) => {
       console.log("permit", data);
-      // this.menus=data.items;
-      // this.menus = [{value:101, name:"团队管理"}, {value:102, name:"用户管理"},{value:103, name:"业务服务大厅"}];
-      // this.menuItems = [{value:1011, name:"团队管理", checked:false},{value:1021, name:"用户管理", checked:false},{
-      //   value:1031, name:"业主管理", checked:false}];
-      // this.items = [{value:10111, name:"团队创建", checked:false},{value:10211, name:"用户编辑", checked:false},{
-      //   value:10311, name:"业主查询", checked:false}]
     });
     this.role.getRole(0,'',1,100,(data) => {
       console.log("role", data);
-      // this.roles = [{value:1, name:"自营业务角色"},{value:2, name:"城市管理角色"},{
-      //   value:3, name:"大区管理角色"},{value:4, name:"财务管理角色"},{value:5, name:"认识角色"}];
       this.roles=data.items
     })
   }
@@ -80,7 +76,6 @@ export class RoleManageComponent implements OnInit {
     if(invalid){
       this.roles[index].saved=true;
     }else{
-      // this.roles[index].name = this.roles[index].addRole;
       console.log(this.roles[index].name,"name");
       this.roles[index].clicked=false;
       this.role.updateRole(this.roles[index].id, this.roles[index].name, [],
@@ -109,7 +104,23 @@ export class RoleManageComponent implements OnInit {
    * end
    */
 
-  private addChilds(arr1:Array<any>, len1:number, arr2:Array<any>, len2:number, arr3:Array<any>, len3:number){
+  private seperateData(arr, arr1, arr2,arr3){
+    let len = arr.length;
+    for(let i=0; i<len;i++){
+      if(arr[i].value.toString().length===4){
+        arr1.push(arr[i])
+      }else if(arr[i].value.toString().length===6){
+        arr2.push(arr[i])
+      }else if(arr[i].value.toString().length===8){
+        arr3.push(arr[i])
+      }
+    }
+  };
+
+  private addChilds(arr1:Array<any>, arr2:Array<any>,  arr3:Array<any>){
+    let len1 = arr1.length;
+    let len2 = arr2.length;
+    let len3 = arr3.length;
     for (let i=0;i < len1; i++) {
       arr1[i].childs = [];
       for (let j=0;j < len2; j++) {
@@ -129,20 +140,31 @@ export class RoleManageComponent implements OnInit {
     console.log(arr1,"arr1")
   }
 
+  changeChecked(item){
+    item.checked = !item.checked;
+    if(item.checked){
+      this.permissions.push(item.value)
+    }else{
+      this.permissions.splice(this.permissions.indexOf(item.value), 1)
+    }
+  }
+
+  submit(){
+    console.log(this.permissions,"permissions")
+  }
+
   ngOnInit() {
-    // this.roles = [{value:1, name:"自营业务角色", clicked:false}, {value:2, name:"城市管理角色", clicked:false}, {
-    //   value:3, name:"大区管理角色", clicked:false}, {value:4, name:"财务管理角色", clicked:false},
-    //   {value:5, name:"认识角色", clicked:false}];
-    this.menus = [{value:1010, name:"团队管理"}, {value:1020, name:"用户管理"}, {value:1030, name:"业务服务大厅"}];
-    this.menuItems = [{value:101001, name:"团队管理", checked:false}, {value:102001, name:"用户管理", checked:false}, {
-      value:103001, name:"业主管理", checked:false}];
-    this.items = [{value:10100101, name:"团队创建1", checked:false}, {value:10100102, name:"团队创建2", checked:false},
-      {value:10100103, name:"团队创建3", checked:false}, {value:10200101, name:"用户编辑1", checked:false},
-      {value:10200102, name:"用户编辑2", checked:false}, {value:10200103, name:"用户编辑3", checked:false}, {
-      value:10300101, name:"业主查询", checked:false}];
-    let menuLen = this.menus.length;
-    let menuItemsLen = this.menuItems.length;
-    let itemsLen = this.items.length;
-    this.addChilds(this.menus, menuLen, this.menuItems, menuItemsLen, this.items, itemsLen);
+    this.roles = [{value:1, name:"自营业务角色", clicked:false}, {value:2, name:"城市管理角色", clicked:false},
+      {value:3, name:"大区管理角色", clicked:false}, {value:4, name:"财务管理角色", clicked:false},
+      {value:5, name:"认识角色", clicked:false}];
+
+    this.datas = [{value:1010, name:"团队管理"}, {value:1020, name:"用户管理"}, {value:1030, name:"业务服务大厅"},
+      {value:101001, name:"团队管理", checked:true}, {value:102001, name:"用户管理", checked:false},
+      {value:103001, name:"业主管理", checked:false}, {value:10100101, name:"团队创建1", checked:false},
+      {value:10100102, name:"团队创建2", checked:false}, {value:10100103, name:"团队创建3", checked:false},
+      {value:10200101, name:"用户编辑1", checked:false}, {value:10200102, name:"用户编辑2", checked:false},
+      {value:10200103, name:"用户编辑3", checked:false}, {value:10300101, name:"业主查询", checked:false}];
+    this.seperateData(this.datas, this.menus, this.menuItems, this.items);
+    this.addChilds(this.menus, this.menuItems, this.items);
   }
 }

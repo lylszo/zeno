@@ -8,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class StylesComponent implements OnInit {
   value = true;
   radio = true;
+  code = 1003;
 
   fruitSelect = [
   	{code: 1001, name: '苹果'},

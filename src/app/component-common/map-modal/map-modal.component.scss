@@ -1,4 +1,16 @@
-.mapContainer {
-	width: 100%;
-	height: 300px;
+.map-modal {
+	position: relative;
+	display: inline-block;
+	.modal-body {
+		width: 650px;
+		height: 400px;
+		padding: 0px 10px 10px;
+	}
+	.content {
+		z-index: 2;
+		position: absolute;
+		border: 1px solid #ccc;
+		padding: 0;
+		background-color: #fff;
+	}
 }

@@ -365,7 +365,7 @@ label.z-radio {
   height: 38px;
   width: 38px;
   display: inline-block;
-  border: 1px solid #1972d6;
+  border: 1px solid #ccc;
   border-radius: 2px;
   cursor: pointer;
   background-color: #fff;
@@ -385,6 +385,7 @@ label.z-radio {
     left: 8px;
   }
   &:hover {
+    border: 1px solid #1972d6;
     &:before {
       color: #1972d6;
     }

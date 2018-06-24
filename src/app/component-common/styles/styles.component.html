@@ -1,7 +1,7 @@
 <div class="styles">
 	<div class="z-title-md mb10 red lh25">
 		<h2>清除浮动使用.clearfix，常用快捷样式如字体大小、字体颜色、margin、padding、浮动等请参考assets/styles/var.scss</h2>
-		<h2>表单元素统一样式：高度38px, 上下间距20px, 标题到表单左侧之间距离20px</h2>
+		<h2>表单元素统一样式：除自定义表单外高度为38px, 上下间距20px, 标题到表单左侧之间距离20px</h2>
 		<h2>当使用+-×÷类似这种符号时，使用“Arial”字体会好看些</h2>
 	</div>
 	<table class="z-table">
@@ -108,7 +108,7 @@
 				<td>下拉框</td>
 				<td>使用select组件</td>
 				<td>
-					<app-select [list]='fruitSelect' [(selectedItem)]="demo" [(selectedCode)]="code"></app-select>{{code}}{{demo.name}}
+					<app-select [list]='fruitSelect' [(selectedItem)]="demo" [(selectedCode)]="code"></app-select>{{code}} <span *ngIf="demo">{{demo.name}}</span>
 				</td>
 			</tr>
 			<tr>

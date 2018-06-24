@@ -10,8 +10,9 @@
   padding:10px 20px;
 }
 .side-li{
-  width: 25%;
-  height: 100%;
+  width: 28%;
+  height: 700px;
+  overflow-y: scroll;
   border-bottom: none;
   background: #f8f9fa;
   font-size: 16px;
@@ -19,8 +20,10 @@
 }
 .operator-li{
   margin-left: 3px;
-  width: 70%;
+  width: 68%;
   background: #ffffff;
+  height: 700px;
+  overflow-y: scroll;
 }
 .role-name{
   padding: 10px 2px;

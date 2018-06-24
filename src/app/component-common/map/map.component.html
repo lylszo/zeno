@@ -1,12 +1,12 @@
 <div class="map">
 	<div class="header">
-		{{address}}
+		<span>{{address}}</span>
 		<span class="f-r" *ngIf="point">
 			<i class="iconfont icon-dingwei f14 blue"></i>
 			{{point.lng}}，{{point.lat}}
 		</span>
 	</div>
-	<div [attr.id]="idName" class="mapContainer">
+	<div id="map" class="mapContainer">
 	</div>
 	<div class="search">
 		<input type="text" class="z-input f-l" placeholder="搜地点" [(ngModel)]="key">

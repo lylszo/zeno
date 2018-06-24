@@ -14,20 +14,19 @@
 		<div class="edit-group">
 			<span class="edit-title z-required">详细地址：</span>
 			<div class="edit-content">
-				<input type="text" class="z-input" [style.width.px]=350 placeholder="请输入道路、门牌等详细地址信息（50字以内）">
+				<textarea class="z-textarea" placeholder="请输入道路、门牌等详细地址信息（50字以内）"></textarea>
 			</div>
 		</div>
 		<div class="edit-group">
 			<span class="edit-title">坐标位置：</span>
 			<div class="edit-content">
-				<span class="ml10">116.474408，39.991926</span>
-				<i class="iconfont icon-dingwei blue"></i>
+				<app-map-modal [(point)]="point"></app-map-modal>
 			</div>
 		</div>
 		<div class="edit-group">
 			<span class="edit-title">方位描述：</span>
 			<div class="edit-content">
-				<app-select [list]="descriptions"></app-select>
+				<app-select [list]="descriptions" [(selectedCode)]="code"></app-select>
 				<label class="z-checkbox ml20">
 					<input type="checkbox"><i></i>临街
 				</label>
@@ -278,8 +277,41 @@
 				<span class="ml15">押 </span>
 				<input type="number" [style.width.px]=80 class="z-input">
 				月
-
-				<a class="ml30">更多租金内容</a>
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">是否递增：</span>
+			<div class="edit-content">
+				<label class="z-radio mr26">
+					<input name="increase" type="radio"><i></i> 不递增
+				</label>
+				<label class="z-radio">
+					<input name="increase" type="radio"><i></i> 递增
+				</label>
+ 			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">递增幅度：</span>
+			<div class="edit-content">
+				<input type="text" class="z-input" placeholder="请填写 如：5%每年">
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">租约日期：</span>
+			<div class="edit-content">
+				<input type="text" class="z-input" placeholder="请选择日期">
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">租期：</span>
+			<div class="edit-content">
+				<input type="number" class="z-input" placeholder="请填写租期"> 月
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">剩余合同租期：</span>
+			<div class="edit-content">
+				<input type="number" class="z-input" placeholder="请填写剩余合同租期"> 月
 			</div>
 		</div>
 		<div class="edit-group">
@@ -292,7 +324,42 @@
 			<span class="edit-title">日均营业额：</span>
 			<div class="edit-content">
 				<input type="text" class="z-input" placeholder="请填写日均营业额">
-				<a class="ml30">更多营业内容</a>
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">消费人群：</span>
+			<div class="edit-content">
+				<textarea class="z-textarea" placeholder="描述人群特征，如：附近居民、学生、游客、工薪、商务、年轻人、老年人"></textarea>
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">最旺时段：</span>
+			<div class="edit-content">
+				<input type="text" [style.width.px]=400 class="z-input" placeholder="输入时段，如：早上7:00-10:00  上午、晚上、凌晨">
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">堂食量：</span>
+			<div class="edit-content">
+				<input type="text" class="z-input" placeholder="请输入堂食量">
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">外卖量：</span>
+			<div class="edit-content">
+				<input type="text" class="z-input" placeholder="请输入外卖量">
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">会员数：</span>
+			<div class="edit-content">
+				<input type="text" class="z-input" placeholder="请输入会员数">
+			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">会员形式：</span>
+			<div class="edit-content">
+				<app-select [list]="choose"></app-select>
 			</div>
 		</div>
 		<div class="edit-group">
@@ -364,9 +431,9 @@
 			</table>
 		</div>
 		<h2 class="z-title-md-style">图片信息</h2>
-		<div class="mt20">
-			<a>门面</a>
-			<a class="ml10">环境</a>			
+		<div class="picInfo">
+			<span (click)="imgToggle=false" [class.active]="!imgToggle">门面</span>
+			<span (click)="imgToggle=true" [class.active]="imgToggle">环境</span>			
 		</div>
 		<div class="z-tag-add mb20">
 			上传图片
@@ -404,11 +471,11 @@
 		<div class="edit-group">
 			<span class="edit-title">可否空转：</span>
 			<div class="edit-content">
-				<label class="z-checkbox mr26">
-					<input type="checkbox"><i></i> 不可空转
+				<label class="z-radio mr26">
+					<input name="freeTransfer" type="radio"><i></i> 不可空转
 				</label>
-				<label class="z-checkbox">
-					<input type="checkbox"><i></i> 可空转
+				<label class="z-radio">
+					<input name="freeTransfer" type="radio"><i></i> 可空转
 				</label>
  			</div>
 		</div>
@@ -416,7 +483,18 @@
 			<span class="edit-title">空转转让费：</span>
 			<div class="edit-content">
 				<input type="number" class="z-input"> 万元
- 				<a class="ml30">更多转让信息</a>
+ 			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">转让内容：</span>
+			<div class="edit-content">
+				<textarea class="z-textarea" placeholder="请填写转让内容（50字以内）"></textarea>
+ 			</div>
+		</div>
+		<div class="edit-group">
+			<span class="edit-title">转让原因：</span>
+			<div class="edit-content">
+				<textarea class="z-textarea" placeholder="请填写转让原因（50字以内）"></textarea>
  			</div>
 		</div>
 	</div>

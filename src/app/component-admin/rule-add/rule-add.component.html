@@ -4,79 +4,169 @@
 <section  class="z-bg-white clearfix">
   <ul class="rule-ul">
     <li class="rule-li">
-      <div>
-        <label class="z-required mr15">规则名称</label>
-        <input type="text" class="z-input">
-      </div>
-      <div class="mt15">
-        <p class="z-required">用户筛选条件：</p>
-        <ul class="rule-condition rule-user clearfix">
-          <li class="pl20">用户属性</li>
-          <li class="pl20">匹配关系</li>
-          <li class="pl20">值</li>
-        </ul>
-        <ul class="rule-condition clearfix">
-          <li>
-            <app-select [list]='fruitSelect' [(selectedItem)]="demo" [(selectedCode)]="code"></app-select>
-          </li>
-          <li>
-            <app-select  [list]='fruitSelect' [(selectedItem)]="demo" [(selectedCode)]="code"></app-select>
-          </li>
-          <li>
-            <input type="text" class="z-input">
-          </li>
-          <li>
-            <span class="add"></span>
-            <span class="delete"></span>
-          </li>
-        </ul>
-      </div>
+      <form #userRuleForm="ngForm">
+        <div>
+          <label class="z-required mr15">规则名称</label>
+          <input type="text" class="z-input" [(ngModel)]="ruleName" name="roleName" #roleName="ngModel"
+                 required maxlength="20" minlength="1">
+          <span *ngIf="roleName.errors?.required">请填写规则名称</span>
+          <span *ngIf="roleName.errors?.minlength || roleName.errors?.maxlength">请填写1~20字</span>
+        </div>
+        <div class="mt15">
+          <p class="z-required">用户筛选条件：</p>
+          <ul class="rule-condition rule-user mt10 clearfix">
+            <li>用户属性</li>
+            <li>匹配关系</li>
+            <li>值</li>
+          </ul>
+          <ul class="rule-condition mt10 clearfix" *ngFor="let item of items">
+            <li class="selectli">
+              <select class="select"  id="item.attribute" name="item.attribute" [(ngModel)]="item.attr">
+                <option *ngFor="let attr of item.attributes" [ngValue]="attr.value">{{attr.name}}</option>
+              </select>
+              <!--<app-select [list]='item.attributes' [(selectedItem)]="item.attr"></app-select>-->
+            </li>
+            <li class="selectli">
+              <select class="select"  id="item.relationship" name="item.relationship" [(ngModel)]="item.relate">
+                <option *ngFor="let relate of item.relationships" [ngValue]="relate.value">{{relate.name}}</option>
+              </select>
+            </li>
+            <li *ngIf="item.attr===1">
+              <input type="text" class="z-input" name="item.city" (click)="getCityPanel(item)">
+              <span class="z-tag-del"   *ngFor="let city of item.selectedCity">
+                {{city.name}}
+                <span class="del" (click)="deleteSelectedCity(item,city)"></span>
+              </span>
+              <app-select-city-multi [showPanel]="item.showPanel" [(selectedCityOut)]="item.selectedCity"></app-select-city-multi>
+            </li>
+            <li *ngIf="item.attr===2" class="posrel">
+              <input type="text" class="z-input" name="item.type" (click)="getTeamPanel(item)">
+              <span class="z-tag-del"   *ngFor="let type of item.selectedTeamType">
+                {{type.name}}
+                <span class="del" (click)="deleteSelectedType(item,type)"></span>
+              </span>
+              <app-select-team-type [showPanel]="item.showTeamPanel"  [(selectedType)]="item.selectedTeamType"></app-select-team-type>
+            </li>
+
+            <li *ngIf="item.attr===3||item.attr===4">
+              <input type="text" class="z-input" name="item.value" [(ngModel)]="item.value">
+            </li>
+            <li>
+              <span class="add" (click)="addUser()"></span>
+              <span class="delete" (click)="deleteRule(item,items)"></span>
+            </li>
+          </ul>
+        </div>
+      </form>
 
     </li>
     <li class="rule-li mt50">
+      <form #dataRuleForm="ngForm">
       <div>
         <label class="z-required mr15">数据对象</label>
-        <input type="text" class="z-input">
+        <!--<input type="text" class="z-input" [(ngModel)]="dataObj">-->
+        <div class="selectli dib">
+          <select class="select"  id="dataObj" name="dataObj" [(ngModel)]="dataSelected">
+            <option *ngFor="let item of dataObj" [ngValue]="item.value">{{item.name}}</option>
+          </select>
+        </div>
+
       </div>
       <div class="mt15">
         <div>
           <p class="z-required">数据筛选条件：</p>
-          <ul class="rule-condition rule-data clearfix">
+          <ul class="rule-condition mt10 rule-data clearfix">
             <li>左数据对象</li>
             <li>属性</li>
             <li>匹配关系</li>
             <li>右数据对象</li>
             <li>属性</li>
           </ul>
-          <ul class="rule-condition clearfix">
-            <li>
-              <app-select [list]='fruitSelect' [(selectedItem)]="demo" [(selectedCode)]="code"></app-select>
+          <ul class="rule-condition mt10 clearfix" *ngFor="let item of datas">
+            <li class="selectli">
+              <select class="select"  id="item.left" name="item.left" [(ngModel)]="item.leftObj">
+                <option *ngFor="let left of item.leftObjs" [ngValue]="left.value">{{left.name}}</option>
+              </select>
+              <!--<app-select [list]='item.attributes' [(selectedItem)]="item.attr"></app-select>-->
+            </li>
+            <li class="selectli">
+              <select class="select"  id="item.leftAttribute" name="item.leftAttribute" [(ngModel)]="item.leftAttr">
+                <option *ngFor="let leftAttr of item.leftAttributes" [ngValue]="leftAttr.value">{{leftAttr.name}}</option>
+              </select>
+              <!--<app-select [list]='item.attributes' [(selectedItem)]="item.attr"></app-select>-->
+            </li>
+            <li class="selectli">
+              <select class="select" name="item.relationshipData" [(ngModel)]="item.relate">
+                <option *ngFor="let relate of item.relationships" [ngValue]="relate.value">{{relate.name}}</option>
+              </select>
+            </li>
+            <li class="selectli">
+              <select class="select"  id="item.right" name="item.right" [(ngModel)]="item.rightObj">
+                <option *ngFor="let right of item.rightObjs" [ngValue]="right.value">{{right.name}}</option>
+              </select>
+              <!--<app-select [list]='item.attributes' [(selectedItem)]="item.attr"></app-select>-->
+            </li>
+            <li class="selectli" *ngIf="item.rightObj!=3" >
+              <select class="select" id="item.rightAttribute" name="item.rightAttribute" [(ngModel)]="item.rightAttr">
+                <option *ngFor="let rightAttr of item.rightAttributes" [ngValue]="rightAttr.value">{{rightAttr.name}}</option>
+              </select>
+              <!--<app-select [list]='item.attributes' [(selectedItem)]="item.attr"></app-select>-->
+            </li>
+            <li *ngIf="item.rightObj==3" >
+                <div class="dib" *ngIf="item.leftAttr===1">
+                  <input type="text" class="z-input" name="item.city" (click)="getCityPanel(item)">
+                  <span class="z-tag-del"   *ngFor="let city of item.selectedCity">
+                    {{city.name}}
+                    <span class="del" (click)="deleteSelectedCity(item,city)"></span>
+                  </span>
+                  <app-select-city-multi [showPanel]="item.showPanel" [(selectedCityOut)]="item.selectedCity"></app-select-city-multi>
+                </div>
+                <div class="dib" *ngIf="item.leftAttr===2" class="posrel">
+                  <input type="text" class="z-input" name="item.type" (click)="getTeamPanel(item)">
+                  <span class="z-tag-del"   *ngFor="let type of item.selectedTeamType">
+                    {{type.name}}
+                    <span class="del" (click)="deleteSelectedType(item,type)"></span>
+                  </span>
+                  <app-select-team-type [showPanel]="item.showTeamPanel"  [(selectedType)]="item.selectedTeamType"></app-select-team-type>
+                </div>
+
+                <div class="dib" *ngIf="item.leftAttr===3||item.leftAttr===4">
+                  <input type="text" class="z-input" name="item.value" [(ngModel)]="item.value">
+                </div>
+              <!--<app-select [list]='item.attributes' [(selectedItem)]="item.attr"></app-select>-->
             </li>
             <li>
-              <app-select  [list]='fruitSelect' [(selectedItem)]="demo" [(selectedCode)]="code"></app-select>
-            </li>
-            <li>
-              <app-select [list]='fruitSelect' [(selectedItem)]="demo" [(selectedCode)]="code"></app-select>
-            </li>
-            <li>
-              <app-select [list]='fruitSelect' [(selectedItem)]="demo" [(selectedCode)]="code"></app-select>
-            </li>
-            <li>
-              <app-select [list]='fruitSelect' [(selectedItem)]="demo" [(selectedCode)]="code"></app-select>
-            </li>
-            <li>
-              <span class="add"></span>
-              <span class="delete"></span>
+              <span class="add" (click)="addData()"></span>
+              <span class="delete" (click)="deleteRule(item,datas)"></span>
             </li>
           </ul>
         </div>
       </div>
+      </form>
     </li>
     <li class="rule-li mt50">
       <p class="z-required">条件描述</p>
-      <div>
-
+      <div class="condition-view">
+        <p>满足以下条件的用户：</p>
+        <p *ngFor="let item of items">
+          {{item.attr}}&nbsp;{{item.relate}}&nbsp;
+          <span *ngFor="let i of item.selectedCity">{{i.name}}</span>
+          <span *ngFor="let i of item.selectedTeamType">{{i.name}}</span>
+          <span>{{item.value}}</span>
+        </p>
       </div>
+      <div class="condition-view ml30">
+        <p>搜索 店铺信息：</p>
+        <p *ngFor="let item of datas">
+          {{item.attr}}&nbsp;{{item.relate}}&nbsp;
+          <span *ngFor="let i of item.selectedCity">{{i.name}}</span>
+          <span *ngFor="let i of item.selectedTeamType">{{i.name}}</span>
+          <span>{{item.value}}</span>
+        </p>
+      </div>
+    </li>
+    <li class="rule-li mt20">
+      <button class="z-btn-blue-lg" (click)="submit()">确定</button>
     </li>
   </ul>
 

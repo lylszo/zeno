@@ -18,9 +18,9 @@ export class AppComponent{
       //     localStorage.setItem("district", JSON.stringify(data))
       //   })
       // }
-      this.district.getDistrict('0',(data) => {
-        console.log('district',data)
-        // localStorage.setItem("district", JSON.stringify(data))
+      this.district.getDistrict('-1',(data) => {
+        // console.log('districtapp',data);
+        localStorage.setItem("district", JSON.stringify(data))
       })
   }
 }

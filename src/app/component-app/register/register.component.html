@@ -22,7 +22,7 @@
     </div>
 
     <input type="text" name="code" [(ngModel)]="code" placeholder="请输入验证码" required>
-    <span class="getCode" (click)="getVC()">获取验证码</span>
+    <span class="getCode" [ngClass]="{'lightgrey':userMobile.errors}" (click)="getVC(userMobile.errors)">{{time}}</span>
 
     <input type="text" name="city" (click)="openPanel()" [ngModel]="city.name" autocomplete="off" #cityName="ngModel" placeholder="请选择城市" required>
     <div class="user-error" *ngIf="clicked">
@@ -48,7 +48,7 @@
     </div>
 
     <button [ngClass]="{'buttonBgDis':userRegister.invalid,'buttonBgOk':userRegister.valid}"
-            (click)="registerSubmit()">注册</button>
+            (click)="registerSubmit(userRegister.invalid)">注册</button>
   </form>
 
   <div class="user userFooter">

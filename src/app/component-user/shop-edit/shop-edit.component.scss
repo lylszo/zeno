@@ -1,6 +1,6 @@
 .edit {
 	.edit-group {
-		margin-bottom: 20px;
+		margin-bottom: 15px;
 		.edit-title {
 			width: 15%;
 			text-align: right;
@@ -24,6 +24,31 @@
 				tr>td{
 					padding-bottom: 10px;
 				}
+			}
+		}
+	}
+	.picInfo {
+		margin-top: 20px;
+		span {
+			display: inline-block;
+			color: #333;
+			font-weight: bold;
+			cursor: pointer;
+			margin-right: 10px;
+			margin-bottom: 10px;
+			padding: 0 10px;
+			height: 30px;
+			border-radius: 2px;
+			line-height: 30px;
+			text-align: center;
+			border: 1px solid #fff;
+			&:hover {
+				color: #1972D6;
+			}
+			&.active {
+				color: #1972D6;
+				background-color: #f9f9f9;
+				border-color: #ccc;
 			}
 		}
 	}

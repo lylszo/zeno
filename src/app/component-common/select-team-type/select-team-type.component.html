@@ -1,0 +1,7 @@
+<div class="team-type" *ngIf="showPanel">
+  <ul>
+    <li *ngFor="let type of types" class="team-type-li mb10" [ngClass]="{'checked':type.checked}" (click)="changeChecked(type)">
+      {{type.name}}
+    </li>
+  </ul>
+</div>

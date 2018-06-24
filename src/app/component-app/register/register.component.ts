@@ -17,17 +17,20 @@ export class RegisterComponent implements OnInit, OnDestroy {
   password2:string = '';
 
   clicked:boolean=false;
-
   showCityPanel:boolean = false;
+  time:any="获取验证码";
+  text:string="获取验证码";
 
   constructor(public userService:UserService,public smsService: SmsService,private renderer:Renderer2) {
     this.renderer.addClass(document.body, 'bg');
   }
 
-  registerSubmit(){
+  registerSubmit(invalid){
     this.clicked=true;
     if(this.password1!=this.password2){
       alert("密码不对应")
+    }else if(invalid){
+      alert("参数填写错误")
     } else {
       let userRegisterParam = {
         mobile:this.account,
@@ -55,10 +58,22 @@ export class RegisterComponent implements OnInit, OnDestroy {
     console.log(this.showCityPanel,'222')
   }
 
-  getVC() {
-    this.smsService.getVCode(this.account, (data) => {
-      console.log("mydata", data)
-    })
+  getVC(invalid) {
+    if(invalid){
+      alert("请输入正确手机号码");
+    }else{
+      this.smsService.getVCode(this.account, "REGISTER",(data) => {
+        console.log("mydata", data);
+      });
+      this.time=60;
+      let timer = setInterval(() => {
+        this.time = this.time - 1;
+        if(this.time === -1){
+          clearInterval(timer);
+          this.time="获取验证码"
+        }
+      }, 1000);
+    }
   }
 
   ngOnInit() {

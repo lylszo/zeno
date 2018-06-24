@@ -1,0 +1,19 @@
+.team-type{
+  position: absolute;
+  width: 180px;
+  border:  1px solid #e6e6e6;
+  z-index: 100;
+  background: #ffffff;
+}
+.team-type-li{
+  padding: 5px 10px;
+  cursor: pointer;
+  &:hover{
+    color: #1972d6;
+    //background: #f0f0f0;
+  }
+}
+.checked{
+  color: #1972d6;
+  background: #f0f0f0;
+}

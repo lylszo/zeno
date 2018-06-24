@@ -390,9 +390,10 @@
 	<div class="part2 z-bg-white">
 		<div>
 			<h2 class="z-title-md-style mb20">位置信息</h2>
-			<div class="position">
-				<app-map [(point)]="position"></app-map>
+			<div class="position" *ngIf="position">
+				<app-map [(point)]="position" [clickable]="false"></app-map>
 			</div>
+			<p *ngIf="!position">暂无位置信息</p>
 		</div>
 	</div>
 </div>

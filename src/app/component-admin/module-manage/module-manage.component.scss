@@ -8,23 +8,30 @@
 }
 .side-li{
   width: 30%;
-  height: 100%;
+  height: 700px;
   border-bottom: none;
   background: #f8f9fa;
   font-size: 14px;
   box-shadow: 10px 0 8px -2px rgba(0, 0, 0, 0.15);
+  overflow-y: scroll;
 }
 .operator-li{
   width: 70%;
+  height: 700px;
   background: #ffffff;
+  overflow-y: scroll;
 }
 .func-name{
-  padding: 10px 2px;
   cursor: pointer;
 }
-.func-name:hover{
-  color: #1972d6;
-  background: #f0f0f0;
+.detailName{
+  display: inline-block;
+  width: 200px;
+  padding: 8px 5px;
+  &:hover{
+    color: #1972d6;
+    background: #f0f0f0;
+  }
 }
 .span-el{
   display: inline-block;
@@ -91,4 +98,13 @@
     bottom: -3px;
     left: 3px;
   }
+}
+.module-code{
+  width: 85px;
+}
+.func-name{
+  -moz-transition: all 3s ease-in 1s;
+  -webkit-transition: all 3s ease-in 1s;
+  -o-transition: all 3s ease-in 1s;
+  transition: all 3s ease-in 1s;
 }

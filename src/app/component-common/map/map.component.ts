@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, AfterContentInit } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
 declare let BMap: any;
 
@@ -8,43 +8,34 @@ declare let BMap: any;
   styleUrls: ['./map.component.scss']
 })
 
-export class MapComponent implements OnInit, AfterContentInit {
+export class MapComponent implements OnInit {
 
   @Input() point: Point;//输入的坐标点，格式如最下方interface
-
-  idName: string = 'lyl';
+  @Input() clickable: boolean = true;//是否允许点击修改位置，默认为true，详情页面禁止修改位置时需设置为false
 
   @Output() pointChange = new EventEmitter();
 
-  address: string = '请选择位置';//坐标点对应的地址
+  address: string = '请点击地图选择位置';//坐标点对应的地址
   map;//初始化map
   key: string = '';//搜索关键字
 
   constructor() { 
-    
   }
 
   ngOnInit() {
-    
-  }
-
-  ngAfterContentInit() {
     this.initMap();
   }
 
   //显示地图
   initMap(){ 
-    let map = new BMap.Map(this.idName);
+    let map = new BMap.Map('map');
     //暴露map
     this.map = map;
 
-    //逆地址解析
-    let geoc = new BMap.Geocoder();  
-
     //初始化地图、中心点
     if(this.point){
-      map.centerAndZoom(new BMap.Point(this.point.lng, this.point.lat), 16);
-      this.getAddress(geoc, this.point);       
+      map.centerAndZoom(new BMap.Point(this.point.lng, this.point.lat), 13);
+      this.getAddress(this.point);       
       // 创建标注
       let marker = new BMap.Marker(this.point);  
       map.addOverlay(marker); 
@@ -53,7 +44,7 @@ export class MapComponent implements OnInit, AfterContentInit {
       let myCity = new BMap.LocalCity();
       myCity.get(rs => {
         let cityName = rs.name;
-        map.centerAndZoom(cityName, 16);
+        map.centerAndZoom(cityName, 13);
       });
     }
 
@@ -71,26 +62,29 @@ export class MapComponent implements OnInit, AfterContentInit {
     var scaleCtrl = new BMap.ScaleControl({anchor: window['BMAP_ANCHOR_BOTTOM_LEFT'],offset: new BMap.Size(100,23)});
     map.addControl(scaleCtrl);
     //单击添加新标注
-    map.addEventListener("click", e => {
-      //记录点击位置
-      let newPoint = {
-        lng: e.point.lng,
-        lat: e.point.lat
-      }
-      //清除之前标注
-      map.clearOverlays();         
-      //添加新标注
-      let newMarker = new BMap.Marker(newPoint);
-      map.addOverlay(newMarker);
-      this.point = newPoint;
-      this.pointChange.emit(this.point);
-      //地址信息跟随经纬度变化
-      this.getAddress(geoc, this.point);
-    });
+    if(this.clickable){
+      map.addEventListener("click", e => {
+        //记录点击位置
+        let newPoint = {
+          lng: e.point.lng,
+          lat: e.point.lat
+        }
+        //清除之前标注
+        map.clearOverlays();         
+        //添加新标注
+        let newMarker = new BMap.Marker(newPoint);
+        map.addOverlay(newMarker);
+        this.point = newPoint;
+        this.pointChange.emit(this.point);
+        //地址信息跟随经纬度变化
+        this.getAddress(this.point);
+      });      
+    }
   }
 
   //逆地址解析
-  getAddress(geoc, point){
+  getAddress(point){
+    let geoc = new BMap.Geocoder(); 
     let pt = new BMap.Point(point.lng, point.lat);
     geoc.getLocation(pt, rs => {
       let addComp = rs.addressComponents;
@@ -106,9 +100,27 @@ export class MapComponent implements OnInit, AfterContentInit {
     local.search(this.key);
   }
 
+  //清除添加的无效标注（用在map-modal组件）
+  clearMarker() {
+    this.map.clearOverlays(); 
+    this.point = undefined;
+    this.address = '请点击地图选择位置';
+    //设置本地城市为中心点
+    let myCity = new BMap.LocalCity();
+    myCity.get(rs => {
+      let cityName = rs.name;
+      this.map.setCenter(cityName);
+    });
+  }
+
+  //设置已选点为中心位置（用在map-modal组件）
+  setCenter() {
+    this.map.setCenter(new BMap.Point(this.point.lng, this.point.lat)); 
+  }
+
 }
 
 interface Point{
-  lng: number;
-  lat: number;
+  lng: number;//经度
+  lat: number;//纬度
 }

@@ -22,4 +22,9 @@ export class UserService {
         callback(data);
       });
   }
+  resetPassword(userResetPasswordParam:any, callback:Function){
+    return this.httpService.httpPost("user/resetPassword", userResetPasswordParam, (data)=>{
+        callback(data)
+    })
+  }
 }

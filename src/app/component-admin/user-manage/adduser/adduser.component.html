@@ -8,25 +8,26 @@
   </header>
   <ul>
     <li>
-      <label for="addname">用户姓名：</label>
-      <input class="z-input" type="text" id="addname">
+      <label class="z-required" for="addname">用户姓名：</label>
+      <input class="z-input" id="addname" [(ngModel)]="name">
     </li>
     <li>
-      <label for="addcellphone">手机号码：</label>
-      <input class="z-input" type="text" id="addcellphone">
+      <label class="z-required" for="addcellphone">手机号码：</label>
+      <input class="z-input" id="addcellphone" [(ngModel)]="mobile">
     </li>
     <li>
       <label for="addmail">工作邮箱：</label>
-      <input class="z-input" type="text" id="addmail">
+      <input class="z-input" id="addmail" [(ngModel)]="email">
     </li>
     <li>
-      <label for="addsetCity">工作城市：</label>
-      <span id="addsetCity">深圳</span>
-      <a>设置</a>
+      <label class="z-required">工作城市：</label>
+      <app-select [list]="cityList" [(selectedCode)]="city"></app-select>
     </li>
     <li>
-      <label for="addlabel">关联标签：</label>
-      <span id="addlabel">多区域</span>
+      <label>关联标签：</label>
+      <div class="dib" style="width: 60%">
+        <app-set-related-tags [(tags)]="tags"></app-set-related-tags>
+      </div>
     </li>
     <li>
       <label for="area">可服务区域：</label>
@@ -39,6 +40,6 @@
     </li>
   </ul>
   <div class="text-center mt10">
-    <button type="button" class="z-btn-blue-lg">确定</button>
+    <button type="button" class="z-btn-blue-lg" (click)="submit()">确定</button>
   </div>
 </section>

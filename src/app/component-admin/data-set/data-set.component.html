@@ -1,3 +1,39 @@
-<p>
-  data-set works!
-</p>
+<div id="dataSet">
+  <h1 class="z-title-lg">资料设置</h1>
+  <div class="z-bg-white">
+    <h2 class="z-title-md-style">资料设置</h2>
+    <div class="wrap">
+      <div class="text-center mb15">
+        <img src="../../../assets/imgs/pic.jpg" class="userPhoto mb10"/>
+        <p><a href>上传头像</a></p>
+      </div>
+      <ul>
+        <li>
+          <label for="name">姓名：</label>
+          <input type="text" id="name" class="z-input">
+        </li>
+        <li>
+          <label for="email">Email：</label>
+          <input type="email" id="email" class="z-input">
+        </li>
+        <li>
+          <label for="workCity">工作城市</label>
+          <select name="city" id="workCity" class="mr8">
+            <option value="1">深圳</option>
+          </select>
+          <select name="district" id="district">
+            <option value="2">深圳</option>
+          </select>
+        </li>
+        <li>
+          <label for="phone">手机号码</label>
+          <input type="text" id="phone" class="z-input">
+          <a href class="ml10" routerLink="/user/changePhone">更换号码</a>
+        </li>
+      </ul>
+      <div class="text-center">
+        <button class="z-btn-blue-lg text-center">提交</button>
+      </div>
+    </div>
+  </div>
+</div>

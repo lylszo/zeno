@@ -48,7 +48,7 @@ export class ShopDetailComponent implements OnInit {
 	//图片列表margin-left
 	imgLeft: number = 0;
 
-	position = {lng: 113.02597366, lat: '22.54605355'};
+	position = {lng: 113.02597366, lat: "22.54605355", code: 4};
 
 	constructor() { }
 

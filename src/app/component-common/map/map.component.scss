@@ -8,7 +8,6 @@
 		padding: 0 5px;
 		line-height: 25px;
 		height: 25px;
-		font-weight: bold;	
 		position: absolute;
 		z-index: 1;
 		top: 0;
@@ -46,4 +45,7 @@
 			}
 		}
 	}
+}
+:host-context(.map-modal) .map .header {
+  font-weight: normal;
 }

@@ -19,16 +19,21 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.renderer.addClass(document.body, 'bg');
   }
 
-  loginIn(){
+  loginIn(invalid){
     this.clicked=true;
-    let param = {
-      mobile:this.account,
-      password:this.password
-    };
-    this.user.login(param,(data)=>{
-      console.log("login", data);
-      this.router.navigateByUrl('/user')
-    })
+    if(invalid){
+      alert("参数填写不正确")
+    }else{
+      let param = {
+        mobile:this.account,
+        password:this.password
+      };
+      this.user.login(param,(data)=>{
+        console.log("login", data);
+        this.router.navigateByUrl('/user')
+      })
+    }
+
   }
 
 

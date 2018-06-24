@@ -9,27 +9,28 @@
   </header>
   <ul class="clearfix">
     <li class="col-lg-3 col-md-4 f-l">
-      <label for="phone">手机号码：</label>
-      <input class="z-input" type="text" id="phone">
+      <label for="mobile">手机号码：</label>
+      <input class="z-input" [(ngModel)]="mobile" id="mobile">
     </li>
     <li class="col-lg-3 col-md-4 f-l">
       <label for="username">用户姓名：</label>
-      <input class="z-input" type="text" id="username">
+      <input class="z-input" [(ngModel)]="name" id="username">
     </li>
     <li class="col-lg-3 col-md-4 f-l">
       <label>状态：</label>
-      <app-select [list]="stateList" [selectedItem]="2"></app-select>
+      <app-select [list]="statusList" [(selectedCode)]="status"></app-select>
     </li>
     <li class="col-lg-3 col-md-4 f-l">
       <label>工作城市：</label>
-      <app-select [list]="cityList"></app-select>
+      <app-select [list]="cityList" [(selectedCode)]="city"></app-select>
     </li>
     <li class="col-lg-12 col-md-8 f-l">
-      <app-set-related-tags></app-set-related-tags>
+      <label>关联标签：</label>
+      <app-set-related-tags [(tagList)]="tagList" [(tags)]="tags"></app-set-related-tags>
     </li>
   </ul>
   <div class="f-r">
-    <a class="mr8">清空搜索条件</a>
+    <a class="mr8" (click)="clearSearch()">清空搜索条件</a>
     <button class="z-btn-blue-lg" (click)="submit()">搜索</button>
   </div>
 </section>
@@ -97,7 +98,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <ul>
+    <ul style="width: 80%;margin: 0 auto;">
       <li>
         <label for="name">用户姓名：</label>
         <input class="z-input" type="text" id="name">
@@ -108,18 +109,16 @@
       </li>
       <li>
         <label for="mail">邮箱地址：</label>
+        <label for="mail">邮箱地址：</label>
         <input class="z-input" type="text" id="mail">
       </li>
       <li>
-        <label for="setCity">工作城市：</label>
-        <span id="setCity">深圳</span>
-        <a>设置</a>
+        <label>工作城市：{{city}}</label>{{city}}
+        <app-select [list]="cityList" [(selectedCode)]="city"></app-select>
       </li>
       <li>
-        <label for="setlab">关联标签：</label>
-        <div>
-          <span id="setlab">多区域</span>
-        </div>
+        <label>关联标签：</label>
+        <app-set-related-tags [(tagList)]="editTagList" [(tags)]="editTags"></app-set-related-tags>
       </li>
     </ul>
   </div>

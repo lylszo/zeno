@@ -1,0 +1,26 @@
+<div class="select-city" *ngIf="showPanel">
+  <ul class="select-city-ul clearfix">
+    <li class="selected">
+      <p class="city-title">已选择区域<span class="city-title-span">（最多选择10个）</span></p>
+      <ul>
+        <li class="z-tag-del mt5 d-block" *ngFor="let city of selectedCityList">
+         <p>
+           {{city.name}}
+           <span class="del" (click)="delete(city)"></span>
+         </p>
+        </li>
+      </ul>
+    </li>
+    <li class="noselect">
+      <p class="city-title">选择服务区域<span class="city-title-span">（可选国家、省、市任意一级）</span></p>
+      <ul>
+        <li *ngFor="let item of cityList, let i =index">
+          <div class="mt10 city-name">
+            <span [ngClass]="{'blue':item.checked}" (click)="changeChecked(item)">{{item.name}}</span>
+            <span class="ml20" *ngFor="let city of item.childs" [ngClass]="{'blue':city.checked}" (click)="changeChecked(city)">{{city.name}}</span>
+          </div>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
