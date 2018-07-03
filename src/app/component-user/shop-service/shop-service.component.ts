@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpService } from "../../service/http.service";
 
 @Component({
   selector: 'app-shop-service',
@@ -34,9 +35,19 @@ export class ShopServiceComponent implements OnInit {
 		{code: 4, name: '商业街'},
 	];
 
-  constructor( ) { }
+  constructor(private http: HttpService) { }
 
   ngOnInit() {
   	
+  }
+
+  //获取列表
+  getList(){
+  	let params = {
+
+  	};
+  	this.http._get('/user/shops', params, (data) => {
+  		console.log(data);
+  	})
   }
 }

@@ -53,7 +53,7 @@ export class ShopDetailComponent implements OnInit {
 	constructor() { }
 
 	ngOnInit() {
-		
+		this.onSCroll();
 	}
 
 	//点击箭头切换图片
@@ -69,5 +69,30 @@ export class ShopDetailComponent implements OnInit {
 			this.imgLeft = -(this.idx - 3) * 135;
 		}
 	}
+
+	//回到顶部
+	scrollTo(id) {
+		if(id){
+			$("html,body").finish().animate({"scrollTop":$('#'+id).offset().top - 84},  300);
+		}else {
+			$("html,body").finish().animate({"scrollTop":"0px"}, 400);
+		}
+	}
+
+	//监听滚动事件
+	scrollActive: string = 'jianzhu';
+	scrollArr = ['jianzhu', 'wuye', 'dianpu', 'jingying', 'zhuanrang', 'tupian', 'weizhi'];
+	onSCroll() {
+		window.onscroll = e => {
+			let top = $("html,body").scrollTop();
+			this.scrollArr.forEach(v => {
+				let thisTop = $('#' + v).offset().top - 84;
+				if(top >= thisTop){
+					this.scrollActive = v;
+				}
+			})
+		}		
+	}
+
 
 }

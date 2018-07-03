@@ -1,5 +1,8 @@
 <div class="select" [style.width.px]="width">
-	<div (click)="showContent = !showContent" [class.active]="showContent">{{text}}</div>
+	<div (click)="showContent = !showContent" [class.active]="showContent">
+		<!-- <input type="text" readonly> -->
+		{{text}}
+	</div>
 	<ul [style.display]="showContent ? 'block' : 'none'">
 		<li *ngFor="let item of list" [class.active]="item.selected" (click)="choose(item)">{{item.name}}</li>
 	</ul>

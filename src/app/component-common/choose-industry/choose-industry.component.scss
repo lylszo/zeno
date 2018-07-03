@@ -1,0 +1,65 @@
+.industry {
+	display: inline-block;
+	position: relative;
+	.content {
+		float: left;
+		.z-tag-del {
+			margin-bottom: 5px;
+			float: left;
+			margin-right: 5px;
+		}
+	}
+	.industry-modal {
+		position: absolute;
+		top: 40px;
+		left: 0;
+		border: 1px solid #ccc;
+		background-color: #fff;
+		z-index: 3;
+		.tip {
+			font-weight: normal;
+			font-size: 14px;
+			color: #1972d6;
+		}
+		.modal-body {
+			width: 500px;
+			padding: 10px 20px;
+			max-height: 350px;
+			overflow: auto;
+			.group {
+				padding-bottom: 10px;
+				border-bottom: 1px dotted #ccc;
+				&:last-child {
+					border-bottom: none;
+				}
+				.left, .right {
+					float: left;
+					width: 20%;
+					.tag {
+						display: inline-block;
+						height: 24px;
+						line-height: 24px;
+						border-radius: 2px;
+						padding: 0 5px;
+						border: 1px solid #ddd;
+						cursor: pointer;
+						margin-right: 5px;
+						margin-top: 5px;
+						&:hover {
+							background-color: #efefef;
+						}
+						&.active {
+							// border-color: #1972d6;
+							color: #fff;
+							background-color: #1972d6;
+							border-color: #1972d6;
+						}
+					}
+				}
+				.right {
+					width: 80%;
+				}				
+			}
+		}
+	}
+}

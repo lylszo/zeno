@@ -1,8 +1,86 @@
 <div class="user">
-	<app-nav></app-nav>
+	<div class="nav">
+		<div class="w content clearfix">
+			<a class="logo f-l" routerLink="/user">
+				<img src="./assets/imgs/logo-nav.png">
+			</a>
+			<div class="title f-l bold">
+				大数据系统
+			</div>
+			<div class="position f-l f14 pointer">
+				<i class="iconfont icon-dingwei f14"></i>
+				{{currentCity.name}}
+			</div>
+			<div class="links">
+				<div class="sort" routerLink="/user">
+					首页
+				</div>
+				<div class="sort">
+					店铺
+					<ul>
+						<li routerLink="/user/shopService" routerLinkActive="active">店铺信息</li>
+						<li>业主信息</li>
+					</ul>
+				</div>
+				<div class="sort" *ngIf="login">
+					服务
+					<ul>
+						<li>转让</li>
+						<li>寻址</li>
+						<li>招商加盟</li>
+					</ul>
+				</div>
+			</div>
+			<div class="right">
+				<div class="item">
+					<div class="phone" title="APP下载">
+						<i class="iconfont icon-shouji1"></i>
+					</div>
+				</div>
+				<div class="item" routerLink="/user/news">
+					<div class="message" title="消息提醒">
+						<i class="iconfont icon-xiaoxi">
+							<span>1</span>
+						</i>						
+					</div>
+				</div>
+				<div *ngIf="!login" class="item person" routerLink="/login">
+					<div class="pic">
+						<img *ngIf="userDetail && userDetail.photoId" src="{{userDetail.photoId}}">
+						<i *ngIf="!userDetail || !userDetail.photoId" class="iconfont icon-nanrentouxiang"></i>					
+					</div>
+					<span class="text">请登录</span>
+					<div class="downList">
+						<ul>
+							<li routerLink="/user/dataSet">资料设置</li>
+							<li routerLink="/user/changePwd">密码修改</li>
+							<!-- <li routerLink="/user/historyLog">活动日志</li> -->
+							<li routerLink="/admin">管理平台</li>
+							<li (click)="logout()">退出登录</li>
+						</ul>					
+					</div>
+				</div>
+				<div *ngIf="login" class="item person in">
+					<div class="pic">
+						<img *ngIf="userDetail && userDetail.photoId" src="{{userDetail.photoId}}">
+						<i *ngIf="!userDetail || !userDetail.photoId" class="iconfont icon-nanrentouxiang"></i>					
+					</div>
+					<span class="text">{{userDetail.name}}</span>
+					<div class="downList">
+						<ul>
+							<li routerLink="/user/dataSet">资料设置</li>
+							<li routerLink="/user/changePwd">密码修改</li>
+							<!-- <li routerLink="/user/historyLog">活动日志</li> -->
+							<li routerLink="/admin">管理平台</li>
+							<li (click)="logout()">退出登录</li>
+						</ul>					
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>				
 	<div class="main">
-		<router-outlet></router-outlet>
-	</div>	
+		<router-outlet></router-outlet>					
+	</div>		
 </div>
-
 

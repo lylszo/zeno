@@ -1,7 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpResponse, HttpParams, HttpHeaders} from '@angular/common/http';
-import { CookieService } from 'ngx-cookie-service';
+import {CookieService} from 'ngx-cookie-service';
 import {config} from '../config/config';
+import {TipPopService} from './tipPop.service';
 
 
 @Injectable({
@@ -9,108 +10,121 @@ import {config} from '../config/config';
 })
 export class HttpService {
 
-  // bathUrl:string = 'http://java-dev.xwkj.local:8881/';
-  bathUrl:string = 'http://java-dev.xwkj.local:9005/openapi/';
-  // bathUrl:string = 'http://192.168.0.35:9005/openapi/';
-  url:string = this.bathUrl;
-  auth:any;
-  headers:any;
+  bathUrl: string = 'http://zeno.xwkj.local:9005/openapi/';
+  url: string = this.bathUrl;
+  auth: any;
+  headers: any;
+  error = {
+    showError: false,
+    errorText: "",
+  };
 
-  constructor(public http: HttpClient, private cookie:CookieService) {
-    this.auth = this.cookie.get("Authorization");
-    this.headers = new HttpHeaders({"Authorization": this.auth});
+  constructor(public http: HttpClient, private cookie: CookieService, public errorModel: TipPopService) {
+
   }
+
+  // 设置header
+  setHeader() {
+    this.auth = this.cookie.get("Authorization");
+    this.headers = new HttpHeaders({"Authorization": this.auth, "Content-Type": "application/json;charset=UTF-8"});
+  }
+
   // 需要token的post请求
-  httpPost(path: string, param: any, callback: Function) {
+  post(path: string, param: any, callback: Function, err?: Function) {
+    this.setHeader();
     this.url = this.bathUrl + path;
-    return this.http.post(this.url, param, {headers:this.headers})
+    // console.log(this.cookie.get("Authorization"));
+    return this.http.post(this.url, param, {headers: this.headers})
       .subscribe((data: any) => {
-          if (data) {
-            callback(data);
-          } else {
-            console.log("接口返回错误码:", data);
-          }
+          // if (data===null || data) {
+          //   callback(data);
+          // } else {
+          //   this.error.showError = true;
+          //   this.error.errorText = data.message;
+          //   console.log("接口返回错误码:", data);
+          // }
+          callback(data)
         },
         (error) => {
-          // console.log("http或服务器发生错误", error);
+          this.error.errorText = error.error.message;
+          this.errorModel.setValue(this.error.errorText);
+          if (err) {
+            err()
+          }
         });
   }
+
   // 不需要header的post接口
-  httpPostNoToken(path: string, param: any, callback: Function) {
+  _post(path: string, param: any, callback: Function, err?: Function) {
     this.url = this.bathUrl + path;
     return this.http.post(this.url, param)
       .subscribe((data: any) => {
-          if (data) {
-            callback(data);
-          } else {
-            console.log("接口返回错误码:", data);
-          }
+          callback(data)
         },
         (error) => {
-          // console.log("http或服务器发生错误", error);
-          // console.log("body",param)
+          this.error.showError = true;
+          this.error.errorText = error.error.message;
+          this.errorModel.setValue(this.error.errorText);
+          if (err) {
+            err();
+          }
         });
   }
 
-  // httpPost(method:any,param:any,callback:Function){
-  //   // let params = new HttpParams().set("id",'0').set("jsonrpc","2.0")
-  //   //   .set("method",method).set("params",param);
-  //   let params = {
-  //     id:0,
-  //     jsonrpc:"2.0",
-  //     method:method,
-  //     params:param
-  //   };
-  //   return this.http
-  //     .post(this.url, params)
-  //     .toPromise()
-  //     .then((data:any) => {
-  //       callback(data)
-  //     })
-  //     .catch((error) => {
-  //       console.log(error)
-  //     })
-  // }
-  httpGet(path: string,  param: any, callback:Function) {
+  get(path: string, param: any, callback: Function, err?: Function) {
+    this.setHeader();
     this.url = this.bathUrl + path;
-    return this.http.get(this.url,{params: param, headers:this.headers})
+    return this.http.get(this.url, {params: param, headers: this.headers})
       .subscribe((data) => {
-        callback(data)
-      },
+          callback(data)
+        },
         (error) => {
-          // console.log("http或服务器发生错误", error);
-      });
+          this.error.showError = true;
+          this.error.errorText = error.error.message;
+          this.errorModel.setValue(this.error.errorText);
+          if (err) {
+            err();
+          }
+        });
   }
 
-  httpGetNoToken(path: string, param: any, callback:Function) {
+  _get(path: string, param: any, callback: Function, err?: Function) {
     this.url = this.bathUrl + path;
-    return this.http.get(this.url,{params:param})
+    return this.http.get(this.url, {params: param})
       .subscribe((data: any) => {
-          if (data) {
-            callback(data);
-          } else {
-            console.log("接口返回错误码:", data);
-          }
+          callback(data)
         },
         (error) => {
-          // console.log("http或服务器发生错误", error);
+          this.error.showError = true;
+          this.error.errorText = error.error.message;
+          this.errorModel.setValue(this.error.errorText);
+          if (err) {
+            err()
+          }
         });
   }
 
-  httpDelete(path: string) {
+  del(path: string) {
+    this.setHeader();
     this.url = this.bathUrl + path;
-    return this.http.delete(this.url,{headers:this.headers});
+    return this.http.delete(this.url, {headers: this.headers});
   }
 
-  httpPut(path: string, params: any, callback:Function) {
+  put(path: string, params: any, callback: Function, err?: Function) {
+    this.setHeader();
     this.url = this.bathUrl + path;
-    return this.http.put(this.url,params, {headers:this.headers})
+    return this.http.put(this.url, params, {headers: this.headers})
       .subscribe((data) => {
-        callback(data)
-      },
-      (error) => {
-        // console.log("http或服务器发生错误", error);
-      })
+          callback(data)
+        },
+        (error) => {
+          this.error.showError = true;
+          this.error.errorText = error.error.message;
+          this.errorModel.setValue(this.error.errorText);
+          if (err) {
+            err()
+          }
+        })
   }
 
 }

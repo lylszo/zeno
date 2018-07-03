@@ -1,0 +1,65 @@
+.modal-body {
+  padding: 0;
+}
+.role-manage{
+  width: 100%;
+}
+.body-ul > li{
+  float: left;
+  border: 1px solid #dddddd;
+  padding:10px 20px;
+}
+.side-li{
+  width: 30%;
+  height: 400px;
+  overflow-y: auto;
+  border-bottom: none;
+  background: #f8f9fa;
+  font-size: 16px;
+}
+.operator-li{
+  width:70%;
+  background: #ffffff;
+  height: 400px;
+  overflow-y: auto;
+}
+.role-operate{
+  font-size: 16px;
+  //font-weight: bold;
+  margin-top: 10px;
+}
+.menu-item{
+  font-size: 14px;
+  font-weight: bold;
+}
+.items{
+  float: left;
+  font-size: 14px;
+  font-weight: normal;
+}
+.role-name-div{
+  position: relative;
+  padding: 10px 2px;
+  cursor: pointer;
+  &:hover{
+    color: #1972d6;
+    background: #f0f0f0;
+  }
+}
+.role-name-span{
+  display: inline-block;
+  width: 90%;
+}
+.pd{
+  padding: 10px 2px;
+}
+.target{
+  color: #1972d6;
+  background: #f0f0f0;
+}
+.role-modal-label input{
+  margin-right: 5px;
+  width: 15px;
+  height: 15px;
+  background: #ffffff;
+}

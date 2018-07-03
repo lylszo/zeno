@@ -11,7 +11,7 @@
 .selected{
   width: 36%;
   height: 400px;
-  overflow-y: scroll;
+  overflow-y: auto;
   border-bottom: none;
   background: #f8f9fa;
   font-size: 14px;
@@ -20,7 +20,7 @@
   width: 64%;
   background: #ffffff;
   height: 400px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .city-title{
   font-size: 16px;
@@ -30,9 +30,16 @@
   font-size: 12px;
   font-weight: normal;
 }
-.city-name span{
-  cursor: pointer;
-  &:hover{
-    color: #1972d6;
+.city-name li {
+  &>button{
+    border: none;
+    background: #ffffff;
+    cursor: pointer;
+    &:hover{
+      color: #1972d6;
+    }
   }
+}
+.mt-25{
+  margin-top: -25px;
 }

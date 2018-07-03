@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 
 // 服务
 import {HttpService} from "../../../service/http.service";
+import {isUndefined} from "util";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-adduser',
@@ -11,34 +13,16 @@ import {HttpService} from "../../../service/http.service";
 export class AdduserComponent implements OnInit {
   email: string;
   mobile: string;
-  name: string;
-  roles: number[];
-  tags: number[];
+  userName: string;
+  roles = [];
+  tags = [];
+  city = -1;    // 工作城市
+  citys = [];   // 可服务区域
 
-  constructor(private http: HttpService) {
+  constructor(private http: HttpService, private router: Router) {
   }
 
   ngOnInit() {
-    this.getCityList()
-  }
-
-
-  // 工作城市
-  cityList = [{
-    code: -1,
-    name: '全国'
-  }];
-  city = -1;
-
-  getCityList() {
-    let cityParams = {
-      Authorization: this.http.auth,
-      parent_id: 0
-    };
-
-    this.http.httpGet('district', cityParams, (data) => {
-      this.cityList = this.cityList.concat(data);
-    })
   }
 
   // 添加用户http
@@ -49,21 +33,22 @@ export class AdduserComponent implements OnInit {
       name: string,
       roles?: Array<number>,
       tags?: Array<number>,
-      working_city: number
+      workingCityId: number
     }
 
     let user: UserParam = {
       mobile: this.mobile,
-      name: this.name,
-      working_city: this.city
+      name: this.userName,
+      workingCityId: this.city
     };
-    /*let params = {
-      Authorization: this.http.auth,
-      userCreateParam: user
-    };*/
 
-    this.http.httpPost('user', user, (data) => {
-      console.log(data)
+    this.email ? user.email = this.email : isUndefined(user.email);
+    this.tags.length > 0 ? user.tags = this.tags : isUndefined(user.tags);
+    this.roles.length > 0 ? user.roles = this.roles : isUndefined(user.roles);
+
+    this.http.post('user', user, (data) => {
+      alert('创建成功');
+      this.router.navigate(['/userManage']);
     })
   }
 

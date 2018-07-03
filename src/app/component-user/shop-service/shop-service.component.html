@@ -1,14 +1,16 @@
 <h1 class="z-title-lg">店铺大厅</h1>
 <div class="part1 p20">
-	<h2 class="z-title-md-style">筛选条件</h2>
+	<h2 class="z-title-md-style">
+		筛选条件
+		<button type="submit" class="z-btn-blue-lg f-r" (click)="getList()">查询</button>
+	</h2>
 	<form class="clearfix">
 		<div class="clearfix">
 			<div class="left">
-				<div class="group">
+				<div class="group" [style.margin-bottom.px]=10>
 					<span class="tag">行业</span>
 					<div class="content">
-						<div class="z-tag-del">美容美发-美甲店<span class="del"></span></div>
-						<div class="z-add ml10 vat"></div>
+						<app-choose-industry></app-choose-industry>
 					</div>				
 				</div>
 				
@@ -73,12 +75,11 @@
 				<div class="group">
 					<span class="tag"></span>
 					<div class="content">
-						<input [style.width.px]=334 type="text" class="z-input" placeholder="手机号码">
+						<input name="phone" [style.width.px]=334 type="text" class="z-input" placeholder="手机号码">
 					</div>				
 				</div>
 			</div>			
 		</div>
-		<button type="submit" class="z-btn-blue-lg search">查询</button>
 	</form>
 </div>
 <div class="part2 p20 mt20">

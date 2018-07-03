@@ -12,7 +12,7 @@
 .side-li{
   width: 28%;
   height: 700px;
-  overflow-y: scroll;
+  overflow-y: auto;
   border-bottom: none;
   background: #f8f9fa;
   font-size: 16px;
@@ -23,15 +23,7 @@
   width: 68%;
   background: #ffffff;
   height: 700px;
-  overflow-y: scroll;
-}
-.role-name{
-  padding: 10px 2px;
-  cursor: pointer;
-}
-.role-name:hover{
-  color: #1972d6;
-  background: #f0f0f0;
+  overflow-y: auto;
 }
 .role-operate{
   font-size: 16px;
@@ -69,24 +61,31 @@
 }
 .role-name-div{
   position: relative;
+  padding: 10px 2px;
+  cursor: pointer;
+  &:hover{
+    color: #1972d6;
+    background: #f0f0f0;
+  }
 }
 .role-modify{
   position: absolute;
+  width: 10%;
   display: inline-block;
-  margin-left: 20px;
-  margin-top: 3px;
-  width: 20px;
   height: 20px;
-  opacity: 0;
+  float: right;
   z-index: 100;
-  //visibility: hidden;
+}
+.role-name-span{
+  display: inline-block;
+  width: 90%;
 }
 .role-name-div:after{
   position: absolute;
   content: '';
   display: inline-block;
-  margin-left: 23px;
-  top: 5px;
+  //margin-left: -19px;
+  top: 15px;
   width: 15px;
   height: 15px;
   z-index: 1;
@@ -96,6 +95,9 @@
 }
 .role-name-div:hover:after{
   opacity: 1;
+}
+.pd{
+  padding: 10px 2px;
 }
 .target{
   color: #1972d6;

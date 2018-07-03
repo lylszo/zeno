@@ -28,6 +28,21 @@
 				</td>
 			</tr>
 			<tr>
+				<td>选择日期时间</td>
+				<td>
+					使用laydate插件，是layui的一个时间组件，具体使用方法可参考网页
+					<a href="http://www.layui.com/doc/modules/laydate.html" target="_blank">laydate</a>
+					<br>
+					注意，通过id来实现控件与变量的联系，不需要在页面绑定表单的值，只要在ts里面给变量赋值就好了
+				</td>
+				<td>
+					<input name="kkk" type="text" id="test2" class="z-input" placeholder="请选择日期">
+					<input name="kkk" type="text" id="test4" class="z-input" placeholder="请选择日期">
+					<span>{{zDate}}</span>
+					<p class="red" *ngIf=""></p>
+				</td>
+			</tr>
+			<tr>
 				<td>
 					<p>表格</p>
 					<p>小表格</p>
@@ -37,7 +52,9 @@
 					<p>.z-table-sm</p>
 				</td>
 				<td>
-					就像这个表格
+					大表格就像这个表格
+					<br>
+					小表格相对紧凑
 				</td>
 			</tr>
 			<tr>
@@ -108,7 +125,7 @@
 				<td>下拉框</td>
 				<td>使用select组件</td>
 				<td>
-					<app-select [list]='fruitSelect' [(selectedItem)]="demo" [(selectedCode)]="code"></app-select>{{code}} <span *ngIf="demo">{{demo.name}}</span>
+					<app-select [codeName]="'id'" [list]='fruitSelect' [(selectedItem)]="demo" [(selectedCode)]="code"></app-select>{{code}} <span *ngIf="demo">{{demo.name}}</span>
 				</td>
 			</tr>
 			<tr>

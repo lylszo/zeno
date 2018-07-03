@@ -4,14 +4,15 @@
 <section  class="z-bg-white clearfix">
   <ul class="rule-ul">
     <li class="rule-li">
-      <form #userRuleForm="ngForm">
+      <form #userRuleForm="ngForm" name="userRuleForm">
         <div>
           <label class="z-required mr15">规则名称</label>
           <input type="text" class="z-input" [(ngModel)]="ruleName" name="roleName" #roleName="ngModel"
                  required maxlength="20" minlength="1">
-          <span *ngIf="roleName.errors?.required">请填写规则名称</span>
-          <span *ngIf="roleName.errors?.minlength || roleName.errors?.maxlength">请填写1~20字</span>
+          <span class="red ml5" *ngIf="roleName.errors?.required">请填写规则名称</span>
+          <span class="red ml5"  *ngIf="roleName.errors?.minlength || roleName.errors?.maxlength">请填写1~20字</span>
         </div>
+      </form>
         <div class="mt15">
           <p class="z-required">用户筛选条件：</p>
           <ul class="rule-condition rule-user mt10 clearfix">
@@ -19,7 +20,8 @@
             <li>匹配关系</li>
             <li>值</li>
           </ul>
-          <ul class="rule-condition mt10 clearfix" *ngFor="let item of items">
+          <form #userItem="ngForm" *ngFor="let item of items" name={{item.formName}}>
+          <ul class="rule-condition mt10 clearfix">
             <li class="selectli">
               <select class="select"  id="item.attribute" name="item.attribute" [(ngModel)]="item.attr">
                 <option *ngFor="let attr of item.attributes" [ngValue]="attr.value">{{attr.name}}</option>
@@ -27,28 +29,19 @@
               <!--<app-select [list]='item.attributes' [(selectedItem)]="item.attr"></app-select>-->
             </li>
             <li class="selectli">
-              <select class="select"  id="item.relationship" name="item.relationship" [(ngModel)]="item.relate">
+              <select class="select" name="item.relationship" [(ngModel)]="item.relate">
                 <option *ngFor="let relate of item.relationships" [ngValue]="relate.value">{{relate.name}}</option>
               </select>
             </li>
-            <li *ngIf="item.attr===1">
-              <input type="text" class="z-input" name="item.city" (click)="getCityPanel(item)">
-              <span class="z-tag-del"   *ngFor="let city of item.selectedCity">
-                {{city.name}}
-                <span class="del" (click)="deleteSelectedCity(item,city)"></span>
-              </span>
-              <app-select-city-multi [showPanel]="item.showPanel" [(selectedCityOut)]="item.selectedCity"></app-select-city-multi>
+            <li class="relative" *ngIf="item.attr==='sv_city'">
+              <app-select-city-multi [(selectedCityOut)]="item.selectedCity"></app-select-city-multi>
             </li>
-            <li *ngIf="item.attr===2" class="posrel">
-              <input type="text" class="z-input" name="item.type" (click)="getTeamPanel(item)">
-              <span class="z-tag-del"   *ngFor="let type of item.selectedTeamType">
-                {{type.name}}
-                <span class="del" (click)="deleteSelectedType(item,type)"></span>
-              </span>
-              <app-select-team-type [showPanel]="item.showTeamPanel"  [(selectedType)]="item.selectedTeamType"></app-select-team-type>
+            <li *ngIf="item.attr==='tm_type'" class="relative">
+
+              <app-select-team-type [(selectedType)]="item.selectedTeamType"></app-select-team-type>
             </li>
 
-            <li *ngIf="item.attr===3||item.attr===4">
+            <li *ngIf="item.attr==='tm_id'||item.attr==='us_id'">
               <input type="text" class="z-input" name="item.value" [(ngModel)]="item.value">
             </li>
             <li>
@@ -56,12 +49,12 @@
               <span class="delete" (click)="deleteRule(item,items)"></span>
             </li>
           </ul>
+          </form>
         </div>
-      </form>
 
     </li>
     <li class="rule-li mt50">
-      <form #dataRuleForm="ngForm">
+      <form #dataRuleForm="ngForm" name="dataRuleForm">
       <div>
         <label class="z-required mr15">数据对象</label>
         <!--<input type="text" class="z-input" [(ngModel)]="dataObj">-->
@@ -70,8 +63,8 @@
             <option *ngFor="let item of dataObj" [ngValue]="item.value">{{item.name}}</option>
           </select>
         </div>
-
       </div>
+      </form>
       <div class="mt15">
         <div>
           <p class="z-required">数据筛选条件：</p>
@@ -82,9 +75,10 @@
             <li>右数据对象</li>
             <li>属性</li>
           </ul>
-          <ul class="rule-condition mt10 clearfix" *ngFor="let item of datas">
+          <form #dataItem="ngForm" *ngFor="let item of datas" name={{item.dataName}}>
+          <ul class="rule-condition mt10 clearfix">
             <li class="selectli">
-              <select class="select"  id="item.left" name="item.left" [(ngModel)]="item.leftObj">
+              <select class="select"  id="item.left" name="item.left" [disabled]="true" [(ngModel)]="item.leftObj">
                 <option *ngFor="let left of item.leftObjs" [ngValue]="left.value">{{left.name}}</option>
               </select>
               <!--<app-select [list]='item.attributes' [(selectedItem)]="item.attr"></app-select>-->
@@ -106,31 +100,23 @@
               </select>
               <!--<app-select [list]='item.attributes' [(selectedItem)]="item.attr"></app-select>-->
             </li>
-            <li class="selectli" *ngIf="item.rightObj!=3" >
-              <select class="select" id="item.rightAttribute" name="item.rightAttribute" [(ngModel)]="item.rightAttr">
+            <li class="selectli" *ngIf="item.rightObj===0" >
+              <select class="select" id="item.rightAttribute" [disabled]="true" name="item.rightAttribute" [(ngModel)]="item.leftAttr">
                 <option *ngFor="let rightAttr of item.rightAttributes" [ngValue]="rightAttr.value">{{rightAttr.name}}</option>
               </select>
               <!--<app-select [list]='item.attributes' [(selectedItem)]="item.attr"></app-select>-->
             </li>
-            <li *ngIf="item.rightObj==3" >
-                <div class="dib" *ngIf="item.leftAttr===1">
-                  <input type="text" class="z-input" name="item.city" (click)="getCityPanel(item)">
-                  <span class="z-tag-del"   *ngFor="let city of item.selectedCity">
-                    {{city.name}}
-                    <span class="del" (click)="deleteSelectedCity(item,city)"></span>
-                  </span>
-                  <app-select-city-multi [showPanel]="item.showPanel" [(selectedCityOut)]="item.selectedCity"></app-select-city-multi>
+            <li *ngIf="item.rightObj===1" >
+                <div class="dib relative" *ngIf="item.leftAttr==='sv_city'">
+                  <app-select-city-multi [(selectedCityOut)]="item.selectedCity"></app-select-city-multi>
+                  <!--<app-select-city-multi [showPanel11]="item.showPanel" [(selectedCityOut)]="item.selectedCity"></app-select-city-multi>-->
                 </div>
-                <div class="dib" *ngIf="item.leftAttr===2" class="posrel">
-                  <input type="text" class="z-input" name="item.type" (click)="getTeamPanel(item)">
-                  <span class="z-tag-del"   *ngFor="let type of item.selectedTeamType">
-                    {{type.name}}
-                    <span class="del" (click)="deleteSelectedType(item,type)"></span>
-                  </span>
-                  <app-select-team-type [showPanel]="item.showTeamPanel"  [(selectedType)]="item.selectedTeamType"></app-select-team-type>
+                <div class="dib relative" *ngIf="item.leftAttr==='tm_type'">
+                  <app-select-team-type [(selectedType)]="item.selectedTeamType"></app-select-team-type>
+                  <!--<app-select-team-type [showPanel11]="item.showTeamPanel"  [(selectedType)]="item.selectedTeamType"></app-select-team-type>-->
                 </div>
 
-                <div class="dib" *ngIf="item.leftAttr===3||item.leftAttr===4">
+                <div class="dib" *ngIf="item.leftAttr==='tm_id'||item.leftAttr==='us_id'">
                   <input type="text" class="z-input" name="item.value" [(ngModel)]="item.value">
                 </div>
               <!--<app-select [list]='item.attributes' [(selectedItem)]="item.attr"></app-select>-->
@@ -140,33 +126,35 @@
               <span class="delete" (click)="deleteRule(item,datas)"></span>
             </li>
           </ul>
+          </form>
         </div>
       </div>
-      </form>
     </li>
     <li class="rule-li mt50">
       <p class="z-required">条件描述</p>
       <div class="condition-view">
         <p>满足以下条件的用户：</p>
         <p *ngFor="let item of items">
-          {{item.attr}}&nbsp;{{item.relate}}&nbsp;
-          <span *ngFor="let i of item.selectedCity">{{i.name}}</span>
-          <span *ngFor="let i of item.selectedTeamType">{{i.name}}</span>
-          <span>{{item.value}}</span>
+          {{attrObj[item.attr]}}
+          &nbsp;{{symbolObj[item.relate]}}&nbsp;
+          <span *ngFor="let i of item.selectedCity">{{i.name}}&nbsp;</span>
+          <span *ngFor="let i of item.selectedTeamType">{{i.name}}&nbsp;</span>
+          <span *ngIf="item.attr!=='sv_city'&&item.attr!=='tm_type'">{{item.value}}</span>&nbsp;
         </p>
       </div>
       <div class="condition-view ml30">
         <p>搜索 店铺信息：</p>
         <p *ngFor="let item of datas">
-          {{item.attr}}&nbsp;{{item.relate}}&nbsp;
-          <span *ngFor="let i of item.selectedCity">{{i.name}}</span>
-          <span *ngFor="let i of item.selectedTeamType">{{i.name}}</span>
-          <span>{{item.value}}</span>
+          {{targetObj[item.leftObj]}}&nbsp;
+          {{attrObj[item.leftAttr]}}&nbsp;{{symbolObj[item.relate]}}&nbsp;{{targetObj[item.rightObj]}}&nbsp;{{attrObj[item.leftAttr]}}&nbsp;
+          <span *ngFor="let i of item.selectedCity">{{i.name}}&nbsp;</span>
+          <span *ngFor="let i of item.selectedTeamType">{{i.name}}&nbsp;</span>
+          <span *ngIf="item.leftObj!=='sv_city'&&item.leftObj!=='tm_type'">{{item.value}}</span>
         </p>
       </div>
     </li>
     <li class="rule-li mt20">
-      <button class="z-btn-blue-lg" (click)="submit()">确定</button>
+      <button class="z-btn-blue-lg" [disabled]="!ruleName" (click)="submit()">确定</button>
     </li>
   </ul>
 

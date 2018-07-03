@@ -6,7 +6,7 @@
     <h1 class="z-title-md-style">
       筛选条件
     </h1>
-    <button class="f-r z-btn-blue-lg" (click)="openModal()">搜索</button>
+    <button class="f-r z-btn-blue-lg" (click)="getRuleList()">搜索</button>
   </header>
   <ul class="clearfix">
     <li class="col-lg-3 col-md-4 f-l">
@@ -14,17 +14,14 @@
       <input class="z-input" [(ngModel)]="name" type="text" id="name">
     </li>
     <li class="col-lg-3 col-md-4 f-l">
-      <label for="probation">试用对象：</label>
-      <select name="probation" id="probation">
-        <option value="1">正常</option>
-        <option value="2">禁用</option>
-      </select>
+      <label>试用对象：</label>
+      <app-select [list]="probationList" [(selectedCode)]="probation"></app-select>
     </li>
   </ul>
 </section>
 <section class="z-bg-white clearfix">
   <header class="clearfix">
-    <h1 class="z-title-md-style mb20">
+    <h1 class="z-title-md-style">
       信息列表
     </h1>
     <span class="f-r z-btn-red-lg" routerLink="/admin/addRule">规则添加</span>
@@ -42,13 +39,38 @@
     </tr>
     </thead>
     <tbody>
-    <tr>
-      <td>111</td>
-      <td>111</td>
-      <td>111</td>
-      <td>111</td>
-      <td>111</td>
-      <td>111</td>
+    <tr *ngFor="let i of list">
+      <td>{{i.id}}</td>
+      <td>{{i.ruleName}}</td>
+      <td>
+        <span *ngIf="i.targetTable==='shop'">店铺信息</span>
+        <span *ngIf="i.targetTable!=='shop'">业主信息</span>
+      </td>
+      <td class="text-left">
+        <p *ngIf="i.ruleUserConditions">
+          满足以下条件的用户【
+          <span *ngFor="let user of i.ruleUserConditions">
+            {{attrObj[user.leftChoose]}} &nbsp;
+            {{symbolObj[user.midSymbol]}} &nbsp;
+            {{user.rightValue}}
+          </span>
+          】
+        </p>
+        <p *ngIf="i.ruleDetails">
+          可筛选 店铺信息【
+          <span *ngFor="let item of i.ruleDetails">
+            {{attrObj[item.dataLeft]}} &nbsp;
+            {{symbolObj[item.dataSymbol]}} &nbsp;
+            {{targetObj[item.dataRightType]}} &nbsp;
+            and &nbsp;
+          </span>
+          】
+        </p>
+      </td>
+      <td>
+        <span *ngIf="i.ruleUserConditions">{{i.ruleUserConditions}}</span></td>
+      <td>
+        <span *ngIf="i.time">{{i.time | date:'yyyy-mm-dd'}}</span></td>
       <td>
         <span class="z-btn-blue-sm" routerLink="/admin/addRule" [queryParams]="{id:'1'}">编辑</span><br>
         <span class="z-btn-red-sm">删除</span>
@@ -57,6 +79,5 @@
     </tbody>
   </table>
 
-  <pagination [boundaryLinks]="true" [totalItems]="totalItems" class="pagination-sm" (setPage)="setPage()" (pageChange)="pageChanged($event)"
-              previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
+  <app-pagination (pageChanged)="pageChanged()" [(pageConf)]="pageConf"></app-pagination>
 </section>

@@ -1,0 +1,35 @@
+<div class="industry">
+	<div class="content clearfix">
+		<div class="z-tag-del" *ngFor="let item of selectedList">
+			{{item.name}}
+			<span class="del" (click)="del(item.code)" title="删除该行业"></span>
+		</div>
+		<div class="z-add f-l mb5" title="添加行业" (click)="showBox()"></div>
+	</div>
+	<div class="industry-modal" [hidden]="!show">
+		<div class="modal-header">
+			<h4 class="modal-title pull-left z-title-md">
+				选择行业
+				<span class="tip">（最多选{{this.max}}个，已选{{num}}个）</span>		
+			</h4>
+			<button type="button" class="close pull-right" aria-label="Close" (click)="show = false">
+				<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<div class="modal-body">
+			<div class="group clearfix" *ngFor="let big of list">
+				<div class="left">
+					<p (click)="choose(big)" [class.active]="big.selected" [title]="big.selected ? '点击取消' : '点击选择'" class="tag">{{big.name}}</p>
+				</div>
+				<div class="right">
+					<p (click)="choose(small)" [class.active]="small.selected" [title]="small.selected ? '点击取消' : '点击选择'" class="tag" *ngFor="let small of big.child">{{small.name}}</p>
+				</div>				
+			</div>
+		</div>
+		<div class="modal-footer">
+			<div class="f-r">
+			<button type="button" class="z-btn-grey-lg mr7" (click)="show = false">取消</button>
+			<button type="button" class="z-btn-blue-lg" (click)="submit()">确定</button>
+		</div>
+	</div>
+</div>

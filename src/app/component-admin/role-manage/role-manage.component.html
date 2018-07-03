@@ -5,12 +5,12 @@
   <ul class="body-ul clearfix">
     <li class="side-li">
       <ul>
-        <li  class="role-name" *ngFor="let role of roles, let i=index" [ngClass]="{'target':role.liclicked}" (click)="facusli(i)">
+        <li  class="role-name" *ngFor="let role of roles, let i=index" [ngClass]="{'target':role.liclicked}" (click)="facusRole(i)">
           <div class="role-name-div" *ngIf="!role.clicked">
             <span class="pl5 role-name-span">{{role.name}}</span>
             <span class="role-modify" (click)="modifyRole(i)"></span>
           </div>
-          <div *ngIf="role.clicked">
+          <div class="pd" *ngIf="role.clicked">
             <form #roleForm{{i}}="ngForm" name="roleForm">
               <div>
                 <input autocomplete="off" type="text" name="name" [(ngModel)]="role.name" #roleName="ngModel" required maxlength="20">
@@ -44,16 +44,16 @@
       </ul>
     </li>
     <li class="operator-li">
-      <ul>
-        <li class="role-operate" *ngFor="let menu of menus">
+      <ul class="clearfix">
+        <li class="role-operate mt10" *ngFor="let menu of menus">
           {{menu.name}}
-          <ul>
-            <li class="clearfix mt15" *ngFor="let menuItem of menu.childs">
+          <ul class="clearfix mb20">
+            <li class="mt10 ml20" *ngFor="let menuItem of menu.childs">
               <label class="menu-item z-checkbox">
                 <input type="checkbox" [(ngModel)]="menuItem.checked" (click)="changeChecked(menuItem)"><i></i>{{menuItem.name}}
               </label>
               <ul>
-                <li class="items mr30 mt10" *ngFor="let item of menuItem.childs">
+                <li class="items mr30 mt10 ml20" *ngFor="let item of menuItem.childs">
                   <label class="z-checkbox">
                     <input type="checkbox" [(ngModel)]="item.checked" (click)="changeChecked(item)"><i></i>{{item.name}}
                   </label>
@@ -62,9 +62,9 @@
             </li>
           </ul>
         </li>
-        <li class="mt40">
+        <li class="mt30 ml40">
           <button class="z-btn-blue-lg" (click)="submit()">确定</button>
-          <button class="z-btn-grey-lg ml50">取消</button>
+          <button class="z-btn-grey-lg ml50" (click)="cancelSubmit()">取消</button>
         </li>
       </ul>
     </li>

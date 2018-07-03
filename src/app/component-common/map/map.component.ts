@@ -1,7 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 
-declare let BMap: any;
-
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',

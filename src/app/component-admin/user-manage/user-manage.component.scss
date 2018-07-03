@@ -1,5 +1,47 @@
-ul{
-  li{
+ul {
+  li {
     margin-top: 20px;
+  }
+}
+
+.edit-modal {
+  label {
+    width: 30%;
+    text-align: right;
+  }
+}
+
+.asign-team {
+  padding-top: 0;
+  .sec {
+    h4 {
+      line-height: 45px;
+    }
+    .z-tag {
+      height: 30px;
+      line-height: 30px;
+      margin-top: 0;
+      .del, .add {
+        line-height: 15px;
+      }
+    }
+  }
+  .bottom-line {
+    border-bottom: 1px solid #e6e6e6;
+  }
+  .search {
+    width: 300px;
+    .z-input {
+      width: 100%;
+    }
+  }
+  .search-icon {
+    position: absolute;
+    top: 7px;
+    right: 10px;
+    cursor: pointer;
+    &:hover{
+      color: #1972D6;
+    }
   }
 }

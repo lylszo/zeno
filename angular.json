@@ -29,10 +29,12 @@
             "styles": [
               "src/assets/css/bootstrap.min.css",
               "src/assets/iconfont/iconfont.css",
+              "src/assets/laydate/theme/default/laydate.css",
               "src/styles.scss"
             ],
             "scripts": [
               "src/assets/js/jquery.min.js",
+              "src/assets/laydate/laydate.js",
               "src/assets/js/bootstrap.min.js"
             ]
           },

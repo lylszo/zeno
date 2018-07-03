@@ -78,7 +78,7 @@
 			<h2 class="z-title-lg blue">联系人 刘生 TEL 13888888888</h2>
 		</div>
 	</div>
-	<div class="part2 z-bg-white">
+	<div class="part2 z-bg-white" id="jianzhu">
 		<h2 class="z-title-md-style mb20">建筑详情</h2>
 		<div class="detail-group">
 			<span class="detail-title">上级物业：</span>
@@ -182,7 +182,111 @@
 			</div>				
 		</div>
 	</div>
-	<div class="part2 z-bg-white">
+	<div class="part2 z-bg-white" id="wuye">
+		<h2 class="z-title-md-style mb20">物业信息</h2>
+		<div class="detail-group">
+			<span class="detail-title">上级物业：</span>
+			<div class="detail-content">暂无</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">上级物业名称：</span>
+			<div class="detail-content">暂无</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">使用面积：</span>
+			<div class="detail-content">110平米</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">开间：</span>
+			<div class="detail-content">3米</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">进深：</span>
+			<div class="detail-content">5米</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">门宽：</span>
+			<div class="detail-content">4米</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">层高：</span>
+			<div class="detail-content">4米</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">所处楼层：</span>
+			<div class="detail-content">暂无</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">总楼层数：</span>
+			<div class="detail-content">暂无</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">不宜经营行业：</span>
+			<div class="detail-content">暂无</div>				
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">适合经营行业：</span>
+			<div class="detail-content">
+				<div class="z-tag active mr10 mb10">美容美发-美甲店</div>
+				<div class="z-tag active mr10 mb10">美容美发-美甲店</div>
+				<div class="z-tag active mr10 mb10">美容美发-美甲店</div>
+			</div>				
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">物业配套：</span>
+			<div class="detail-content">
+				<label class="z-checkbox" *ngFor="let item of properties">
+					<input type="checkbox" [(checked)]="item.value" disabled><i></i>{{item.name}}
+				</label>
+			</div>				
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">费用成本：</span>
+			<div class="detail-content">
+				<table>
+					<tr>
+						<td width="40" class="bold">水费</td>
+						<td width="180">6元/吨</td>
+						<td width="40" class="bold">电费</td>
+						<td width="180">2元/度</td>
+						<td width="40" class="bold">物业</td>
+						<td width="180">1.2元/平米/月</td>
+					</tr>
+					<tr>
+						<td class="bold">租金</td>
+						<td>20000元</td>
+						<td class="bold">燃气</td>
+						<td>30元</td>
+						<td class="bold">暖气</td>
+						<td>暂无</td>
+					</tr>
+				</table>
+			</div>				
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">建筑形状：</span>
+			<div class="detail-content">正方形</div>				
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">产权类型：</span>
+			<div class="detail-content">小产权</div>				
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">拆迁风险：</span>
+			<div class="detail-content">无</div>				
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">风险备注：</span>
+			<div class="detail-content">暂无</div>				
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">房东信息：</span>
+			<div class="detail-content">
+				赵先生 13976736586
+			</div>				
+		</div>
+	</div>
+	<div class="part2 z-bg-white" id="dianpu">
 		<h2 class="z-title-md-style mb20">店铺详情</h2>
 		<div class="detail-group">
 			<span class="detail-title">是否品牌店铺：</span>
@@ -281,36 +385,7 @@
 			<div class="detail-content">暂无</div>
 		</div>
 	</div>
-	<div class="part2 z-bg-white">
-		<div>
-			<h2 class="z-title-md-style mb20">转让信息</h2>
-			<div class="detail-group">
-				<span class="detail-title">转让状态：</span>
-				<div class="detail-content">转让中</div>
-			</div>
-			<div class="detail-group">
-				<span class="detail-title">转让费：</span>
-				<div class="detail-content">12.5万元</div>
-			</div>
-			<div class="detail-group">
-				<span class="detail-title">可否空转：</span>
-				<div class="detail-content">可空转</div>
-			</div>
-			<div class="detail-group">
-				<span class="detail-title">空转转让费：</span>
-				<div class="detail-content">10万元</div>
-			</div>
-			<div class="detail-group">
-				<span class="detail-title">转让内容：</span>
-				<div class="detail-content">家具、品牌、技术</div>
-			</div>
-			<div class="detail-group">
-				<span class="detail-title">转让原因：</span>
-				<div class="detail-content">回河南老家发展</div>
-			</div>
-		</div>
-	</div>
-	<div class="part2 z-bg-white">
+	<div class="part2 z-bg-white" id="jingying">
 		<h2 class="z-title-md-style mb20">店铺老板</h2>
 		<table class="z-table-sm">
 			<tr>
@@ -358,7 +433,36 @@
 		</table>
 		</div>
 	</div>
-	<div class="part2 z-bg-white certificate">
+	<div class="part2 z-bg-white" id="zhuanrang">
+		<div>
+			<h2 class="z-title-md-style mb20">转让信息</h2>
+			<div class="detail-group">
+				<span class="detail-title">转让状态：</span>
+				<div class="detail-content">转让中</div>
+			</div>
+			<div class="detail-group">
+				<span class="detail-title">转让费：</span>
+				<div class="detail-content">12.5万元</div>
+			</div>
+			<div class="detail-group">
+				<span class="detail-title">可否空转：</span>
+				<div class="detail-content">可空转</div>
+			</div>
+			<div class="detail-group">
+				<span class="detail-title">空转转让费：</span>
+				<div class="detail-content">10万元</div>
+			</div>
+			<div class="detail-group">
+				<span class="detail-title">转让内容：</span>
+				<div class="detail-content">家具、品牌、技术</div>
+			</div>
+			<div class="detail-group">
+				<span class="detail-title">转让原因：</span>
+				<div class="detail-content">回河南老家发展</div>
+			</div>
+		</div>
+	</div>
+	<div class="part2 z-bg-white certificate" id="tupian">
 		<div class="picInfo">
 			<h2 class="z-title-md-style mb20">图片信息</h2>
 			<div>
@@ -387,7 +491,7 @@
 			</ul>
 		</div>
 	</div>
-	<div class="part2 z-bg-white">
+	<div class="part2 z-bg-white" id="weizhi">
 		<div>
 			<h2 class="z-title-md-style mb20">位置信息</h2>
 			<div class="position" *ngIf="position">
@@ -395,5 +499,42 @@
 			</div>
 			<p *ngIf="!position">暂无位置信息</p>
 		</div>
+	</div>
+</div>
+
+<!-- 目录导航 -->
+<ul class="fixBar">
+	<li class="iconfont icon-history" [style.font-size.px]=20 title="编辑历史" (click)="history = !history"></li>
+	<li class="iconfont icon-mulu" title="目录" (click)="catalog = !catalog"></li>
+	<li class="iconfont icon-15" title="回到顶部" (click)="scrollTo()"></li>
+</ul>
+
+<!-- 目录信息 -->
+<div class="catalog" [class.hidden]="catalog">
+	<div class="title clearfix">
+		<div class="f-l">目录</div>
+		<div class="off" (click)="catalog=true">&times;</div>
+	</div>
+	<div class="content">
+		<ul>
+			<li [class.active]="scrollActive == 'jianzhu'" (click)="scrollTo('jianzhu')">建筑信息</li>
+			<li [class.active]="scrollActive == 'wuye'" (click)="scrollTo('wuye')">物业信息</li>
+			<li [class.active]="scrollActive == 'dianpu'" (click)="scrollTo('dianpu')">店铺信息</li>
+			<li [class.active]="scrollActive == 'jingying'" (click)="scrollTo('jingying')">经营者信息</li>
+			<li [class.active]="scrollActive == 'zhuanrang'" (click)="scrollTo('zhuanrang')">转让信息</li>
+			<li [class.active]="scrollActive == 'tupian'" (click)="scrollTo('tupian')">图片</li>
+			<li [class.active]="scrollActive == 'weizhi'" (click)="scrollTo('weizhi')">位置</li>
+		</ul>
+	</div>
+</div>
+
+<!-- 修改历史 -->
+<div class="history" [class.hidden]="history">
+	<div class="title clearfix">
+		<div class="f-l">修改历史</div>
+		<div class="off" (click)="history=true">&times;</div>
+	</div>
+	<div class="content">
+		
 	</div>
 </div>

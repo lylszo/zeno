@@ -48,7 +48,7 @@
     </div>
 
     <button [ngClass]="{'buttonBgDis':userRegister.invalid,'buttonBgOk':userRegister.valid}"
-            (click)="registerSubmit(userRegister.invalid)">注册</button>
+            (click)="registerSubmit(userRegister.invalid || password1!=password2)">注册</button>
   </form>
 
   <div class="user userFooter">

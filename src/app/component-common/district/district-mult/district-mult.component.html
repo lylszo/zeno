@@ -1,0 +1,46 @@
+<div class="multiple">
+  <div *ngIf="ifResult" class="result">
+    <div class="z-tag-del mr5 mb5" *ngFor="let item of cityList; let i=index;">
+      {{item.name}}<span class="del" (click)="del(i)"></span>
+    </div>
+    <a (click)="districtModal.show()">设置</a>
+  </div>
+  <div *ngIf="!ifResult">
+    <button class="z-btn-blue-sm" (click)="districtModal.show()">分配服务区域</button>
+  </div>
+  <div class="modal fade" bsModal #districtModal="bs-modal" [config]="{backdrop: 'static'}"
+       tabindex="-1" role="dialog" aria-labelledby="districtModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">设置服务区域（最多10个）</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="districtModal.hide()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="list">
+            <table>
+              <tr *ngFor="let item of districts">
+                <td>
+                  <span class="alpah">{{item.alpha}}</span>
+                </td>
+                <td>
+                  <ul>
+                    <li class="district" [class.active]="v.active" *ngFor="let v of item.list" (click)="check(v)">
+                      {{v.name}}
+                    </li>
+                  </ul>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <div class="z-btn-grey-lg" (click)="districtModal.hide()">取消</div>
+          <div class="z-btn-blue-lg" (click)="certain()">确定</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

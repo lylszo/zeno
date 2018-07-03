@@ -14,6 +14,7 @@ import {NewsComponent} from "./component-user/news/news.component";
 import {SetCategoryComponent} from "./component-user/release-store/set-category/set-category.component";
 import {FillInformComponent} from "./component-user/release-store/fill-inform/fill-inform.component";
 import {ReleaseOkComponent} from "./component-user/release-store/release-ok/release-ok.component";
+import {Guard} from "./service/guard.service";
 
 const userRoutes: Routes = [
   {

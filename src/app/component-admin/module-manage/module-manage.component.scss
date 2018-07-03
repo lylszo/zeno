@@ -7,26 +7,26 @@
   padding:10px 20px;
 }
 .side-li{
-  width: 30%;
+  width: 40%;
   height: 700px;
   border-bottom: none;
   background: #f8f9fa;
   font-size: 14px;
   box-shadow: 10px 0 8px -2px rgba(0, 0, 0, 0.15);
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .operator-li{
-  width: 70%;
+  width: 60%;
   height: 700px;
   background: #ffffff;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 .func-name{
   cursor: pointer;
 }
 .detailName{
   display: inline-block;
-  width: 200px;
+  width: auto;
   padding: 8px 5px;
   &:hover{
     color: #1972d6;
@@ -68,6 +68,9 @@
     bottom: -4px;
     left: 3px;
   }
+}
+.clickDetail{
+  color: #1972d6;
 }
 .func-label{
   display: inline-block;

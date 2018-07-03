@@ -8,39 +8,59 @@
   </header>
   <ul>
     <li>
-      <label for="teamname">团队名称：</label>
-      <input class="z-input" id="teamname">
+      <label class="z-required" for="teamname">团队名称：</label>
+      <div class="l-box">
+        <input class="z-input" id="teamname">
+      </div>
     </li>
     <li>
-      <label for="teamtype">团队类型：</label>
-      <input class="z-input" id="teamtype">
+      <label class="z-required">团队类型：</label>
+      <div class="l-box">
+        <app-select [list]="teamType" [(selectedCode)]="type"></app-select>
+      </div>
     </li>
     <li>
-      <label for="area">所在区域：</label>
-      <app-select></app-select>
+      <label class="z-required">所在区域：</label>
+      <div class="l-box">
+        <app-district [(checkedCode)]="city"></app-district>
+      </div>
     </li>
     <li>
-      <label for="position">中心点位置：</label>
+      <label for="address">地址：</label>
+      <div class="l-box">
+        <input class="z-input" id="address">
+      </div>
+    </li>
+    <li>
+      <label>中心点位置：</label>
+      <div class="l-box"></div>
     </li>
     <li>
       <label for="introduce">团队说明：</label>
-      <textarea id="introduce">多区域</textarea>
+      <div class="l-box">
+        <textarea class="z-textarea" id="introduce"></textarea>
+      </div>
     </li>
     <li>
-      <label for="tag">关联tag：</label>
-      <span id="tag">多区域</span>
+      <label>关联标签：</label>
+      <div class="l-box">
+        <app-set-related-tags [(tags)]="tags"></app-set-related-tags>
+      </div>
     </li>
     <li>
-      <label for="area">可服务区域：</label>
-      <span id="area">深圳</span>
+      <label>可服务区域：</label>
+      <div class="l-box">
+        <app-district-mult [ifResult]="true" [citys]="citys"></app-district-mult>
+      </div>
     </li>
     <li>
-      <label for="user">用户角色：</label>
-      <span id="user">自营服务</span>
-      <a>设置</a>
+      <label>用户角色：</label>
+      <div class="l-box">
+        <app-role-modal [ifResult]="true"></app-role-modal>
+      </div>
     </li>
   </ul>
-  <div class="text-center mt10">
+  <div class="text-center mt10 mb60">
     <button type="button" class="z-btn-blue-lg">确定</button>
   </div>
 </section>

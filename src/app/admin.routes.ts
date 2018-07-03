@@ -15,14 +15,17 @@ import { DataSetComponent } from './component-admin/data-set/data-set.component'
 import { PasswordUpdateComponent } from './component-admin/password-update/password-update.component';
 import { MyInfoComponent } from './component-admin/my-info/my-info.component';
 import { AdduserComponent} from "./component-admin/user-manage/adduser/adduser.component";
-import {AddTeamComponent} from "./component-admin/team-manage/add-team/add-team.component";
-import { RuleAddComponent} from './component-admin/rule-add/rule-add.component';
+import { NewsComponent } from "./component-user/news/news.component";
+import { AddTeamComponent } from "./component-admin/team-manage/add-team/add-team.component";
+import { RuleAddComponent } from './component-admin/rule-add/rule-add.component';
+import { Guard } from "./service/guard.service";
 
 
 const adminRoutes: Routes = [
   {
     path: 'admin',
     component: AdminComponent,
+    canActivate: [Guard],
     children: [
       { path: '', component: AdminIndexComponent },
       { path: 'userManage', component: UserManageComponent },
@@ -39,6 +42,7 @@ const adminRoutes: Routes = [
       { path: 'adduser', component: AdduserComponent},
       { path: 'addTeam', component: AddTeamComponent},
       { path: 'addRule', component: RuleAddComponent},
+      { path: 'news', component: NewsComponent},
       { path: '**', redirectTo: '', pathMatch: 'full' }
     ]
   }

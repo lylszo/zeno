@@ -8,13 +8,13 @@ import { RegisterComponent } from './component-app/register/register.component';
 import { ForgetPasswordComponent } from './component-app/forget-password/forget-password.component';
 
 const appRoutes: Routes = [
-  { path: 'index', component: IndexComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'styles', component: StylesComponent },
+  { path: 'loginAdmin', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'forgetPassword', component: ForgetPasswordComponent },
-  { path: '', redirectTo: '/index', pathMatch: 'full' },
-  { path: '**', component: LoginComponent }
+  { path: 'styles', component: StylesComponent },
+  { path: '', redirectTo: '/user', pathMatch: 'full'},
+  { path: '**', redirectTo: '/user', pathMatch: 'full' },
 ];
 
 @NgModule({
@@ -22,4 +22,4 @@ const appRoutes: Routes = [
   exports: [ RouterModule ],
   declarations: []
 })
-export class AppRoutesModule { }
+export class AppRoutesModule { } 

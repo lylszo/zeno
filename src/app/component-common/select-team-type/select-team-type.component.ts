@@ -8,9 +8,9 @@ import {  Component, OnInit, OnChanges, Input, SimpleChanges, EventEmitter,Outpu
 export class SelectTeamTypeComponent implements OnInit {
   types:Array<any> = [];
   selectedTeamType:Array<any>;
+  showPanel:boolean = false;
 
   constructor() { }
-  @Input() showPanel:boolean;
   @Input()
   get selectedType(){
     return this.selectedTeamType;
@@ -29,10 +29,20 @@ export class SelectTeamTypeComponent implements OnInit {
       this.selectedTeamType.splice(this.selectedTeamType.indexOf(item),1)
     }
   }
+  hideModal(){
+    this.showPanel = !this.showPanel;
+  }
+  showPanelOr(){
+    this.showPanel = !this.showPanel
+  }
+  delete(item){
+    this.selectedTeamType.splice(this.selectedTeamType.indexOf(item),1);
+    item.checked = false
+  }
 
   ngOnInit() {
-    this.types = [{value:1,name:"全部",checked:false},{value:2,name:"自营",checked:false},
-      {value:3,name:"加盟商",checked:false}]
+    this.types = [{value:"0",name:"全部",checked:false},{value:"1",name:"自营",checked:false},
+      {value:"2",name:"加盟商",checked:false}];
   }
 
 }

@@ -32,6 +32,7 @@ export class SetRelatedTagsComponent implements OnInit {
 
   constructor(private modalService: BsModalService, private http: HttpService) {
     this.tagList = [];
+    this.tags = [];
   }
 
   ngOnInit() {
@@ -41,48 +42,27 @@ export class SetRelatedTagsComponent implements OnInit {
 
   // 请求标签接口
   getTagList() {
-    let tagParam = {
-      page: 1,
-      pageSize: 100,
-      Authorization: this.http.auth
-    };
-    this.http.httpGet('tag', tagParam, (data) => {
-      // this.lists = data.items;
-      this.lists = [
-        {
-          creator: "nicole",
-          id: 0,
-          name: "标签1",
-          type: 1
-        }, {
-          creator: "nicole",
-          id: 1,
-          name: "标签2",
-          type: 1
-        }, {
-          creator: "nicole",
-          id: 2,
-          name: "标签3",
-          type: 1
-        }, {
-          creator: "nicole",
-          id: 3,
-          name: "标签21",
-          type: 2
-        }, {
-          creator: "nicole",
-          id: 4,
-          name: "标签22",
-          type: 2
-        }
-      ];
+    let tags = JSON.parse(localStorage.getItem('tags'));
+    if (tags) {
+      this.lists = tags;
+    } else {
+      let tagParam = {
+        page: 1,
+        pageSize: 100
+      };
+      this.http.get('tag', tagParam, (data) => {
+        this.lists = data.items;
+        localStorage.setItem('tags', JSON.stringify(data.items));
+      });
+    }
+    if (this.lists.length > 0) {
       this.lists.forEach((v, i) => {
         // v.avtive = i === 0 ? true : false;
         if (v.type === 1) {
           this.childList.push(v);
         }
       });
-    })
+    }
   }
 
   getTagChild(num) {

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpService } from "../../service/http.service";
 
 @Component({
   selector: 'app-district-manage',
@@ -9,36 +10,18 @@ export class DistrictManageComponent implements OnInit {
 
   districtTitle:any;
   districtData:any;
-  dataList:Array<any>=[];
+  provinces:Array<any>=[];
   cityList:Array<any>=[];
+  districts:Array<any>=[];
+  towns:Array<any>=[];
 
-  constructor() { }
+  constructor(private http:HttpService) { }
 
   assembleData(arr){
     let tempArr = [];
     let tempArr1 = [];
     let tempArr2 = [];
     let provinceLen = arr.length;
-
-    // console.time("test1");
-    // for(let i=0; i < provinceLen; i++ ){
-    //   if(arr[i].code.toString().length===2){
-    //     arr[i].childs=[];
-    //     this.cityMap.set(arr[i].code,arr[i]);
-    //   }else if(arr[i].code.toString().length===4){
-    //     tempArr1.push(arr[i])
-    //   }
-    // }
-    //
-    // this.cityMap.forEach((value, key) => {
-    //   for (let temp of tempArr1) {
-    //     if (temp.code.toString().indexOf(key) != -1) {
-    //       value.childs.push(temp)
-    //     }
-    //   }
-    // });
-    // console.log(this.cityMap,"map");
-    // console.timeEnd("test1");
 
     for(let i=0; i < provinceLen; i++ ){
       if(arr[i].code.toString().length===2){
@@ -67,27 +50,41 @@ export class DistrictManageComponent implements OnInit {
         }
       }
     }
-    console.log(this.cityList,"list1111")
+  }
+
+  getCity(item, num, arr){
+    arr.forEach(function (value) {
+      value.clicked = false;
+    });
+    this.http._get("district", {parent_id: item.code}, (data) =>{
+      switch (num){
+        case 1:
+          this.cityList = data;
+          break;
+        case 2:
+          this.districts = data;
+          break;
+        case 3:
+          this.towns = data;
+          break;
+      }
+      item.clicked = true;
+    })
   }
 
   ngOnInit() {
     this.districtTitle = ["省/自治区/直辖市","地级市","直辖区/县/县级市","乡/镇/街道"];
-    this.districtData = JSON.parse(localStorage.getItem("district"));
+    // this.districtData = JSON.parse(localStorage.getItem("district"));
+    this.http._get("district", {parent_id: '0'}, (data) => {
+      this.provinces = data;
+    });
 
-    // this.districtData = [{code: 11, name: "北京", hot: 0, status: 0},
-    //   {code: 12, name: "天津", hot: 0, status: 0},
-    //   {code: 1101, name: "北京", hot: 0, status: 0},
-    //   {code: 1201, name: "天津", hot: 0, status: 0},
-    //   {code: 44, name: "广东", hot: 0, status: 0},
-    //   {code: 4401, name: "深圳", hot: 0, status: 0},
-    //   {code: 440101, name: "罗湖", hot: 0, status: 0}];
-
-    let len = this.districtData.length;
-    for(let i=0;i<len;i++){
-      if(this.districtData[i].code.toString().length <= 4){ // 筛选出国家，省和市
-        this.dataList.push(this.districtData[i]);
-      }
-    }
-    this.assembleData(this.dataList);
+    // let len = this.districtData.length;
+    // for(let i=0;i<len;i++){
+    //   if(this.districtData[i].code.toString().length <= 4){ // 筛选出国家，省和市
+    //     this.dataList.push(this.districtData[i]);
+    //   }
+    // }
+    // this.assembleData(this.dataList);
   }
 }

@@ -1,6 +1,12 @@
 <div class="choose-city" *ngIf="showCityPanel">
-  <ul>
-    <li class="choose-text" *ngFor="let item of citys" (click)="getCity(item)">
+  <ul class="choose-city-ul">
+    <li class="choose-text" *ngFor="let item of provinces" (click)="getCity(item)" >
+      {{item.name}}
+    </li>
+  </ul>
+
+  <ul class="choose-city-ul">
+    <li class="choose-text" *ngFor="let item of citys" (click)="chooseCity(item)" >
       {{item.name}}
     </li>
   </ul>

@@ -3,36 +3,45 @@
 </nav>
 <section class="z-bg-white clearfix">
   <header>
-     <h1 class="z-title-md-style">
-       筛选查询
-     </h1>
+    <h1 class="z-title-md-style">
+      筛选查询
+    </h1>
   </header>
-  <ul class="clearfix">
-    <li class="col-lg-3 col-md-4 f-l">
-      <label for="mobile">手机号码：</label>
-      <input class="z-input" [(ngModel)]="mobile" id="mobile">
-    </li>
-    <li class="col-lg-3 col-md-4 f-l">
-      <label for="username">用户姓名：</label>
-      <input class="z-input" [(ngModel)]="name" id="username">
-    </li>
-    <li class="col-lg-3 col-md-4 f-l">
-      <label>状态：</label>
-      <app-select [list]="statusList" [(selectedCode)]="status"></app-select>
-    </li>
-    <li class="col-lg-3 col-md-4 f-l">
-      <label>工作城市：</label>
-      <app-select [list]="cityList" [(selectedCode)]="city"></app-select>
-    </li>
-    <li class="col-lg-12 col-md-8 f-l">
-      <label>关联标签：</label>
-      <app-set-related-tags [(tagList)]="tagList" [(tags)]="tags"></app-set-related-tags>
-    </li>
-  </ul>
-  <div class="f-r">
-    <a class="mr8" (click)="clearSearch()">清空搜索条件</a>
-    <button class="z-btn-blue-lg" (click)="submit()">搜索</button>
-  </div>
+  <form class="clearfix" #userListForm="ngForm" name="userList">
+    <ul class="clearfix">
+      <li class="col-lg-3 col-md-4 f-l">
+        <label for="mobile">手机号码：</label>
+        <input class="z-input" id="mobile" name="mobile"
+               [(ngModel)]="mobile"
+               #userMobile="ngModel" pattern="^1[3456789]\d{9}"
+               maxlength="11">
+        <div class="z-error" *ngIf="userMobile.invalid && (userMobile.dirty || userMobile.touched)">
+          <span *ngIf="userMobile.errors?.pattern">手机号码格式不正确</span>
+        </div>
+      </li>
+      <li class="col-lg-3 col-md-4 f-l">
+        <label for="username">用户姓名：</label>
+        <input class="z-input" id="username" name="username"
+               maxlength="20" [(ngModel)]="name">
+      </li>
+      <li class="col-lg-3 col-md-4 f-l">
+        <label>状态：</label>
+        <app-select [list]="statusList" [(selectedCode)]="status"></app-select>
+      </li>
+      <li class="col-lg-3 col-md-4 f-l">
+        <label>工作城市：</label>
+        <app-district [(checkedItem)]="cityItem" [(checkedCode)]="city"></app-district>
+      </li>
+      <li class="col-lg-12 col-md-8 f-l">
+        <label>关联标签：</label>
+        <app-set-related-tags [(tagList)]="tagList" [(tags)]="tags"></app-set-related-tags>
+      </li>
+    </ul>
+    <div class="f-r">
+      <a class="mr8" (click)="clearSearch()">清空搜索条件</a>
+      <button class="z-btn-blue-lg" (click)="submit()">搜索</button>
+    </div>
+  </form>
 </section>
 
 <section class="z-bg-white clearfix">
@@ -43,51 +52,51 @@
   <table class="z-table-sm">
     <thead>
     <tr>
-      <th width="5%">
-        <input type="checkbox">
-      </th>
       <th width="5%">序号</th>
       <th width="15%">用户姓名/手机号码</th>
       <th width="10%">工作城市</th>
-      <th width="10%">用户角色</th>
+      <th width="5%">用户角色</th>
+      <th width="10%">服务区域</th>
       <th width="15%">加入团队</th>
-      <th width="10%">状态</th>
-      <th width="10%">注册时间</th>
+      <th width="5%">状态</th>
+      <th width="15%">注册时间</th>
       <th width="20%">操作</th>
     </tr>
     </thead>
     <tbody>
-    <tr>
+    <tr *ngFor="let item of userList; let i=index;">
+      <td>{{i+1}}</td>
+      <td>{{item.name}}<br>({{item.mobile}})</td>
+      <td><span>{{item.workingCity&&item.workingCity.name}}</span></td>
       <td>
-        <input type="checkbox">
+        <span *ngFor="let r of item.roles"></span>
       </td>
-      <td>1</td>
-      <td>王小明<br>(13688881234)</td>
-      <td>深圳</td>
-      <td>-</td>
-      <td>深圳业务一组</td>
-      <td>正常</td>
-      <td>2018-04-23 15:00:01</td>
+      <td>
+        <span *ngFor="let d of item.districts"></span>
+      </td>
+      <td>
+        <span *ngFor="let v of item.teams">{{v.name}}</span>
+      </td>
+      <td>{{item.states}}</td>
+      <td>{{item.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
       <td class="handle">
         <p class="pb3">
-          <button class="z-btn-blue-sm mr5" (click)="openModal(edit)">编辑</button>
-          <button class="z-btn-grey-sm mr5" (click)="openModal(template)">禁用账号</button>
-          <button class="z-btn-red-sm mr5" (click)="openModal(template)">删除</button>
+          <button class="z-btn-blue-sm mr5" (click)="openModal(edit, item)">编辑</button>
+          <button class="z-btn-blue-sm mr5" *ngIf="item.status===0" (click)="openModal(disable, item)">禁用账号</button>
+          <button class="z-btn-grey-sm mr5" *ngIf="item.status===1" (click)="openModal(active, item)">恢复账号</button>
         </p>
         <p class="pb3">
-          <button class="z-btn-blue-sm mr5">设置角色</button>
-          <button class="z-btn-blue-sm mr5">单独赋权</button>
-          <button class="z-btn-blue-sm mr5">分配团队</button>
+          <app-role-modal [roles]="item.roles"></app-role-modal>
+          <button class="z-btn-blue-sm mr5" (click)="openModal(asignTeam, item)">分配团队</button>
         </p>
         <p class="pb3">
-          <button class="z-btn-blue-sm" (click)="openModal(asignArea)">分配服务区域</button>
+          <app-district-mult [ifResult]="false" [(citys)]="item.districts"></app-district-mult>
         </p>
       </td>
     </tr>
     </tbody>
   </table>
-  <pagination [boundaryLinks]="true" [totalItems]="totalItems" class="pagination-sm" (setPage)="setPage()" (pageChange)="pageChanged($event)"
-              previousText="&lsaquo;" nextText="&rsaquo;" firstText="&laquo;" lastText="&raquo;"></pagination>
+  <app-pagination (pageChanged)="pageChanged()" [(pageConf)]="pageConf"></app-pagination>
 </section>
 
 <ng-template #edit>
@@ -97,49 +106,77 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body">
-    <ul style="width: 80%;margin: 0 auto;">
-      <li>
-        <label for="name">用户姓名：</label>
-        <input class="z-input" type="text" id="name">
-      </li>
-      <li>
-        <label for="cellphone">手机号码：</label>
-        <input class="z-input" type="text" id="cellphone">
-      </li>
-      <li>
-        <label for="mail">邮箱地址：</label>
-        <label for="mail">邮箱地址：</label>
-        <input class="z-input" type="text" id="mail">
-      </li>
-      <li>
-        <label>工作城市：{{city}}</label>{{city}}
-        <app-select [list]="cityList" [(selectedCode)]="city"></app-select>
-      </li>
-      <li>
-        <label>关联标签：</label>
-        <app-set-related-tags [(tagList)]="editTagList" [(tags)]="editTags"></app-set-related-tags>
-      </li>
-    </ul>
-  </div>
-  <div class="modal-footer">
-    <div class="f-r">
-      <button type="button" class="z-btn-grey-lg mr7">取消</button>
-      <button type="button" class="z-btn-blue-lg">确定</button>
+  <form #editUserForm="ngForm" name="editUser">
+    <div class="modal-body">
+      <ul class="edit-modal" style="width: 80%;margin: 0 auto;">
+        <li>
+          <label class="z-required" for="name">用户姓名：</label>
+          <input class="z-input" id="name" name="name"
+                 [(ngModel)]="user.name"
+                 #editName="ngModel" maxlength="20" required>
+          <div class="z-error" *ngIf="editName.invalid && (editName.dirty || editName.touched)">
+            <span *ngIf="editName.errors?.required">请输入用户姓名</span>
+          </div>
+        </li>
+        <li>
+          <label class="z-required" for="cellphone">手机号码：</label>
+          <input class="z-input" id="cellphone" name="cellphone"
+                 [(ngModel)]="user.mobile"
+                 #eidtCellphone pattern="^1[3456789]\d{9}"
+                 maxlength="11" required>
+          <div *ngIf="eidtCellphone.invalid && (eidtCellphone.dirty || eidtCellphone.touched)">
+            <span class="z-error f-r" *ngIf="eidtCellphone.errors.pattern">请输入正确的手机号码</span>
+            <span class="z-error f-r" *ngIf="eidtCellphone.errors.required">请输入手机号码</span>
+          </div>
+        </li>
+        <li>
+          <label class="z-required" for="mail">邮箱地址：</label>
+          <input class="z-input" id="mail" name="mail"
+                 [(ngModel)]="user.email"
+                 #editMail="ngModel" pattern="^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+"
+                 minlength="5" maxlength="30" required>
+          <div class="z-error" *ngIf="editMail.invalid && (editMail.dirty || editMail.touched)">
+            <span *ngIf="editMail.errors?.required">请输入邮箱地址</span>
+            <span class="z-error f-r" *ngIf="editMail.errors.pattern
+            || editMail.errors.minlength
+            || editMail.errors.maxlength">请输入正确的邮箱</span>
+          </div>
+        </li>
+        <li>
+          <label class="z-required">工作城市：</label>
+          <app-district [(checkedItem)]="user.workingCity" [(checkedCode)]="user.workingCity.code"></app-district>
+          <div *ngIf="user.workingCity.code===-1">
+            <span class="z-error f-r">请选择工作城市</span>
+          </div>
+        </li>
+        <li class="mb20">
+          <label>关联标签：</label>
+          <app-set-related-tags [(tagList)]="user.tags" [(tags)]="editTags"></app-set-related-tags>
+        </li>
+      </ul>
     </div>
-  </div>
+    <div class="modal-footer">
+      <div class="f-r">
+        <button type="button" class="z-btn-grey-lg mr7" (click)="modalRef.hide()">取消</button>
+        <button type="button" class="z-btn-blue-lg"
+                [disabled]="editName.invalid || eidtCellphone.invalid || user.workingCity.code===-1 || editMail.invalid"
+                (click)="editUser();modalRef.hide()">确定
+        </button>
+      </div>
+    </div>
+  </form>
 </ng-template>
 
-<ng-template #template>
+<ng-template #disable>
   <div class="modal-header">
     <h4 class="modal-title pull-left">禁用账号</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body">
+  <div class="modal-body text-center">
     <div>
-      确认将 用户：张三（13688881234）账号禁用吗？
+      确认将 用户：{{user.name}}（user.mobile）账号禁用吗？
     </div>
     <div>
       禁用账号将不可登录
@@ -147,8 +184,28 @@
   </div>
   <div class="modal-footer">
     <div class="f-r">
-      <button type="button" class="z-btn-grey-lg mr7">取消</button>
-      <button type="button" class="z-btn-blue-lg">确定</button>
+      <button type="button" class="z-btn-grey-lg mr7" (click)="modalRef.hide()">取消</button>
+      <button type="button" class="z-btn-blue-lg" (click)="disableUser();modalRef.hide()">确定</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #active>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">恢复账号</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    <div>
+      确认将 用户：{{user.name}}（user.mobile）账号恢复吗？
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="f-r">
+      <button type="button" class="z-btn-grey-lg mr7" (click)="modalRef.hide()">取消</button>
+      <button type="button" class="z-btn-blue-lg" (click)="activeUser();modalRef.hide()">确定</button>
     </div>
   </div>
 </ng-template>
@@ -160,55 +217,30 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body">
-    <div>
-      基本信息：张三   13956981234  深圳
+  <div class="modal-body asign-team">
+    <div class="sec bottom-line">
+      <h4>基本信息</h4>
+      <p class="mb20">
+        <span class="mr20">{{user.name}}</span>
+        <span class="mr20">{{user.mobile}}</span>
+        <span class="mr20">{{user.workingCity.name}}</span>
+      </p>
     </div>
-    <div>
+    <div class="sec bottom-line">
       <h4>已加入团队</h4>
-      <ul>
-        <li>深圳飞虎队</li>
-        <li>深圳飞虎队</li>
+      <ul class="mb20">
+        <li class="z-tag z-tag-del mr5 mb5" *ngFor="let t of joinedTeam;let i=index;">{{t.name}}<span class="del" (click)="removeTeam(i)"></span></li>
       </ul>
     </div>
-    <div>
+    <div class="sec">
       <h4>分配团队</h4>
-      <input type="text" placeholder="请输入要加入的团队名称">
-      <ul>
-        <li>深圳天鹰队</li>
-        <li>深圳天鹰队</li>
+      <div class="relative search mb20">
+        <input class="z-input" placeholder="请输入要加入的团队名称" [(ngModel)]="searchTeamParam">
+        <i class="iconfont icon-tubiao11 search-icon" (click)="searchTeam()"></i>
+      </div>
+      <ul class="mb20">
+        <li class="z-tag z-tag-add mr5 mb5" *ngFor="let t of teamList">{{t.name}}<span class="add" (click)="addTeam(t)"></span></li>
       </ul>
-    </div>
-  </div>
-  <div class="modal-footer">
-    <div class="f-r">
-      <button type="button" class="z-btn-grey-lg mr7">取消</button>
-      <button type="button" class="z-btn-blue-lg">确定</button>
-    </div>
-  </div>
-</ng-template>
-
-<ng-template #asignArea>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">分配服务区域</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div class="col-4">
-      <h4>已选服务区域（最多选10个）</h4>
-      <ul>
-        <li>
-          深圳
-        </li>
-        <li>
-          惠州
-        </li>
-      </ul>
-    </div>
-    <div class="col-8">
-      <h4>选择服务区域（可选国家、省、市任何一级）</h4>
     </div>
   </div>
   <div class="modal-footer">

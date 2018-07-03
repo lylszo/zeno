@@ -1,7 +1,11 @@
 .part1 {
 	background-color: #fff;
+	h2 {
+		height: 50px;
+		border-bottom: 1px solid #efefef;
+	}
 	form {
-		margin-top: 40px;
+		margin-top: 20px;
 		.left {
 			width: 570px;
 			display: inline-block;
@@ -11,10 +15,17 @@
 			width: 590px;
 			float: left;
 		}
+		.left, .right  {
+			.group:last-child {
+				margin-bottom: 5px;
+			}
+		}
 		.tag {
 			width: 70px;
 			display: inline-block;
 			text-align: right;
+			vertical-align: top;
+			margin-top: 7px;
 		}
 		.content {
 			display: inline-block;
@@ -22,9 +33,6 @@
 		}
 		.group {
 			margin-bottom: 20px;
-		}
-		.search {
-			float: right;
 		}	
 	}
 }

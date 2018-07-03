@@ -1,18 +1,17 @@
-import { Component, OnInit, OnDestroy, Renderer2 } from '@angular/core';
-import { UserService } from '../../service/user.service';
-import { SmsService } from '../../service/sms.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { HttpService } from "../../service/http.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['../login/login.component.scss', './register.component.scss'],
-  providers:[UserService, SmsService]
+  styleUrls: ['../login/login.component.scss', './register.component.scss']
 })
 export class RegisterComponent implements OnInit, OnDestroy {
   name:string = "";
   account:string = '';
   code:string = '';
-  city:string = '';
+  city:object={"code":0, "name":''};
   password1:string = '';
   password2:string = '';
 
@@ -21,26 +20,23 @@ export class RegisterComponent implements OnInit, OnDestroy {
   time:any="获取验证码";
   text:string="获取验证码";
 
-  constructor(public userService:UserService,public smsService: SmsService,private renderer:Renderer2) {
-    this.renderer.addClass(document.body, 'bg');
+  constructor(private http:HttpService, public router:Router) {
   }
 
   registerSubmit(invalid){
     this.clicked=true;
-    if(this.password1!=this.password2){
-      alert("密码不对应")
-    }else if(invalid){
-      alert("参数填写错误")
+    if(invalid){
+      return
     } else {
       let userRegisterParam = {
         mobile:this.account,
         name:this.name,
         password:this.password1,
         vcode:this.code,
-        // city:this.city
+        workCity:this.city["code"]
       };
-      this.userService.register(userRegisterParam,(data) => {
-        console.log("register",data)
+      this.http._post("user/register", userRegisterParam, (data) => {
+        this.router.navigateByUrl('/login')
       })
     }
 
@@ -49,28 +45,30 @@ export class RegisterComponent implements OnInit, OnDestroy {
   // 从choose-ciy组件获取选中的城市
   getThisCity(event){
     this.city = event;
-    console.log(this.city,'city');
-    this.showCityPanel = !this.showCityPanel
+    this.showCityPanel = !this.showCityPanel;
   }
 
   openPanel(){
     this.showCityPanel = !this.showCityPanel;
-    console.log(this.showCityPanel,'222')
   }
 
   getVC(invalid) {
     if(invalid){
       alert("请输入正确手机号码");
     }else{
-      this.smsService.getVCode(this.account, "REGISTER",(data) => {
-        console.log("mydata", data);
+      let params = {
+        "mobile": this.account, 
+        "purpose": "REGISTER"
+      }
+      this.http._post("vcode/send_sms", params, (data) => {
+        this.code=data;
       });
       this.time=60;
       let timer = setInterval(() => {
         this.time = this.time - 1;
         if(this.time === -1){
           clearInterval(timer);
-          this.time="获取验证码"
+          this.time = "再次获取验证码"
         }
       }, 1000);
     }
@@ -80,6 +78,5 @@ export class RegisterComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(){
-    this.renderer.removeClass(document.body, 'bg');
   }
 }

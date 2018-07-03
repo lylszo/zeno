@@ -97,23 +97,27 @@
   border: 1px solid #e6e6e6;
   border-radius: 5px;
   position: relative;
+  &:after{
+    content: '';
+    width: 14px;
+    height: 20px;
+    position: absolute;
+    pointer-events: none;
+    top: 16px;
+    right: 10px ;
+    background-image: url('../../../assets/imgs/sprite.png');
+    background-position: -1px -56px;
+  }
+  &.active:after{
+    background-position-y: -29px;
+  }
 }
-.selectli:after{
-  content: '';
-  width: 14px;
-  height: 20px;
-  background: url("../../../assets/imgs/sprite.png") no-repeat right ;
-  position: absolute;
-  pointer-events: none;
-  background-position: 0, 0;
-  top: 10px;
-  right: 10px ;
-}
+
 .condition-view{
   display: inline-block;
   width: 45%;
   height: 200px;
-  overflow-y: scroll;
+  overflow-y: auto;
   border:  1px solid #e6e6e6;
   padding: 10px;
 }

@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Params} from '@angular/router';
-import { RuleService } from '../../service/rule.service';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Params} from '@angular/router';
+import {HttpService} from '../../service/http.service';
+import {CityNamePipe} from '../../pipe/city-name.pipe';
 
 @Component({
   selector: 'app-rule-add',
@@ -8,63 +9,72 @@ import { RuleService } from '../../service/rule.service';
   styleUrls: ['./rule-add.component.scss']
 })
 export class RuleAddComponent implements OnInit {
-  items:any;
-  datas:any;
-  ruleName:string;
-  dataObj:Array<any>=[];
-  dataSelected:any;
-  private id:string;
+  items: Array<any> = [];
+  datas: Array<any> = [];
+  ruleName: string;
+  dataObj: Array<any> = [];
+  dataSelected: any;
+  private id: string;  // 修改页面时传过来的id
+  count: number = 0;
 
-  constructor(private routerInfo:ActivatedRoute, private rule:RuleService) { }
+  targetObj = {0: '店铺', 2: '当前登录', 1: '值'};
+  attrObj: object = {'sv_city': '服务城市', 'tm_type': '团队类型', 'tm_id': '团队ID', 'us_id': '用户ID'};
+  symbolObj: object = {'==': '等于', '!=': '不等于', 'in': '包含', 'notin': '不包含'};
+  teamTypeObj: object = {'0': '全部', '1': '自营', '2': '加盟商'};
+  cityName: any;
+
+  constructor(private routerInfo: ActivatedRoute, private http: HttpService) {
+    this.cityName = new CityNamePipe();
+    // console.log(this.cityName.transform(1101),"4344")
+  }
 
   /**
    * 添加用户筛选按钮
    */
-  addUser(){
-    let obj = {
-      attributes:[
-      {value:1, name:"服务城市"}, {value:2, name: "团队类型"},
-      {value:3, name: "团队ID"}, {value:4, name: "用户ID"}],
-      attr:1,
-      relationships:[
-      {value:1, name:"等于"}, {value:2, name: "不等于"},
-      {value:3, name: "包含"}, {value:4, name: "不包含"}],
-      relate:2,
-      selectedCity:[],
-      selectedTeamType:[],
-      showPanel:false,
-      showTeamPanel:false
-    };
-    this.items.push(obj)
+  addUser() {
+    this.count += 1;
+    this.items.push({
+      formName: 'formName' + this.count,
+      attributes: [
+        {value: 'sv_city', name: '服务城市'}, {value: 'tm_type', name: '团队类型'},
+        {value: 'tm_id', name: '团队ID'}, {value: 'us_id', name: '用户ID'}],
+      attr: 'sv_city',
+      relationships: [
+        {value: '==', name: '等于'}, {value: '!=', name: '不等于'},
+        {value: 'in', name: '包含'}, {value: 'notin', name: '不包含'}],
+      relate: '==',
+      selectedCity: [],
+      selectedTeamType: []
+    });
   }
 
   /**
    * 添加数据筛选条件按钮
    */
-  addData(){
+  addData() {
+    this.count += 1;
     let objdata = {
-      leftObjs:[{value:1, name:"店铺"}, {value:2, name: "当前登录"}],
-      leftObj:1,
-      leftAttributes:[
-        {value:1, name:"服务城市"}, {value:2, name: "团队类型"},
-        {value:3, name: "团队ID"}, {value:4, name: "用户ID"}],
-      leftAttr:1,
-      relationships:[
-        {value:1, name:"等于"}, {value:2, name: "不等于"},
-        {value:3, name: "包含"}, {value:4, name: "不包含"}],
-      relate:2,
-      rightObjs:[{value:1, name:"店铺"}, {value:2, name: "当前登录"},{value:3, name: "值"}],
-      rightObj:1,
-      rightAttributes:[
-        {value:1, name:"服务城市"}, {value:2, name: "团队类型"},
-        {value:3, name: "团队ID"}, {value:4, name: "用户ID"}],
-      rightAttr:1,
-      selectedCity:[],
-      selectedTeamType:[],
-      showPanel:false,
-      showTeamPanel:false
+      dataName: 'dataName' + this.count,
+      leftObjs: [{value: 0, name: '店铺'}, {value: 2, name: '当前登录'}],
+      leftObj: 2,
+      leftAttributes: [
+        {value: 'sv_city', name: '服务城市'}, {value: 'tm_type', name: '团队类型'},
+        {value: 'tm_id', name: '团队ID'}, {value: 'us_id', name: '用户ID'}],
+      leftAttr: 'sv_city',
+      relationships: [
+        {value: '==', name: '等于'}, {value: '!=', name: '不等于'},
+        {value: 'in', name: '包含'}, {value: 'notin', name: '不包含'}],
+      relate: '==',
+      rightObjs: [{value: 0, name: '店铺'}, {value: 1, name: '值'}],
+      rightObj: 0,
+      rightAttributes: [
+        {value: 'sv_city', name: '服务城市'}, {value: 'tm_type', name: '团队类型'},
+        {value: 'tm_id', name: '团队ID'}, {value: 'us_id', name: '用户ID'}],
+      rightAttr: 'sv_city',
+      selectedCity: [],
+      selectedTeamType: []
     };
-    this.datas.push(objdata)
+    this.datas.push(objdata);
   }
 
   /**
@@ -72,96 +82,259 @@ export class RuleAddComponent implements OnInit {
    * @param item
    * @param arr
    */
-  deleteRule(item,arr){
-    arr.splice(arr.indexOf(item),1)
+  deleteRule(item, arr) {
+    arr.splice(arr.indexOf(item), 1);
   }
 
-  /**
-   * 删除选中城市X
-   * @param item
-   * @param i
-   */
-  deleteSelectedCity(item,i){
-    item.selectedCity.splice(item.selectedCity.indexOf(i), 1);
-    i.checked=false;
-  }
 
-  /**
-   * 删除选中团队类型X
-   * @param item
-   * @param i
-   */
-  deleteSelectedType(item,i){
-    item.selectedTeamType.splice(item.selectedTeamType.indexOf(i), 1);
-    i.checked=false;
-  }
-
-  /**
-   * 控制城市面板显示与否
-   * @param item
-   */
-  getCityPanel(item){
-    item.showPanel = !item.showPanel;
-  }
-  /**
-   * 控制团队类型面板显示与否
-   * @param item
-   */
-  getTeamPanel(item){
-    item.showTeamPanel = !item.showTeamPanel;
-  }
-
-  submit(){
-
+  submit() {
+    if (!this.ruleName) {
+      return;
+    } else {
+      let ruleName = this.ruleName;
+      let targetTable = this.dataSelected;
+      let ruleUserConditions = [];
+      let ruleDetails = [];
+      let userRight = '';
+      let dataRight = '';
+      this.items.forEach(function (value) {
+        if (value.selectedTeamType.length && value.attr === 'sv_city') {
+          let teamType = [];
+          for (let i = 0; i < value.selectedTeamType.length; i++) {
+            teamType.push(value.selectedTeamType[i].value);
+          }
+          userRight = teamType.join(',');
+        } else if (value.selectedCity.length && value.attr === 'tm_type') {
+          let cityCode = [];
+          let len = value.selectedCity.length;
+          for (let i = 0; i < len; i++) {
+            cityCode.push(value.selectedCity[i].code);
+          }
+          userRight = cityCode.join(',');
+        } else {
+          userRight = value.value;
+        }
+        ruleUserConditions.push({
+          leftChoose: value.attr, midSymbol: value.relate,
+          rightValue: userRight, andOr: 'and'
+        });
+      });
+      this.datas.forEach(function (value) {
+        if (value.rightObj === 0) {
+          dataRight = value.leftAttr;
+        } else {
+          if (value.leftAttr === 'tm_type') {
+            let teamType = [];
+            for (let i = 0; i < value.selectedTeamType.length; i++) {
+              teamType.push(value.selectedTeamType[i].value);
+            }
+            dataRight = teamType.join(',');
+          } else if (value.leftAttr === 'sv_city') {
+            let cityCode = [];
+            let len = value.selectedCity.length;
+            for (let i = 0; i < len; i++) {
+              cityCode.push(value.selectedCity[i].code);
+            }
+            dataRight = cityCode.join(',');
+          } else {
+            dataRight = value.value;
+          }
+        }
+        ruleDetails.push({
+          dataLeft: value.leftAttr, dataRightType: value.rightObj,
+          dataSymbol: value.relate, dataRightValue: dataRight, andor: 'and'
+        });
+      });
+      let params = {
+        description: '',
+        ruleName: ruleName,
+        ruleUserConditions: ruleUserConditions,
+        ruleDetails: ruleDetails,
+        targetTable: targetTable
+      };
+<<<<<<< HEAD
+      this.http.post("dataRule",params, (data) => {
+        // console.log("adddata", data)
+      })
+=======
+      this.http.post('dataRule', params, (data) => {
+        console.log('adddata', data);
+      });
+>>>>>>> dbaa52b3541fb3a819cc052e5e6eba5504ef801c
+    }
   }
 
   /**
    * 初始化数据
    */
   ngOnInit() {
-    this.id = this.routerInfo.snapshot.queryParams["id"];
-    this.rule.getRuleById(this.id, (data) => {
-      console.log(data,"ruledata")
-    });
-    this.items =[{
-      attributes:[
-        {value:1, name:"服务城市"}, {value:2, name: "团队类型"},
-        {value:3, name: "团队ID"}, {value:4, name: "用户ID"}],
-      attr:1,
-      relationships:[
-        {value:1, name:"等于"}, {value:2, name: "不等于"},
-        {value:3, name: "包含"}, {value:4, name: "不包含"}],
-      relate:2,
-      selectedCity:[],
-      selectedTeamType:[],
-      showPanel:false,
-      showTeamPanel:false
-    }];
+    this.id = this.routerInfo.snapshot.queryParams['id'];
+    if (this.id) {
+      let resCity = [];
+      let resTeamType = [];
+      let that = this;
+      this.http.get('dataRule/' + this.id, '', (data) => {
+        // let result = data.ruleDetails;
+        let result = [{dataLeft: 'sv_city', dataRightType: 1, dataRightValue: '11,44', dataSymbol: '==', id: 7}];
+        this.dataObj = [{value: 'all', name: '全部对象'}, {value: 'shop', name: '店铺管理'}];
+        this.dataSelected = data.targetTable ? data.targetTable : 'all';
+        if (result) {
+          result.forEach(function (value) {
+            that.count += 1;
+            let dataName = 'dataName' + that.count;
+            let leftObj = 2;
+            let leftAttr = value.dataLeft;
+            let relate = value.dataSymbol;
+            let dataObj = value.dataRightType;
+            let val = value.dataRightValue;
+            if (leftAttr === 'sv_city' && val) {
+              val.split(',').forEach(function (city) {
+                let name = that.cityName.transform(city);
+                resCity.push({code: Number(city), name: name});
+              });
+            } else if (leftAttr === 'tm_type' && val) {
+              val.split(',').forEach(function (type) {
+                resTeamType.push({value: type, name: this.teamTypeObj[val], checked: true});
+              });
+            }
+            that.datas.push({
+              dataName: dataName,
+              leftObjs: [{value: 0, name: '店铺'}, {value: 2, name: '当前登录'}],
+              leftObj: leftObj,
+              leftAttributes: [
+                {value: 'sv_city', name: '服务城市'}, {value: 'tm_type', name: '团队类型'},
+                {value: 'tm_id', name: '团队ID'}, {value: 'us_id', name: '用户ID'}],
+              leftAttr: leftAttr,
+              relationships: [{value: '==', name: '等于'}, {value: '!=', name: '不等于'},
+                {value: 'in', name: '包含'}, {value: 'notin', name: '不包含'}],
+              relate: relate,
+              rightObjs: [{value: 0, name: '店铺'}, {value: 1, name: '值'}],
+              rightObj: dataObj,
+              rightAttributes: [
+                {value: 'sv_city', name: '服务城市'}, {value: 'tm_type', name: '团队类型'},
+                {value: 'tm_id', name: '团队ID'}, {value: 'us_id', name: '用户ID'}],
+              rightAttr: leftAttr,
+              value: val,
+              selectedCity: resCity,
+              selectedTeamType: resTeamType
+            });
+          });
+        } else {
+          this.datas = [{
+            dataName: 'dataName' + this.count,
+            leftObjs: [{value: 0, name: '店铺'}, {value: 2, name: '当前登录'}],
+            leftObj: 2,
+            leftAttributes: [
+              {value: 'sv_city', name: '服务城市'}, {value: 'tm_type', name: '团队类型'},
+              {value: 'tm_id', name: '团队ID'}, {value: 'us_id', name: '用户ID'}],
+            leftAttr: 'sv_city',
+            relationships: [
+              {value: '==', name: '等于'}, {value: '!=', name: '不等于'},
+              {value: 'in', name: '包含'}, {value: 'notin', name: '不包含'}],
+            relate: '==',
+            rightObjs: [
+              {value: 0, name: '店铺'}, {value: 1, name: '值'}],
+            rightObj: 0,
+            rightAttributes: [
+              {value: 'sv_city', name: '服务城市'}, {value: 'tm_type', name: '团队类型'},
+              {value: 'tm_id', name: '团队ID'}, {value: 'us_id', name: '用户ID'}],
+            rightAttr: 'sv_city',
+            selectedCity: [],
+            selectedTeamType: []
+          }];
+        }
 
-    this.datas =[{
-      leftObjs:[{value:1, name:"店铺"}, {value:2, name: "当前登录"}],
-      leftObj:1,
-      leftAttributes:[
-        {value:1, name:"服务城市"}, {value:2, name: "团队类型"},
-        {value:3, name: "团队ID"}, {value:4, name: "用户ID"}],
-      leftAttr:1,
-      relationships:[
-        {value:1, name:"等于"}, {value:2, name: "不等于"},
-        {value:3, name: "包含"}, {value:4, name: "不包含"}],
-      relate:2,
-      rightObjs:[{value:1, name:"店铺"}, {value:2, name: "当前登录"},{value:3, name: "值"}],
-      rightObj:1,
-      rightAttributes:[
-        {value:1, name:"服务城市"}, {value:2, name: "团队类型"},
-        {value:3, name: "团队ID"}, {value:4, name: "用户ID"}],
-      rightAttr:1,
-      selectedCity:[],
-      selectedTeamType:[],
-      showPanel:false,
-      showTeamPanel:false
-    }];
-    this.dataObj = [{value:1,name:"全部对象"},{value:2,name:"店铺管理"}];
-    this.dataSelected = 1;
+        // let user = data.ruleUserConditions;
+        let user = [{leftChoose: 'sv_city', rightValue: '11,44', midSymbol: '=='}];
+        let userCity = [];
+        let userTeamType = [];
+        if (user) {
+          user.forEach(function (userItem) {
+            that.count += 1;
+            let formName = 'formName' + that.count;
+            let attr = userItem.leftChoose;
+            let relate = userItem.midSymbol;
+            let value = userItem.rightValue;
+            if (attr === 'sv_city' && value) {
+              value.split(',').forEach(function (city) {
+                let name = that.cityName.transform(city);
+                userCity.push({code: Number(city), name: name});
+              });
+            } else if (attr === 'tm_type' && value) {
+              value.split(',').forEach(function (type) {
+                userTeamType.push({value: type, name: this.teamTypeObj[value], checked: true});
+              });
+            }
+            that.items.push({
+              formName: formName,
+              attributes: [
+                {value: 'sv_city', name: '服务城市'}, {value: 'tm_type', name: '团队类型'},
+                {value: 'tm_id', name: '团队ID'}, {value: 'us_id', name: '用户ID'}],
+              attr: !attr ? 'sv_city' : attr,
+              relationships: [
+                {value: '==', name: '等于'}, {value: '!=', name: '不等于'},
+                {value: 'in', name: '包含'}, {value: 'notin', name: '不包含'}],
+              relate: !relate ? '==' : relate,
+              value: value ? value : '',
+              selectedCity: userCity ? userCity : [],
+              selectedTeamType: userTeamType ? userTeamType : []
+            });
+          });
+        } else {
+          this.items = [{
+            formName: 'formName' + this.count,
+            attributes: [
+              {value: 'sv_city', name: '服务城市'}, {value: 'tm_type', name: '团队类型'},
+              {value: 'tm_id', name: '团队ID'}, {value: 'us_id', name: '用户ID'}],
+            attr: 'sv_city',
+            relationships: [
+              {value: '==', name: '等于'}, {value: '!=', name: '不等于'},
+              {value: 'in', name: '包含'}, {value: 'notin', name: '不包含'}],
+            relate: '==',
+            selectedCity: [],
+            selectedTeamType: []
+          }];
+        }
+      });
+    } else {
+      this.items = [{
+        formName: 'formName' + this.count,
+        attributes: [
+          {value: 'sv_city', name: '服务城市'}, {value: 'tm_type', name: '团队类型'},
+          {value: 'tm_id', name: '团队ID'}, {value: 'us_id', name: '用户ID'}],
+        attr: 'sv_city',
+        relationships: [
+          {value: '==', name: '等于'}, {value: '!=', name: '不等于'},
+          {value: 'in', name: '包含'}, {value: 'notin', name: '不包含'}],
+        relate: '==',
+        selectedCity: [],
+        selectedTeamType: []
+      }];
+
+      this.datas = [{
+        dataName: 'dataName' + this.count,
+        leftObjs: [{value: 0, name: '店铺'}, {value: 2, name: '当前登录'}],
+        leftObj: 2,
+        leftAttributes: [
+          {value: 'sv_city', name: '服务城市'}, {value: 'tm_type', name: '团队类型'},
+          {value: 'tm_id', name: '团队ID'}, {value: 'us_id', name: '用户ID'}],
+        leftAttr: 'sv_city',
+        relationships: [
+          {value: '==', name: '等于'}, {value: '!=', name: '不等于'},
+          {value: 'in', name: '包含'}, {value: 'notin', name: '不包含'}],
+        relate: '==',
+        rightObjs: [
+          {value: 0, name: '店铺'}, {value: 1, name: '值'}],
+        rightObj: 0,
+        rightAttributes: [
+          {value: 'sv_city', name: '服务城市'}, {value: 'tm_type', name: '团队类型'},
+          {value: 'tm_id', name: '团队ID'}, {value: 'us_id', name: '用户ID'}],
+        rightAttr: 'sv_city',
+        selectedCity: [],
+        selectedTeamType: []
+      }];
+      this.dataObj = [{value: 'all', name: '全部对象'}, {value: 'shop', name: '店铺管理'}];
+      this.dataSelected = 'all';
+    }
   }
-
 }

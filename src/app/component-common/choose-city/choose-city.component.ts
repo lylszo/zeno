@@ -1,5 +1,5 @@
 import {Component, OnInit, OnChanges, Input, SimpleChanges, EventEmitter,Output} from '@angular/core';
-import { DistrictService } from '../../service/district.service';
+import { HttpService } from "../../service/http.service";
 
 @Component({
   selector: 'app-choose-city',
@@ -9,10 +9,11 @@ import { DistrictService } from '../../service/district.service';
 export class ChooseCityComponent implements OnInit, OnChanges {
 
   districtData:any;
-  citys = [];
+  provinces:Array<any>=[];
+  citys:Array<any> = [];
   // _showCityPanel:boolean;
 
-  constructor() {
+  constructor(private http:HttpService) {
 
   }
   @Input() showCityPanel:boolean;
@@ -23,20 +24,27 @@ export class ChooseCityComponent implements OnInit, OnChanges {
     let change = changes.showCityPanel;
     this.showCityPanel = change.currentValue;
   }
-
   getCity(item){
+    this.citys = [];
+    this.http._get("district", {parent_id: item.code}, (data) => {
+      this.citys = data;
+    });
+  }
+
+  chooseCity(item){
     this.event.emit(item);
   }
 
   ngOnInit() {
-    this.districtData = JSON.parse(localStorage.getItem("district"));
-    let len = this.districtData.length;
-    for(let i=0;i<len;i++){
-      if(this.districtData[i].code.toString().length===2){
-        this.citys.push(this.districtData[i]);
-      }
-    }
-    console.log(this.citys,"citys");
+    // this.districtData = JSON.parse(localStorage.getItem("district"));
+    // let len = this.districtData.length;
+    // for(let i=0;i<len;i++){
+    //   if(this.districtData[i].code.toString().length===4){
+    //     this.citys.push(this.districtData[i]);
+    //   }
+    // }
+    this.http._get("district", {parent_id: '0'}, (data) => {
+      this.provinces = data;
+    });
   }
-
 }

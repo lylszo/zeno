@@ -1,3 +1,159 @@
-<p>
-  admin-index works!
-</p>
+<div class="userIndex">
+	<h1 class="z-title-lg">系统首页</h1>
+	<div class="part1 clearfix">
+		<div class="greet">
+			<h2 class="z-title-md-style">欢迎使用铺铺旺大数据系统</h2>
+			<div class="person clearfix">
+				<img src="{{personUrl || './assets/imgs/person-default.png'}}">
+				<div class="name">
+					<p *ngIf="login" class="f18 bold">{{userDetail.name}}</p>
+					<p *ngIf="login" class="color-999">你已加入2个团队</p>
+				</div>
+			</div>
+			<p *ngIf="!login" class="loginInfo"><a class="link" routerLink="/login">请登录</a></p>
+			<ul class="clearfix" *ngIf="login">
+				<li>
+					<p class="f16 bold">华南人事团队华南人事团队华南人事团队<br><span class="f14 color-666">（自营）</span></p>
+					<span class="z-group-red">人事组</span>
+				</li>
+				<li>
+					<p class="f16 bold">前端小组<br><span class="f14 color-666">（自营）</span></p>
+					<span class="z-group-orange">技术组</span>
+				</li>
+				<li>
+					<p class="f16 bold">华南人事团队华南人事团队华南人事团队<br><span class="f14 color-666">（自营）</span></p>
+					<span class="z-group-red">人事组</span>
+				</li>
+				<li>
+					<p class="f16 bold">前端小组<br><span class="f14 color-666">（自营）</span></p>
+					<span class="z-group-orange">技术组</span>
+				</li>
+			</ul>
+		</div>
+		<div class="info">
+			<h2 class="z-title-md-style">
+				消息提醒
+				<span *ngIf="login" class="red">（未读信息1）</span>
+				<a *ngIf="!login" class="link" routerLink="/login">（请先登录）</a>
+			</h2>
+			<div *ngIf="login">
+				<p>
+					<span class="z-square-red mr5">new</span>
+					<span class="bold">【加入团队提醒】</span>
+					李四将您加入"深圳西乡组"团队
+				</p>
+				<p>
+					<span class="bold">【身份变更提醒】</span>
+					李四设置您为"深圳南油组"组长身份
+				</p>
+				<p>
+					<span class="bold">【公告】</span>
+					深圳西乡店KPI已发下，请各位查收深圳西乡店KPI已发下，请各位查收
+				</p>
+				<p>
+					<span class="bold">【公告】</span>
+					深圳西乡店KPI已发下，请各位查收
+				</p>
+				<p>
+					<span class="bold">【公告】</span>
+					深圳西乡店KPI已发下，请各位查收
+				</p>
+				<p>
+					<span class="bold">【公告】</span>
+					深圳西乡店KPI已发下，请各位查收
+				</p>
+				<p>
+					<span class="bold">【公告】</span>
+					深圳西乡店KPI已发下，请各位查收
+				</p>
+			</div>
+		</div>
+	</div>
+	<div class="part2">
+		<h2 class="z-title-md-style">操作快捷入口</h2>
+		<ul class="clearfix">
+			<li>
+				<div routerLink="/user/shopService" routerLinkActive="active">
+					<span></span>
+					<p>店铺信息</p>
+				</div>
+			</li>
+			<li *ngIf="login">
+				<div routerLink="/user/releaseStore">
+					<span class="icon-2"></span>
+					<p>发布信息</p>
+				</div>
+			</li>
+			<li *ngIf="login">
+				<div>
+					<span class="icon-3"></span>
+					<p>我的发布</p>
+				</div>
+			</li>
+		</ul>
+	</div>
+	<!-- <div class="part3">
+		<h2 class="z-title-md-style">信息总收录<span class="color-666">（深圳）</span></h2>
+		<ul class="data clearfix">
+			<li>
+				<span>1200</span>
+				<p>全部数据</p>
+				<i></i>
+			</li>
+			<li>
+				<span>800</span>
+				<p>店铺</p>
+				<i></i>
+			</li>
+			<li>
+				<span>400</span>
+				<p>小区</p>
+				<i></i>
+			</li>
+		</ul>
+		<ul class="list clearfix">
+			<li>
+				<div>
+					<span>6</span>
+					<p>今日新增</p>
+					<i></i>
+				</div>
+			</li>
+			<li>
+				<div>
+					<span>3</span>
+					<p>今日修改</p>
+					<i class="icon-2"></i>
+				</div>
+			</li>
+			<li>
+				<div>
+					<span>50</span>
+					<p>近7天新增</p>
+					<i></i>
+				</div>
+			</li>
+			<li>
+				<div>
+					<span>20</span>
+					<p>近7天修改</p>
+					<i class="icon-2"></i>
+				</div>
+			</li>
+			<li>
+				<div>
+					<span>145</span>
+					<p>近1月新增</p>
+					<i></i>
+				</div>
+			</li>
+			<li>
+				<div>
+					<span>196</span>
+					<p>近1月修改</p>
+					<i class="icon-2"></i>
+				</div>
+			</li>
+		</ul>
+	</div> -->
+</div>

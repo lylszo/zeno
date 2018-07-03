@@ -22,9 +22,11 @@
 }
 .disblock-li{
   width: 25%;
+
 }
 .disblock-li ul{
-  overflow-y: scroll;
+  height: 650px;
+  overflow-y: auto;
 }
 .disItem-li{
   margin: 0;
@@ -35,6 +37,10 @@
   cursor: pointer;
 }
 .disItem-li:hover{
+  background-color: #f0f0f0;
+  color: #1972d6;
+}
+.click{
   background-color: #f0f0f0;
   color: #1972d6;
 }

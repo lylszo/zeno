@@ -1,12 +1,11 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import { UserService } from '../../service/user.service';
-import { SmsService } from '../../service/sms.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { HttpService } from "../../service/http.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-forget-password',
   templateUrl: './forget-password.component.html',
-  styleUrls: ['../login/login.component.scss', './forget-password.component.scss'],
-  providers:[UserService, SmsService]
+  styleUrls: ['../login/login.component.scss', './forget-password.component.scss']
 })
 export class ForgetPasswordComponent implements OnInit, OnDestroy {
   account:string = '';
@@ -17,42 +16,44 @@ export class ForgetPasswordComponent implements OnInit, OnDestroy {
   clicked:boolean=false;
   time:any="获取验证码";
 
-  constructor(public userService:UserService,public smsService: SmsService) {
+  constructor(private http:HttpService, public router:Router) {
   }
 
   getVC(invalid) {
     if(invalid){
       alert("请输入正确手机号码");
     }else{
-      this.smsService.getVCode(this.account, "RESETPWD",(data) => {
-        console.log("mydata", data);
+      let params = {
+        "mobile": this.account, 
+        "purpose": "RESETPWD"
+      }
+      this.http._post("vcode/send_sms", params, (data) => {
+        this.code=data;
       });
       this.time=60;
       let timer = setInterval(() => {
         this.time = this.time - 1;
         if(this.time === -1){
           clearInterval(timer);
-          this.time="获取验证码"
+          this.time="再次获取验证码"
         }
       }, 1000);
     }
   }
 
-  ForgetSubmit(valid){
+  ForgetSubmit(invalid){
     this.clicked=true;
-    if(!valid){
-      alert("参数填写不正确")
-    }else if(this.password1!=this.password2){
-      alert("密码不对应")
+    if(invalid){
+      return
     } else{
       let userResetPasswordParam = {
         mobile:this.account,
-        password:this.password1,
-        vcode:this.code,
-        // city:this.city
+        newPassword:this.password1,
+        repeatPassword:this.password2,
+        vcode:this.code
       };
-      this.userService.resetPassword(userResetPasswordParam,(data) => {
-        console.log("forget",data)
+      this.http._post("user/resetPassword", userResetPasswordParam, (data) => {
+        this.router.navigateByUrl('/login');
       })
     }
 

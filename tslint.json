@@ -74,7 +74,7 @@
     ],
     "prefer-const": false,
     "quotemark": false,
-    "radix": true,
+    "radix": false,
     "semicolon": false,
     "triple-equals": [
       true,

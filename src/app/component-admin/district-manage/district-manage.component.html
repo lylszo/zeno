@@ -11,29 +11,32 @@
   <ul class="clearfix disblock-body">
     <li class="f-l disblock-li">
       <ul>
-        <li class="disItem-li" *ngFor="let provice of cityList">
+        <li class="disItem-li" *ngFor="let provice of provinces" (click)="getCity(provice,1,provinces)"
+            [ngClass]="{'click':provice.clicked}">
           {{provice.name}}
         </li>
       </ul>
     </li>
     <li class="f-l disblock-li">
       <ul>
-        <li class="disItem-li" *ngFor="let provice of cityList">
-          {{provice.name}}
+        <li class="disItem-li" *ngFor="let city of cityList" (click)="getCity(city,2,cityList)"
+            [ngClass]="{'click':city.clicked}">
+          {{city.name}}
         </li>
       </ul>
     </li>
     <li class="f-l disblock-li">
       <ul>
-        <li class="disItem-li" *ngFor="let provice of cityList">
-          {{provice.name}}
+        <li class="disItem-li" *ngFor="let districtItem of districts" (click)="getCity(districtItem,3,districts)"
+            [ngClass]="{'click':districtItem.clicked}">
+          {{districtItem.name}}
         </li>
       </ul>
     </li>
     <li class="f-l disblock-li">
       <ul>
-        <li class="disItem-li" *ngFor="let provice of cityList">
-          {{provice.name}}
+        <li class="disItem-li" *ngFor="let town of towns">
+          {{town.name}}
         </li>
       </ul>
     </li>

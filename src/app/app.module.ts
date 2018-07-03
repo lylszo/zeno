@@ -5,15 +5,19 @@ import { AdminRoutesModule } from './admin.routes';
 import { UserRoutesModule } from './user.routes';
 import { PaginationModule , ModalModule} from 'ngx-bootstrap';
 import { HttpClientModule, HttpClientJsonpModule } from '@angular/common/http';
-import { FormsModule, ReactiveFormsModule, FormGroup} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { NgProgressModule } from "@ngx-progressbar/core";
+import { NgProgressHttpModule } from "@ngx-progressbar/http";
+import { NgProgressRouterModule } from "@ngx-progressbar/router";
+import { HashLocationStrategy , LocationStrategy } from '@angular/common';
 
 import { CookieService } from 'ngx-cookie-service';
+import { TipPopService } from './service/tipPop.service';
 
 import { AppComponent } from './app.component';
 import { IndexComponent } from './component-app/index/index.component';
 import { LoginComponent } from './component-app/login/login.component';
-import { SidebarComponent } from './component-admin/sidebar/sidebar.component';
 import { UserManageComponent } from './component-admin/user-manage/user-manage.component';
 import { TeamManageComponent } from './component-admin/team-manage/team-manage.component';
 import { MemberManageComponent } from './component-admin/member-manage/member-manage.component';
@@ -31,8 +35,6 @@ import { AdminComponent } from './component-admin/admin/admin.component';
 import { AdminIndexComponent } from './component-admin/admin-index/admin-index.component';
 import { UserComponent } from './component-user/user/user.component';
 import { UserIndexComponent } from './component-user/user-index/user-index.component';
-import { ToolbarComponent } from './component-admin/toolbar/toolbar.component';
-import { NavComponent } from './component-user/nav/nav.component';
 import { PreviewimgComponent } from './component-common/previewimg/previewimg.component';
 import { ShopServiceComponent } from './component-user/shop-service/shop-service.component';
 import { RegisterComponent } from './component-app/register/register.component';
@@ -58,13 +60,20 @@ import { MapComponent } from './component-common/map/map.component';
 import { MapModalComponent } from './component-common/map-modal/map-modal.component';
 import { SelectCityMultiComponent } from './component-common/select-city-multi/select-city-multi.component';
 import { SelectTeamTypeComponent } from './component-common/select-team-type/select-team-type.component';
+import { PaginationComponent } from './component-common/pagination/pagination.component';
+import { DistrictComponent } from './component-common/district/disctrict/district.component';
+import { DistrictMultComponent } from './component-common/district/district-mult/district-mult.component';
+import { CityNamePipe } from './pipe/city-name.pipe';
+import { RoleModalComponent } from './component-common/role-modal/role-modal.component';
+import {Guard} from "./service/guard.service";
+import { ChooseIndustryComponent } from './component-common/choose-industry/choose-industry.component';
+import { ChooseDistrictComponent } from './component-common/choose-district/choose-district.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     IndexComponent,
     LoginComponent,
-    SidebarComponent,
     UserManageComponent,
     TeamManageComponent,
     MemberManageComponent,
@@ -82,8 +91,6 @@ import { SelectTeamTypeComponent } from './component-common/select-team-type/sel
     AdminIndexComponent,
     UserComponent,
     UserIndexComponent,
-    ToolbarComponent,
-    NavComponent,
     PreviewimgComponent,
     ShopServiceComponent,
     RegisterComponent,
@@ -108,7 +115,14 @@ import { SelectTeamTypeComponent } from './component-common/select-team-type/sel
     MapComponent,
     MapModalComponent,
     SelectCityMultiComponent,
-    SelectTeamTypeComponent
+    SelectTeamTypeComponent,
+    PaginationComponent,
+    DistrictComponent,
+    DistrictMultComponent,
+    CityNamePipe,
+    RoleModalComponent,
+    ChooseIndustryComponent,
+    ChooseDistrictComponent
   ],
   imports: [
     BrowserModule,
@@ -120,9 +134,12 @@ import { SelectTeamTypeComponent } from './component-common/select-team-type/sel
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    HttpClientJsonpModule
+    HttpClientJsonpModule,
+    NgProgressModule.forRoot(),
+    NgProgressHttpModule,
+    NgProgressRouterModule
   ],
-  providers: [CookieService],
+  providers: [CookieService, TipPopService, {provide: LocationStrategy, useClass: HashLocationStrategy}, Guard],
   bootstrap: [AppComponent]
 })
 export class AppModule {

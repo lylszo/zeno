@@ -1,0 +1,33 @@
+/*分页*/
+.page-list {
+  margin: 2rem;
+  float: right;
+  line-height: 30px;
+}
+
+.page-total, .no-items {
+  display: inline-block;
+}
+
+.page-jump {
+  display: inline-block;
+  color: #666;
+  float: right;
+  input {
+    color: #333;
+    width: 30px;
+    height: 21px;
+    text-align: center;
+    outline: none;
+    font-size: 14px;
+    box-shadow: none;
+    margin: 0 5px;
+  }
+}
+
+pagination {
+  display: inline-block;
+  margin: 0 1rem;
+}
+
+

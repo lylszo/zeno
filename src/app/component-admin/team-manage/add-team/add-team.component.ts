@@ -7,6 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddTeamComponent implements OnInit {
 
+  teamType = [{
+    code: 0,
+    name: '-请选择-'
+  }, {
+    code: 1,
+    name: '自营'
+  }, {
+    code: 2,
+    name: '加盟店'
+  }];
+
   constructor() { }
 
   ngOnInit() {

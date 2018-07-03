@@ -1,7 +1,108 @@
-<div>
-	<app-toolbar></app-toolbar>
-	<app-sidebar></app-sidebar>
-	<div class="main">
-		<router-outlet></router-outlet>
-	</div>	
+<div class="admin">
+	<div class="toolbar">
+		<div class="left">
+			<i class="iconfont icon-caidanlan" (click)="show()"></i>
+			<a class="logo" routerLink="/admin">
+				<img src="./assets/imgs/logo-nav.png">
+			</a>
+		</div>
+		<div class="right">
+			<div class="item">
+				<div class="phone" title="APP下载">
+					<i class="iconfont icon-shouji1"></i>
+				</div>
+			</div>
+			<div class="item" routerLink="/admin/news">
+				<div class="message" title="消息提醒">
+					<i class="iconfont icon-xiaoxi">
+						<span>1</span>
+					</i>						
+				</div>
+			</div>
+			<div class="item person">
+				<div class="pic">
+					<img *ngIf="userDetail.photoId" src="{{userDetail.photoId}}">
+					<i *ngIf="!userDetail.photoId" class="iconfont icon-nanrentouxiang"></i>					
+				</div>
+				<span class="text">{{userDetail.name}}</span>
+				<div class="downList">
+					<ul>
+						<li routerLink="/admin/dataSet">资料设置</li>
+						<li routerLink="/admin/passwordUpdate">密码修改</li>
+						<li routerLink="/user">用户平台</li>
+						<!-- <li routerLink="/user/historyLog">活动日志</li> -->
+						<li (click)="logout()">退出登录</li>
+					</ul>					
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="sidebar" [class.hidden]="!showSiderbar">
+		<div class="level-1" routerLink="/admin" routerLinkActive="active">
+			首页
+		</div>
+
+		<div class="level-1" [class.active]="user" (click)="user=!user">
+			用户管理
+			<i class="iconfont icon-right f13 bold"></i>
+		</div>
+		<div class="children">
+			<div class="level-2" routerLink="/admin/userManage" routerLinkActive="active">
+				用户管理
+			</div>
+		</div>
+
+		<div class="level-1" [class.active]="team" (click)="team=!team">
+			团队管理
+			<i class="iconfont icon-right f13 bold"></i>
+		</div>
+		<div class="children">
+			<div class="level-2" routerLink="/admin/teamManage" routerLinkActive="active">
+				团队管理
+			</div>
+		</div>
+
+		<div class="level-1" [class.active]="system" (click)="system=!system">
+			系统管理
+			<i class="iconfont icon-right f13 bold"></i>
+		</div>
+		<div class="children">
+			<div class="level-2" routerLink="/admin/roleManage" routerLinkActive="active">
+				角色管理
+			</div>
+			<div class="level-2" routerLink="/admin/moduleManage" routerLinkActive="active">
+				功能模块管理
+			</div>
+			<div class="level-2" routerLink="/admin/districtManage" routerLinkActive="active">
+				区域管理
+			</div>
+			<div class="level-2" routerLink="/admin/tagManage" routerLinkActive="active">
+				标签库管理
+			</div>
+			<div class="level-2" routerLink="/admin/ruleManage" routerLinkActive="active">
+				规则库管理
+			</div>
+		</div>
+
+		<div class="level-1" [class.active]="person" (click)="person=!person">
+			个人中心
+			<i class="iconfont icon-right f13 bold"></i>
+		</div>
+		<div class="children">
+			<div class="level-2" routerLink="/admin/dataSet" routerLinkActive="active">
+				资料设置
+			</div>
+			<div class="level-2" routerLink="/admin/passwordUpdate" routerLinkActive="active">
+				密码修改
+			</div>
+			<div class="level-2" routerLink="/admin/news" routerLinkActive="active">
+				我的消息
+			</div>
+		</div>
+	</div>
+	<div class="main" [class.hidden]="!showSiderbar">
+		<div class="w">
+			<router-outlet></router-outlet>
+		</div>
+	</div>
 </div>
