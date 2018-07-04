@@ -68,12 +68,12 @@
         </p>
       </td>
       <td>
-        <span *ngIf="i.ruleUserConditions">{{i.ruleUserConditions}}</span></td>
+        <span *ngIf="i.creator">{{i.creator}}</span></td>
       <td>
-        <span *ngIf="i.time">{{i.time | date:'yyyy-mm-dd'}}</span></td>
+        <span *ngIf="i.createTime">{{i.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</span></td>
       <td>
-        <span class="z-btn-blue-sm" routerLink="/admin/addRule" [queryParams]="{id:'1'}">编辑</span><br>
-        <span class="z-btn-red-sm">删除</span>
+        <span class="z-btn-blue-sm" routerLink="/admin/addRule" target="_blank" [queryParams]="{id:'1'}">编辑</span><br>
+        <span class="z-btn-red-sm" (click)="deleteRule(i.id)">删除</span>
       </td>
     </tr>
     </tbody>

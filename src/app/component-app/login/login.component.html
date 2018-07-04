@@ -15,15 +15,15 @@
       </div>
 
       <input type="password" name="password" [(ngModel)]="password" #password0="ngModel" placeholder="请输入密码" required
-             pattern="^[0-9A-Za-z]{6,12}$">
+             pattern="^[^ \f\n\r\t\v]{6,12}$">
       <div class="user-error" *ngIf="clicked">
         <span *ngIf="password0.errors?.pattern">请输入6-12位数字或字符</span>
         <span *ngIf="password0.errors?.required">请输入密码</span>
         <span *ngIf="password0.errors" class="error-icon">!</span>
       </div>
 
-      <button [ngClass]="{'buttonBgDis':userLogin.invalid,'buttonBgOk':userLogin.valid}"
-      (click)="loginIn(userLogin.invalid)">登录</button>
+      <button [ngClass]="{'buttonBgDis':disable,'buttonBgOk':userLogin.valid || !clicked}"
+              (click)="loginIn(userLogin.invalid)">登录</button>
     </form>
 
     <div class="user userFooter">

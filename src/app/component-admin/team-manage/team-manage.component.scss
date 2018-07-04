@@ -3,3 +3,18 @@ ul{
     margin-top: 20px;
   }
 }
+
+.edit-modal {
+  label {
+    width: 30%;
+    text-align: right;
+    vertical-align: top;
+  }
+  .l-box{
+    display: inline-block;
+    width: 60%;
+    .z-textarea {
+      width: 100%;
+    }
+  }
+}

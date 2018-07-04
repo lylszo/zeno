@@ -41,13 +41,13 @@
 					<div class="message" title="消息提醒">
 						<i class="iconfont icon-xiaoxi">
 							<span>1</span>
-						</i>						
+						</i>
 					</div>
 				</div>
 				<div *ngIf="!login" class="item person" routerLink="/login">
 					<div class="pic">
 						<img *ngIf="userDetail && userDetail.photoId" src="{{userDetail.photoId}}">
-						<i *ngIf="!userDetail || !userDetail.photoId" class="iconfont icon-nanrentouxiang"></i>					
+						<i *ngIf="!userDetail || !userDetail.photoId" class="iconfont icon-nanrentouxiang"></i>
 					</div>
 					<span class="text">请登录</span>
 					<div class="downList">
@@ -57,13 +57,13 @@
 							<!-- <li routerLink="/user/historyLog">活动日志</li> -->
 							<li routerLink="/admin">管理平台</li>
 							<li (click)="logout()">退出登录</li>
-						</ul>					
+						</ul>
 					</div>
 				</div>
 				<div *ngIf="login" class="item person in">
 					<div class="pic">
 						<img *ngIf="userDetail && userDetail.photoId" src="{{userDetail.photoId}}">
-						<i *ngIf="!userDetail || !userDetail.photoId" class="iconfont icon-nanrentouxiang"></i>					
+						<i *ngIf="!userDetail || !userDetail.photoId" class="iconfont icon-nanrentouxiang"></i>
 					</div>
 					<span class="text">{{userDetail.name}}</span>
 					<div class="downList">
@@ -73,14 +73,14 @@
 							<!-- <li routerLink="/user/historyLog">活动日志</li> -->
 							<li routerLink="/admin">管理平台</li>
 							<li (click)="logout()">退出登录</li>
-						</ul>					
+						</ul>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>				
+	</div>
 	<div class="main">
-		<router-outlet></router-outlet>					
-	</div>		
+		<router-outlet></router-outlet>
+	</div>
 </div>
 

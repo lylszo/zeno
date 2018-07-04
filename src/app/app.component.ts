@@ -12,7 +12,7 @@ export class AppComponent implements OnDestroy {
   tip: object;  // 用于所有接口报错的信息提示
   subscription: Subscription;
 
-  constructor(private http:HttpService, public tipService: TipPopService) {
+  constructor(private http: HttpService, public tipService: TipPopService) {
     this.getDistrict();
     this.getIndustries();
     this.getCurrentCity();
@@ -23,9 +23,8 @@ export class AppComponent implements OnDestroy {
     };
     this.subscription = this.tipService.getValue().subscribe((data) => {
       this.tip = data;
-      let that = this;
-      setTimeout(function () {
-        that.tip = {
+      setTimeout(() => {
+        this.tip = {
           showError: false,
           errorText: '',
           success: false
@@ -44,34 +43,28 @@ export class AppComponent implements OnDestroy {
     }
 
     let districtData = JSON.parse(districtStore);
-    let cityObj = {};
-    let cityList = [];
-    districtData.forEach(function (item) {
-      let value = item.code.toString();
-      cityObj[value] = item.name
-      if(item.code.toString().length == 4) {
-        cityList.push(item);
-      }
-    });
-    localStorage.setItem("cityMap", JSON.stringify(cityObj));
-    localStorage.setItem("cityList", JSON.stringify(cityList));
-
     let districtMap = localStorage.getItem('cityMap');
-    if (!districtMap) {
-      districtData = JSON.parse(districtStore);
-      let map = new Map();
+    let cityListStr = localStorage.getItem("cityList");
+    if (!districtMap || !cityListStr) {
+      let cityObj = {};
+      let cityList = [];
       districtData.forEach(function (item) {
-        map.set(item.code, item.name);
+        let value = item.code.toString();
+        cityObj[value] = item.name;
+        if(item.code.toString().length === 4) {
+          cityList.push(item);
+        }
       });
-      localStorage.setItem('cityMap', JSON.stringify(map));
+      localStorage.setItem('cityMap', JSON.stringify(cityObj));
+      localStorage.setItem("cityList", JSON.stringify(cityList));
     }
   }
 
   // 获取行业放入localstorage
   getIndustries() {
-    if(!localStorage.getItem("industry")) {
-      this.http._get("industryList", '', (data) => {
-        localStorage.setItem("industry", JSON.stringify(data));
+    if (!localStorage.getItem('industry')) {
+      this.http._get('industryList', '', (data) => {
+        localStorage.setItem('industry', JSON.stringify(data));
       });
     }
   }
@@ -80,7 +73,7 @@ export class AppComponent implements OnDestroy {
   getCurrentCity() {
     if(!localStorage.getItem('currentCity')) {
       let currentCity = {code: 4403, name: '深圳'};
-      localStorage.setItem('currentCity', JSON.stringify(currentCity));       
+      localStorage.setItem('currentCity', JSON.stringify(currentCity));
     }
   }
 

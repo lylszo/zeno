@@ -152,15 +152,9 @@ export class RuleAddComponent implements OnInit {
         ruleDetails: ruleDetails,
         targetTable: targetTable
       };
-<<<<<<< HEAD
-      this.http.post("dataRule",params, (data) => {
-        // console.log("adddata", data)
-      })
-=======
       this.http.post('dataRule', params, (data) => {
         console.log('adddata', data);
       });
->>>>>>> dbaa52b3541fb3a819cc052e5e6eba5504ef801c
     }
   }
 
@@ -174,8 +168,8 @@ export class RuleAddComponent implements OnInit {
       let resTeamType = [];
       let that = this;
       this.http.get('dataRule/' + this.id, '', (data) => {
-        // let result = data.ruleDetails;
-        let result = [{dataLeft: 'sv_city', dataRightType: 1, dataRightValue: '11,44', dataSymbol: '==', id: 7}];
+        let result = data.ruleDetails;
+        // let result = [{dataLeft: 'sv_city', dataRightType: 1, dataRightValue: '11,44', dataSymbol: '==', id: 7}];
         this.dataObj = [{value: 'all', name: '全部对象'}, {value: 'shop', name: '店铺管理'}];
         this.dataSelected = data.targetTable ? data.targetTable : 'all';
         if (result) {
@@ -244,8 +238,8 @@ export class RuleAddComponent implements OnInit {
           }];
         }
 
-        // let user = data.ruleUserConditions;
-        let user = [{leftChoose: 'sv_city', rightValue: '11,44', midSymbol: '=='}];
+        let user = data.ruleUserConditions;
+        // let user = [{leftChoose: 'sv_city', rightValue: '11,44', midSymbol: '=='}];
         let userCity = [];
         let userTeamType = [];
         if (user) {

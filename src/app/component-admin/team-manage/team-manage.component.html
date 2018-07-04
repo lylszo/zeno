@@ -7,32 +7,35 @@
       筛选查询
     </h1>
   </header>
-  <ul class="clearfix">
-    <li class="col-lg-3 col-md-4 col-sm-4 f-l">
-      <label for="teamname">团队名称：</label>
-      <input class="z-input" id="teamname" [(ngModel)]="params.name">
-    </li>
-    <li class="col-lg-3 col-md-4 col-sm-4 f-l">
-      <label>团队类型：</label>
-      <app-select [list]="teamType" [(selectedCode)]="params.type"></app-select>
-    </li>
-    <li class="col-lg-3 col-md-4 col-sm-4 f-l">
-      <label>状态：</label>
-      <app-select [list]="teamState" [(selectedCode)]="params.status"></app-select>
-    </li>
-    <li class="col-lg-3 col-md-4 col-sm-4 f-l">
-      <label>所在区域：</label>
-      <app-district [(checkedCode)]="params.workingDistrict"></app-district>
-    </li>
-    <li class="col-lg-12 col-md-8 col-sm-8 f-l">
-      <label>关联标签：</label>
-      <app-set-related-tags [(tagList)]="tagList" [(tags)]="tags"></app-set-related-tags>
-    </li>
-  </ul>
-  <div class="f-r">
-    <a class="mr8" (click)="clearSearch()">清空搜索条件</a>
-    <button class="z-btn-blue-lg" (click)="submit()">搜索</button>
-  </div>
+  <form class="clearfix" #teamListForm="ngForm" name="teamList">
+    <ul class="clearfix">
+      <li class="col-lg-3 col-md-4 col-sm-4 f-l">
+        <label for="teamname">团队名称：</label>
+        <input class="z-input" name="teamname" id="teamname"
+               [(ngModel)]="params.name" maxlength="20">
+      </li>
+      <li class="col-lg-3 col-md-4 col-sm-4 f-l">
+        <label>团队类型：</label>
+        <app-select [list]="teamType" [(selectedCode)]="params.type"></app-select>
+      </li>
+      <li class="col-lg-3 col-md-4 col-sm-4 f-l">
+        <label>状态：</label>
+        <app-select [list]="teamState" [(selectedCode)]="params.status"></app-select>
+      </li>
+      <li class="col-lg-3 col-md-4 col-sm-4 f-l">
+        <label>所在区域：</label>
+        <app-district [(checkedCode)]="params.workingDistrict"></app-district>
+      </li>
+      <li class="col-lg-12 col-md-8 col-sm-8 f-l">
+        <label>关联标签：</label>
+        <app-set-related-tags [(tagList)]="tagList" [(tags)]="tags"></app-set-related-tags>
+      </li>
+    </ul>
+    <div class="f-r">
+      <a class="mr8" (click)="clearSearch()">清空搜索条件</a>
+      <button class="z-btn-blue-lg" (click)="submit()">搜索</button>
+    </div>
+  </form>
 </section>
 
 <section class="z-bg-white clearfix">
@@ -70,9 +73,8 @@
       <td>{{item.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
       <td class="handle">
         <p>
-          <button class="z-btn-blue-sm mr5 mb5" (click)="openModal(edit)">编辑</button>
-          <button class="z-btn-grey-sm mr5 mb5" (click)="openModal(template)">解散</button>
-          <!--<button class="z-btn-blue-sm mr5 mb5">设置角色</button>-->
+          <button class="z-btn-blue-sm mr5 mb5" (click)="openModal(edit, item)">编辑</button>
+          <button class="z-btn-grey-sm mr5 mb5" (click)="openModal(dissolveTem, item)">解散</button>
           <app-role-modal [roles]="item.roles"></app-role-modal>
         </p>
         <p>
@@ -88,131 +90,93 @@
 
 <ng-template #edit>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">编辑用户信息</h4>
+    <h4 class="modal-title pull-left">编辑团队信息</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body">
-    <ul>
-      <li>
-        <label for="name">用户姓名：</label>
-        <input class="z-input" id="name">
-      </li>
-      <li>
-        <label for="cellphone">手机号码：</label>
-        <input class="z-input" id="cellphone">
-      </li>
-      <li>
-        <label for="mail">邮箱地址：</label>
-        <input class="z-input" id="mail">
-      </li>
-      <li>
-        <label for="setCity">工作城市：</label>
-        <span id="setCity">深圳</span>
-        <a>设置</a>
-      </li>
-      <li>
-        <label for="setlab">关联标签：</label>
-        <div>
-          <span id="setlab">多区域</span>
-        </div>
-      </li>
-    </ul>
-  </div>
-  <div class="modal-footer">
+  <form #editTeamForm="ngForm" name="editTeam">
+    <div class="modal-body edit-modal">
+      <ul>
+        <li>
+          <label class="z-required" for="editName">团队名称：</label>
+          <div class="l-box">
+            <input class="z-input" id="editName" name="editName"
+                   [(ngModel)]="team.name"
+                   #editName="ngModel" maxlength="20" required>
+            <div class="z-error" *ngIf="editName.invalid && (editName.dirty || editName.touched)">
+              <span *ngIf="editName.errors?.required">请输入团队名称</span>
+            </div>
+          </div>
+        </li>
+        <li>
+          <label class="z-required">团队类型：</label>
+          <div class="l-box">
+            <app-select [list]="teamType" [(selectedCode)]="team.type"></app-select>
+          </div>
+        </li>
+        <li>
+          <label class="z-required">所在区域：</label>
+          <div class="l-box">
+            <app-district [(checkedCode)]="team.cityId"></app-district>
+          </div>
+        </li>
+        <li>
+          <label class="z-required" for="editAddress">地址：</label>
+          <div class="l-box">
+            <input class="z-input" id="editAddress" name="editAddress" [(ngModel)]="team.address">
+          </div>
+        </li>
+        <li>
+          <label class="z-required">中心点位置：</label>
+          <div class="l-box">
+            <span>{{item.latitude}}</span><span>{{item.longitude}}</span>
+          </div>
+        </li>
+        <li>
+          <label for="editRemark">团队说明：</label>
+          <div class="l-box">
+            <textarea name="editRemark" id="editRemark" class="z-textarea">
+              {{team.remark}}
+            </textarea>
+          </div>
+        </li>
+        <li>
+          <label>关联标签：</label>
+          <div class="l-box">
+            <app-set-related-tags [(tagList)]="team.tags" [(tags)]="editTags"></app-set-related-tags>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="modal-footer">
       <div class="f-r">
         <button type="button" class="z-btn-grey-lg mr7">取消</button>
-        <button type="button" class="z-btn-blue-lg">确定</button>
+        <button type="button" class="z-btn-blue-lg" (click)="editTeam()">确定</button>
       </div>
     </div>
+  </form>
 </ng-template>
 
-<ng-template #template>
+<ng-template #dissolveTem>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">禁用账号</h4>
+    <h4 class="modal-title pull-left">团队解散确认</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
     <div>
-      确认将 用户：张三（13688881234）账号禁用吗？
+      确认将 团队：深圳南油组 解散吗？
     </div>
     <div>
-      禁用账号将不可登录
+      解散团队不可恢复，请谨慎操作！
     </div>
   </div>
   <div class="modal-footer">
     <div class="f-r">
       <button type="button" class="z-btn-grey-lg mr7">取消</button>
-      <button type="button" class="z-btn-blue-lg">确定</button>
-    </div>
-  </div>
-</ng-template>
-
-<ng-template #asignTeam>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">分配团队</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div>
-      基本信息：张三   13956981234  深圳
-    </div>
-    <div>
-      <h4>已加入团队</h4>
-      <ul>
-        <li>深圳飞虎队</li>
-        <li>深圳飞虎队</li>
-      </ul>
-    </div>
-    <div>
-      <h4>分配团队</h4>
-      <input type="text" placeholder="请输入要加入的团队名称">
-      <ul>
-        <li>深圳天鹰队</li>
-        <li>深圳天鹰队</li>
-      </ul>
-    </div>
-  </div>
-  <div class="modal-footer">
-    <div class="f-r">
-      <button type="button" class="z-btn-grey-lg mr7">取消</button>
-      <button type="button" class="z-btn-blue-lg">确定</button>
-    </div>
-  </div>
-</ng-template>
-
-<ng-template #asignArea>
-  <div class="modal-header">
-    <h4 class="modal-title pull-left">分配服务区域</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-    <div class="col-4">
-      <h4>已选服务区域（最多选10个）</h4>
-      <ul>
-        <li>
-          深圳
-        </li>
-        <li>
-          惠州
-        </li>
-      </ul>
-    </div>
-    <div class="col-8">
-      <h4>选择服务区域（可选国家、省、市任何一级）</h4>
-    </div>
-  </div>
-  <div class="modal-footer">
-    <div class="f-r">
-      <button type="button" class="z-btn-grey-lg mr7">取消</button>
-      <button type="button" class="z-btn-blue-lg">确定</button>
+      <button type="button" class="z-btn-blue-lg" (click)="dissolve()">确定</button>
     </div>
   </div>
 </ng-template>

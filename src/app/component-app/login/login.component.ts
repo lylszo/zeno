@@ -3,7 +3,6 @@ import { HttpService } from "../../service/http.service";
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
-import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-login',
@@ -16,9 +15,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   account:string;
   password:string;
   clicked:boolean=false;
-  path:string;
-  constructor(private http:HttpService, public router:Router, public cookie:CookieService, private locate:Location) {
-    this.path = this.locate.path();  // 获取当前的url的path部分
+  disable:boolean = false;
+  constructor(private http:HttpService, public router:Router, public cookie:CookieService) {
   }
 
   ngOnInit() {
@@ -31,8 +29,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   loginIn(invalid){
     this.clicked=true;
     if(invalid){
+      this.disable = true;
       return
     }else{
+      this.disable = false;
       let param = {
         mobile:this.account,
         password:this.password
@@ -49,23 +49,29 @@ export class LoginComponent implements OnInit, OnDestroy {
           //获取当前城市放入localStorage
           let currentCity = {code: 4403, name: '深圳'};
           let myCity = new BMap.LocalCity();
-          let districts = (data && data.districts) ? data.districts : [];
+          let districts = [];
+          if(data && data.districts) {
+            // districts = data.districts.filter(function(v){return v.code.toString.}) : [];
+          }
           myCity.get(rs => {
             let cityName = rs.name.replace('市', '');
             if(districts.length) {
+              let hasCity = false;
               districts.forEach(v => {
                 if(cityName == v.name){
+                  hasCity = true;
                   currentCity = {code: v.code, name: v.name};
                 }
               })
+              if(!hasCity){
+                currentCity = districts[0];
+              }
             }
-            let currentCity = {code: 4401, name: '北京'};
             localStorage.setItem('currentCity', JSON.stringify(currentCity));
-          
-            if(this.path==="/login"){
-              this.router.navigateByUrl('/user');
+            if(this.router.url==="/login"){
+              this.router.navigate(['/user']);
             }else{
-              this.router.navigateByUrl('/admin');
+              this.router.navigate(['/admin']);
             }
           });
 

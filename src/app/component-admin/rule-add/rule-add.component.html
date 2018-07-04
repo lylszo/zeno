@@ -149,7 +149,7 @@
           {{attrObj[item.leftAttr]}}&nbsp;{{symbolObj[item.relate]}}&nbsp;{{targetObj[item.rightObj]}}&nbsp;{{attrObj[item.leftAttr]}}&nbsp;
           <span *ngFor="let i of item.selectedCity">{{i.name}}&nbsp;</span>
           <span *ngFor="let i of item.selectedTeamType">{{i.name}}&nbsp;</span>
-          <span *ngIf="item.leftObj!=='sv_city'&&item.leftObj!=='tm_type'">{{item.value}}</span>
+          <span *ngIf="item.leftAttr!=='sv_city'&&item.leftAttr!=='tm_type'">{{item.value}}</span>
         </p>
       </div>
     </li>

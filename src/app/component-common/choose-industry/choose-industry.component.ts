@@ -49,7 +49,7 @@ export class ChooseIndustryComponent implements OnInit, OnChanges {
   			}
   		})
   		this.selectedList = arr;
-		this.selectedListChange.emit(arr);
+		  this.selectedListChange.emit(arr);
   	}
   }
 
@@ -81,14 +81,14 @@ export class ChooseIndustryComponent implements OnInit, OnChanges {
   //选择行业
   choose(item) {
   	if(item.child && !this.chooseBig) {
-		this.tip.setValue(`不能选择大行业！`);
-		return;
+		  this.tip.setValue(`不能选择大行业！`);
+		  return;
   	}
-	if(this.num >= this.max && !item.selected){
-		let txt = `最多可以选择${this.max}个行业！`;
-		this.tip.setValue(txt);
-		return;
-	}
+  	if(this.num >= this.max && !item.selected){
+  		let txt = `最多可以选择${this.max}个行业！`;
+  		this.tip.setValue(txt);
+  		return;
+  	}
   	item.selected = !item.selected;
   	if(item.child) {
   		item.child.forEach(v => {
@@ -103,37 +103,37 @@ export class ChooseIndustryComponent implements OnInit, OnChanges {
   		})
   	}
   	let num = 0;
-	this.list.forEach(v => {
-		if(v.selected){
-			num++; 
-		}
-		if(v.child){
-			v.child.forEach(w => {
-				if(w.selected){
-					num++;
-				}
-			})
-		}
-	})
-	this.num = num;
+  	this.list.forEach(v => {
+  		if(v.selected){
+  			num++; 
+  		}
+  		if(v.child){
+  			v.child.forEach(w => {
+  				if(w.selected){
+  					num++;
+  				}
+  			})
+  		}
+  	})
+  	this.num = num;
   }
 
   //确定选择
   submit() {
   	this.selectedList = [];
   	this.list.forEach(v => {
-		if(v.selected) {
-			this.selectedList.push(v);
-		}else if(v.child){
-			v.child.forEach(w => {
-				if(w.selected){
-					this.selectedList.push(w);
-				}
-			})
-		}
-	})
-	this.show = false;
-	this.selectedListChange.emit(this.selectedList);
+  		if(v.selected) {
+  			this.selectedList.push(v);
+  		}else if(v.child){
+  			v.child.forEach(w => {
+  				if(w.selected){
+  					this.selectedList.push(w);
+  				}
+  			})
+  		}
+  	})
+  	this.show = false;
+  	this.selectedListChange.emit(this.selectedList);
   }
 
   //删除行业

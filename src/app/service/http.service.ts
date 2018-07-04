@@ -16,7 +16,7 @@ export class HttpService {
   headers: any;
   error = {
     showError: false,
-    errorText: "",
+    errorText: '',
   };
 
   constructor(public http: HttpClient, private cookie: CookieService, public errorModel: TipPopService) {
@@ -25,8 +25,8 @@ export class HttpService {
 
   // 设置header
   setHeader() {
-    this.auth = this.cookie.get("Authorization");
-    this.headers = new HttpHeaders({"Authorization": this.auth, "Content-Type": "application/json;charset=UTF-8"});
+    this.auth = this.cookie.get('Authorization');
+    this.headers = new HttpHeaders({'Authorization': this.auth, 'Content-Type': 'application/json;charset=UTF-8'});
   }
 
   // 需要token的post请求
@@ -43,13 +43,13 @@ export class HttpService {
           //   this.error.errorText = data.message;
           //   console.log("接口返回错误码:", data);
           // }
-          callback(data)
+          callback(data);
         },
         (error) => {
           this.error.errorText = error.error.message;
-          this.errorModel.setValue(this.error.errorText);
+          this.errorModel.setValue(this.error.errorText,false);
           if (err) {
-            err()
+            err();
           }
         });
   }
@@ -59,12 +59,12 @@ export class HttpService {
     this.url = this.bathUrl + path;
     return this.http.post(this.url, param)
       .subscribe((data: any) => {
-          callback(data)
+          callback(data);
         },
         (error) => {
           this.error.showError = true;
           this.error.errorText = error.error.message;
-          this.errorModel.setValue(this.error.errorText);
+          this.errorModel.setValue(this.error.errorText,false);
           if (err) {
             err();
           }
@@ -76,12 +76,12 @@ export class HttpService {
     this.url = this.bathUrl + path;
     return this.http.get(this.url, {params: param, headers: this.headers})
       .subscribe((data) => {
-          callback(data)
+          callback(data);
         },
         (error) => {
           this.error.showError = true;
           this.error.errorText = error.error.message;
-          this.errorModel.setValue(this.error.errorText);
+          this.errorModel.setValue(this.error.errorText,false);
           if (err) {
             err();
           }
@@ -92,22 +92,33 @@ export class HttpService {
     this.url = this.bathUrl + path;
     return this.http.get(this.url, {params: param})
       .subscribe((data: any) => {
-          callback(data)
+          callback(data);
         },
         (error) => {
           this.error.showError = true;
           this.error.errorText = error.error.message;
-          this.errorModel.setValue(this.error.errorText);
+          this.errorModel.setValue(this.error.errorText,false);
           if (err) {
-            err()
+            err();
           }
         });
   }
 
-  del(path: string) {
+  del(path: string, callback: Function, param?: any, err?: Function) {
     this.setHeader();
     this.url = this.bathUrl + path;
-    return this.http.delete(this.url, {headers: this.headers});
+    return this.http.delete(this.url, {params: param, headers: this.headers})
+      .subscribe((data) => {
+        callback(data)
+      },
+        (error) => {
+          this.error.showError = true;
+          this.error.errorText = error.error.message;
+          this.errorModel.setValue(this.error.errorText,false);
+          if (err) {
+            err();
+          }
+        })
   }
 
   put(path: string, params: any, callback: Function, err?: Function) {
@@ -115,16 +126,16 @@ export class HttpService {
     this.url = this.bathUrl + path;
     return this.http.put(this.url, params, {headers: this.headers})
       .subscribe((data) => {
-          callback(data)
+          callback(data);
         },
         (error) => {
           this.error.showError = true;
           this.error.errorText = error.error.message;
-          this.errorModel.setValue(this.error.errorText);
+          this.errorModel.setValue(this.error.errorText,false);
           if (err) {
-            err()
+            err();
           }
-        })
+        });
   }
 
 }

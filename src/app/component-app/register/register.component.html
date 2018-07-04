@@ -33,21 +33,25 @@
     <app-choose-city [showCityPanel]="showCityPanel" (event)="getThisCity($event)"></app-choose-city>
 
     <input type="password" name="password1" [(ngModel)]="password1" #password11="ngModel" placeholder="请输入登录密码"
-           required maxlength="12" minlength="6" pattern="^[0-9A-Za-z]{6,12}$">
+           required maxlength="12" minlength="6" pattern="[^ \f\n\r\t\v]+" autocomplete="off">
     <div class="user-error" *ngIf="clicked">
       <span *ngIf="password11.errors?.pattern">请输入6-12位数字或字符</span>
+      <span *ngIf="password11.errors?.minlength">请输入6-12位数字或字符</span>
       <span *ngIf="password11.errors?.required">请输入密码</span>
       <span *ngIf="password11.errors" class="error-icon">!</span>
     </div>
 
-    <input type="password" name="password2" [(ngModel)]="password2" #password22="ngModel" placeholder="请再输入登录密码" required>
+    <input type="password" name="password2" [(ngModel)]="password2" maxlength="12" minlength="6" pattern="[^ \f\n\r\t\v]+"
+           autocomplete="off" #password22="ngModel" placeholder="请再输入登录密码" required>
     <div class="user-error" *ngIf="clicked">
       <span *ngIf="password22.errors?.required">请再次输入密码</span>
+      <span *ngIf="password22.errors?.pattern">请输入6-12位数字或字符</span>
+      <span *ngIf="password22.errors?.minlength">请输入6-12位数字或字符</span>
       <span *ngIf="password1!=password2">两次密码输入不一致</span>
       <span *ngIf="password1!=password2 || password22.errors" class="error-icon">!</span>
     </div>
 
-    <button [ngClass]="{'buttonBgDis':userRegister.invalid,'buttonBgOk':userRegister.valid}"
+    <button [ngClass]="{'buttonBgDis':disable,'buttonBgOk':(userRegister.valid && password1===password2) || !clicked}"
             (click)="registerSubmit(userRegister.invalid || password1!=password2)">注册</button>
   </form>
 

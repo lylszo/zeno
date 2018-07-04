@@ -35,7 +35,7 @@ export class UserManageComponent implements OnInit {
   pageConf: Page;
 
   constructor(private modalService: BsModalService, private http: HttpService, private tip: TipPopService) {
-    this.status = 0;
+    this.status = -1;
     this.tagList = [];
     this.tags = [];
     this.city = -1;
@@ -54,6 +54,9 @@ export class UserManageComponent implements OnInit {
   // 数据初始化
   // 状态
   statusList = [{
+    code: -1,
+    name: '-请选择-'
+  }, {
     code: 0,
     name: '正常'
   }, {
@@ -64,10 +67,10 @@ export class UserManageComponent implements OnInit {
   // 表单查询
   submit() {
     let params: SearchParam = {
-      status: this.status,
       page: this.pageConf.currentPage,
       pageSize: this.pageConf.itemsPerPage,
     };
+    this.status !== -1 ? params.status = this.status : isUndefined(params.status);
     this.city !== -1 ? params.workingCity = this.city : isUndefined(params.workingCity);
     this.mobile ? params.mobile = this.mobile : isUndefined(params.mobile);
     this.name ? params.name = this.name : isUndefined(params.name);
@@ -90,7 +93,7 @@ export class UserManageComponent implements OnInit {
   clearSearch() {
     this.mobile = '';
     this.name = '';
-    this.status = 0;
+    this.status = -1;
     this.cityItem = {
       name: '-请选择-',
       code: -1

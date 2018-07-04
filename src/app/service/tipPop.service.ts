@@ -13,7 +13,7 @@ export class TipPopService {
   }
   setValue(text, success?:boolean){
     this.errorText = text;
-    this.success = success || false;
+    this.success = success || true;
     this.error = {
       showError:true,
       errorText:this.errorText,

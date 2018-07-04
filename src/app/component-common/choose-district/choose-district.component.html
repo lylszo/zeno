@@ -1,4 +1,5 @@
 <div class="district">
+	<app-select [width]=120 class="ml3" [list]="cityList" [(selectedCode)]="cityCode" (onChange)="getArea(cityCode)"></app-select>	
 	<app-select [width]=120 class="ml3" [list]="areaList" [(selectedCode)]="areaCode" (onChange)="getStreet(areaCode)"></app-select>	
-	<app-select class="ml3" [list]="streetList" [(selectedCode)]="streetCode"></app-select>
+	<app-select class="ml3" [list]="streetList" [(selectedCode)]="streetCode" (onChange)="chooseStreet(streetCode)"></app-select>{{streetCode}}
 </div>

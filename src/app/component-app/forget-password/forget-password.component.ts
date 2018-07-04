@@ -15,6 +15,7 @@ export class ForgetPasswordComponent implements OnInit, OnDestroy {
 
   clicked:boolean=false;
   time:any="获取验证码";
+  disable:boolean = false;
 
   constructor(private http:HttpService, public router:Router) {
   }
@@ -24,9 +25,9 @@ export class ForgetPasswordComponent implements OnInit, OnDestroy {
       alert("请输入正确手机号码");
     }else{
       let params = {
-        "mobile": this.account, 
+        "mobile": this.account,
         "purpose": "RESETPWD"
-      }
+      };
       this.http._post("vcode/send_sms", params, (data) => {
         this.code=data;
       });
@@ -44,8 +45,10 @@ export class ForgetPasswordComponent implements OnInit, OnDestroy {
   ForgetSubmit(invalid){
     this.clicked=true;
     if(invalid){
+      this.disable = true;
       return
     } else{
+      this.disable = false;
       let userResetPasswordParam = {
         mobile:this.account,
         newPassword:this.password1,

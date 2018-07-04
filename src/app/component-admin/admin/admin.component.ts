@@ -29,8 +29,8 @@ export class AdminComponent implements OnInit {
   //退出登录
   logout() {
     this.http.post('user/logout', '', data => {
-      this.cookie.delete("Authorization");
-      this.cookie.delete("userDetail");
+      this.cookie.deleteAll();
+      localStorage.removeItem('currentCity');
       this.tip.setValue('退出登录成功！', true);
       window.location.reload();
       this.router.navigateByUrl('/loginAdmin');

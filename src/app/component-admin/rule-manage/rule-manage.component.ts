@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpService } from "../../service/http.service";
 import { Page} from '../../component-common/pagination/page.model';
+import {TipPopService} from '../../service/tipPop.service';
 
 @Component({
   selector: 'app-rule-manage',
@@ -18,7 +19,7 @@ export class RuleManageComponent implements OnInit {
   attrObj:object={'sv_city':"服务城市", 'tm_type':"团队类型", 'tm_id':"团队ID", 'us_id':"用户ID"};
   symbolObj:object={'==':"等于", '!=':"不等于", 'in':"包含", 'notin':"不包含"};
 
-  constructor(private http:HttpService) {
+  constructor(private http:HttpService, private tip:TipPopService) {
     this.pageConf = {
       currentPage: 1,
       itemsPerPage: 10,
@@ -34,12 +35,18 @@ export class RuleManageComponent implements OnInit {
       ruleName: this.name,
       page: this.pageConf.currentPage,
       pageSize: this.pageConf.itemsPerPage
-    }
+    };
     this.http.get("dataRules", params, (data)=>{
       this.list = data.items;
       this.pageConf.totalItems = data.meta.total;
       this.pageConf.currentPage = data.meta.current_page;
       this.pageConf.numPages = data.meta.total_pages;
+    })
+  }
+
+  deleteRule(id){
+    this.http.del("dataRule/" + id, (data) => {
+      this.tip.setValue("删除规则成功", true)
     })
   }
 
@@ -51,5 +58,4 @@ export class RuleManageComponent implements OnInit {
     this.probationList = [{code:"SHOP",name:"店铺"},{code:"ALL",name:"全部"}];
     this.probation = "ALL"
   }
-
 }

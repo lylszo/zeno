@@ -30,6 +30,15 @@
 		.content {
 			display: inline-block;
 			margin-left: 20px;
+			.error{
+				position: relative;
+				p{
+					font-size: 12px;
+					position: absolute;
+					left: 0;
+					top: 0;
+				}
+			}
 		}
 		.group {
 			margin-bottom: 20px;

@@ -1,3 +1,6 @@
 <router-outlet></router-outlet>
-<p class="tip-message" [class.tip-success]="tip.success" [class.tip-danger]="!tip.success" *ngIf="tip.showError">{{tip.errorText}}</p>
+<div *ngIf="tip.showError">
+	<p class="tip-message" [class.tip-success]="tip.success" [class.tip-danger]="!tip.success">{{tip.errorText}}</p>	
+</div>
+
 <ng-progress [color]="'#333'"></ng-progress>

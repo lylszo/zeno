@@ -2,15 +2,15 @@
 <div class="part1 p20">
 	<h2 class="z-title-md-style">
 		筛选条件
-		<button type="submit" class="z-btn-blue-lg f-r" (click)="getList()">查询</button>
+		<button type="submit" class="z-btn-blue-lg f-r" (click)="getList(searchForm.invalid)">查询</button>
 	</h2>
 	<form class="clearfix">
-		<div class="clearfix">
+		<form class="clearfix" #searchForm="ngForm">
 			<div class="left">
 				<div class="group" [style.margin-bottom.px]=10>
 					<span class="tag">行业</span>
 					<div class="content">
-						<app-choose-industry></app-choose-industry>
+						<app-choose-industry [(selectedList)]="industryIds"></app-choose-industry>
 					</div>				
 				</div>
 				
@@ -18,32 +18,37 @@
 					<span class="tag"></span>
 					<div class="content">
 						<label class="z-checkbox">
-							<input type="checkbox" name=""><i></i>当前经营
+							<input [(ngModel)]="currentI" type="checkbox" name="currentI"><i></i>当前经营
 						</label>
 						<label class="z-checkbox ml20">
-							<input type="checkbox" name=""><i></i>适合经营
+							<input [(ngModel)]="suitI" type="checkbox" name="suitI"><i></i>适合经营
 						</label>
 						<label class="z-checkbox ml20">
-							<input type="checkbox" name=""><i></i>推荐经营
+							<input [(ngModel)]="recommendI" type="checkbox" name="recommendI"><i></i>推荐经营
 						</label>
+						<div class="error">
+							<p class="red" *ngIf="industryIds && industryIds.length && !currentI && !suitI && !recommendI">请选择经营类型</p>							
+							<p class="red" *ngIf="(!industryIds || !industryIds.length) && (currentI || suitI || recommendI)">请选择行业</p>							
+						</div>
 					</div>				
 				</div>
 				
 				<div class="group">
-					<span class="tag">区域</span>
+					<span class="tag">区域</span>{{szo}}
 					<div class="content">
-						<app-select width=120 [list]="cities"></app-select>
-						<app-select width=120 [list]="districts" class="ml5"></app-select>
-						<app-select [list]="businessAreas" class="ml5"></app-select>
+						<app-choose-district [(lyl)]="szo"></app-choose-district>
 					</div>				
 				</div>
 				
 				<div class="group">
 					<span class="tag">位置描述</span>
 					<div class="content">
-						<app-select [list]="descriptions"></app-select>
+						<app-select [list]="descriptions" [(selectedCode)]="positionDesc"></app-select>
 						<label class="z-checkbox ml20">
-							<input type="checkbox"><i></i>临街
+							<input name="nearStreet" type="checkbox" value=1 [(ngModel)]="nearStreet"><i></i>临街
+						</label>
+						<label class="z-checkbox ml20">
+							<input name="notNearStreet" type="checkbox" value=2 [(ngModel)]="notNearStreet"><i></i>不临街
 						</label>
 					</div>				
 				</div>
@@ -52,34 +57,45 @@
 				<div class="group">
 					<span class="tag">面积</span>
 					<div class="content">
-						<input [style.width.px]=160 type="text" class="z-input" placeholder="最小"> -
-						<input [style.width.px]=160 type="text" class="z-input" placeholder="最大"> <span class="color-999"> 平米</span>
+						<input name="minArea" #_minArea="ngModel" [(ngModel)]="minArea" pattern="^[1-9][0-9]*$" [style.width.px]=160 type="number" class="z-input" placeholder="最小"> -
+						<input name="maxArea" #_maxArea="ngModel" [(ngModel)]="maxArea" pattern="^[1-9][0-9]*$" [style.width.px]=160 type="number" class="z-input" placeholder="最大"> <span class="color-999"> 平米</span>
+						<div class="error">
+							<p class="red" *ngIf="_minArea.errors?.pattern || _maxArea.errors?.pattern">请输入大于零的整数</p>
+							<p class="red" *ngIf="minArea > maxArea">最小面积不能大于最大面积</p>							
+						</div>
 					</div>				
 				</div>
 
 				<div class="group">
 					<span class="tag">门宽</span>
 					<div class="content">
-						<input [style.width.px]=160 type="text" class="z-input" placeholder="最短"> -
-						<input [style.width.px]=160 type="text" class="z-input" placeholder="最长"> <span class="color-999"> 米</span>
+						<input name="minDoorWide" #_minDoorWide="ngModel" [(ngModel)]="minDoorWide"  pattern="^[1-9][0-9]*(.[0-9]{0,2})?$" [style.width.px]=160 type="number" class="z-input" placeholder="最短"> -
+						<input name="maxDoorWide" #_maxDoorWide="ngModel" [(ngModel)]="maxDoorWide"  pattern="^[1-9][0-9]*(.[0-9]{0,2})?$" [style.width.px]=160 type="number" class="z-input" placeholder="最长"> <span class="color-999"> 米</span>
+						<div class="error">
+							<p class="red" *ngIf="_minDoorWide.errors?.pattern || _maxDoorWide.errors?.pattern">请输入大于零的整数, 允许两位小数</p>
+							<p class="red" *ngIf="minDoorWide > maxDoorWide">最小面积不能大于最大面积</p>							
+						</div>
 					</div>				
 				</div>
 
 				<div class="group">
 					<span class="tag">关键词</span>
 					<div class="content">
-						<input [style.width.px]=334 type="text" class="z-input" placeholder="店铺名称/地址">
+						<input [style.width.px]=334 type="text" name="keyword" class="z-input" [(ngModel)]="keyword" maxlength=50 placeholder="店铺名称/地址">
 					</div>				
 				</div>
 
 				<div class="group">
 					<span class="tag"></span>
 					<div class="content">
-						<input name="phone" [style.width.px]=334 type="text" class="z-input" placeholder="手机号码">
+						<input name="mobile" [style.width.px]=334 [(ngModel)]="mobile" #_mobile="ngModel" pattern="^1[3456789]\d{9}$" type="text" class="z-input" placeholder="手机号码">
+						<div class="error">
+							<p class="red" *ngIf="_mobile.errors?.pattern">请输入正确的手机号码</p>							
+						</div>
 					</div>				
 				</div>
 			</div>			
-		</div>
+		</form>
 	</form>
 </div>
 <div class="part2 p20 mt20">

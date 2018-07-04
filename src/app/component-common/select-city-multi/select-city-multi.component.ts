@@ -10,6 +10,9 @@ export class SelectCityMultiComponent implements OnInit {
   dataList: Array<any> = [];
   cityList: Array<any> = [];
   selectedCityList: Array<any>;
+  thisCode: number;
+  thisName: string;
+  selectedCityStr: string;
 
   constructor() {
   }
@@ -24,14 +27,16 @@ export class SelectCityMultiComponent implements OnInit {
   set selectedCityOut(val) {
     this.selectedCityList = val;
     this.seletedCityChange.emit(this.selectedCityList);
+    this.selectedCityStr = JSON.stringify(this.selectedCityList);
   }
 
   @Output() seletedCityChange: EventEmitter<any> = new EventEmitter();
 
+  // 处理省和市的数据
   assembleData(arr) {
     let tempArr = [];
     let provinceLen = arr.length;
-
+    // 拿出省和市
     for (let i = 0; i < provinceLen; i++) {
       if (arr[i].code.toString().length === 2) {
         this.cityList.push(arr[i]);
@@ -39,15 +44,15 @@ export class SelectCityMultiComponent implements OnInit {
         tempArr.push(arr[i]);
       }
     }
-
+    // 对已选中的省份和城市标志checked
     for (let sigle of this.cityList) {
       for (let select of this.selectedCityList) {
-        if (sigle.code.toString() === select.code) {
+        if (sigle.code.toString() === select.code.toString()) {
           sigle.checked = true;
         }
       }
     }
-
+    // 省、市形成父级和子级关系
     for (let item of this.cityList) {
       item.childs = [];
       for (let temp of tempArr) {
@@ -56,7 +61,7 @@ export class SelectCityMultiComponent implements OnInit {
         }
       }
     }
-
+    // 省已被选中，下面的市级则不能被勾选，标记disable
     for (let item of this.cityList) {
       if (item.code.toString().length === 2 && item.checked === true && item.childs.length) {
         for (let i of item.childs) {
@@ -96,19 +101,25 @@ export class SelectCityMultiComponent implements OnInit {
 
   delete(item) {
     this.selectedCityList.splice(this.selectedCityList.indexOf(item), 1);
-    item.checked = false;
-    item.disabled = false;
-    let code = item.code.toString();
-    if (code.length === 2) {
-      this.cityList[this.cityList.indexOf(item)].checked = false;
-    } else if (code.length === 4) {
-      let len = this.cityList.length;
-      for (let i = 0; i < len; i++) {
-        if (code.substr(0, 2) === this.cityList[i].code.toString()) {
-          this.cityList[i].childs[this.cityList[i].childs.indexOf(item)].checked = false;
-          this.cityList[i].childs[this.cityList[i].childs.indexOf(item)].disable = false;
+    this.thisCode = item.code;
+    this.thisName = item.name;
+    let code = item.code;
+
+    if (code.toString().length === 2) {
+      let index = this.cityList.findIndex(x => x.code === code);
+      this.cityList[index].checked = false;
+      if (this.cityList[index].childs.length) {
+        let len = this.cityList[index].childs.length;
+        for (let i = 0; i < len; i++) {
+          this.cityList[index].childs[i].checked = false;
+          this.cityList[index].childs[i].disable = false;
         }
       }
+    } else if (code.toString().length === 4) {
+      let parentIndex = this.cityList.findIndex(x => x.code.toString() === code.toString().substr(0, 2));
+      let childIndex = this.cityList[parentIndex].childs.findIndex(x => x.code === code);
+      this.cityList[parentIndex].childs[childIndex].checked = false;
+      this.cityList[parentIndex].childs[childIndex].disable = false;
     }
 
   }

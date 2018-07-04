@@ -3,6 +3,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { HttpService } from '../../service/http.service';
 import { Router } from '@angular/router';
 import { TipPopService } from '../../service/tipPop.service';
+import { Location } from '@angular/common';
 
 @Component({
 	selector: 'app-user',
@@ -17,7 +18,7 @@ export class UserComponent implements OnInit {
 	//当前城市
 	currentCity;
 
-	constructor(private cookie: CookieService, private http: HttpService, private router:Router, private tip:TipPopService) { }
+	constructor(private cookie: CookieService, private http: HttpService, private router:Router, private tip:TipPopService, private location: Location) { }
 
 	ngOnInit() {
 		this.login = this.cookie.get("Authorization") ? true : false;
@@ -33,8 +34,8 @@ export class UserComponent implements OnInit {
 			this.cookie.deleteAll();
       		localStorage.removeItem('currentCity');
 	    	this.tip.setValue('退出登录成功！', true);
-	    	window.location.reload();
-      		this.router.navigateByUrl('/user');
+      		window.location.reload();
+      		this.router.navigate(['/user']);
 		})
 	}
 
