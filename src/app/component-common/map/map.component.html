@@ -6,7 +6,7 @@
 			{{point.lng}}，{{point.lat}}
 		</span>
 	</div>
-	<div id="map" class="mapContainer">
+	<div [id]="mapId" class="mapContainer">
 	</div>
 	<div class="search">
 		<input type="text" class="z-input f-l" placeholder="搜地点" [(ngModel)]="key">

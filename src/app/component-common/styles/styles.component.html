@@ -123,9 +123,11 @@
 			</tr>
 			<tr>
 				<td>下拉框</td>
-				<td>使用select组件</td>
+				<td>直接使用原生select,不需要加类名</td>
 				<td>
-					<app-select [codeName]="'id'" [list]='fruitSelect' [(selectedItem)]="demo" [(selectedCode)]="code"></app-select>{{code}} <span *ngIf="demo">{{demo.name}}</span>
+					<select [(ngModel)]="code">
+						<option [value]="item.code" *ngFor="let item of fruitSelect">{{item.name}}</option>
+					</select>
 				</td>
 			</tr>
 			<tr>

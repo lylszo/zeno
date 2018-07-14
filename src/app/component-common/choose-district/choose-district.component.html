@@ -1,5 +1,11 @@
 <div class="district">
-	<app-select [width]=120 class="ml3" [list]="cityList" [(selectedCode)]="cityCode" (onChange)="getArea(cityCode)"></app-select>	
-	<app-select [width]=120 class="ml3" [list]="areaList" [(selectedCode)]="areaCode" (onChange)="getStreet(areaCode)"></app-select>	
-	<app-select class="ml3" [list]="streetList" [(selectedCode)]="streetCode" (onChange)="chooseStreet(streetCode)"></app-select>{{streetCode}}
+	<select [(ngModel)]="cityCode" (ngModelChange)="getArea(cityCode)">
+		<option [value]="item.code" *ngFor="let item of cityList">{{item.name}}</option>
+	</select>
+	<select [(ngModel)]="areaCode" class="ml3" (ngModelChange)="getStreet(areaCode)">
+		<option [value]="item.code" *ngFor="let item of areaList">{{item.name}}</option>
+	</select>
+	<select [(ngModel)]="streetCode" class="ml3" (ngModelChange)="chooseStreet(streetCode)" *ngIf="streetList.length > 1">
+		<option [value]="item.code" *ngFor="let item of streetList">{{item.name}}</option>
+	</select>
 </div>

@@ -60,9 +60,12 @@ export class DistrictManageComponent implements OnInit {
       switch (num){
         case 1:
           this.cityList = data;
+          this.districts = [];
+          this.towns = [];
           break;
         case 2:
           this.districts = data;
+          this.towns = [];
           break;
         case 3:
           this.towns = data;

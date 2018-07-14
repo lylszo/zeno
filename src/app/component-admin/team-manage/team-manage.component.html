@@ -16,15 +16,19 @@
       </li>
       <li class="col-lg-3 col-md-4 col-sm-4 f-l">
         <label>团队类型：</label>
-        <app-select [list]="teamType" [(selectedCode)]="params.type"></app-select>
+        <select name="teamtype" [(ngModel)]="params.type">
+          <option [value]="item.code" *ngFor="let item of teamType">{{item.name}}</option>
+        </select>
       </li>
       <li class="col-lg-3 col-md-4 col-sm-4 f-l">
         <label>状态：</label>
-        <app-select [list]="teamState" [(selectedCode)]="params.status"></app-select>
+        <select name="teamstatus" [(ngModel)]="params.status">
+          <option [value]="item.code" *ngFor="let item of teamState">{{item.name}}</option>
+        </select>
       </li>
       <li class="col-lg-3 col-md-4 col-sm-4 f-l">
         <label>所在区域：</label>
-        <app-district [(checkedCode)]="params.workingDistrict"></app-district>
+        <app-district [(checkedCode)]="params.working_district"></app-district>
       </li>
       <li class="col-lg-12 col-md-8 col-sm-8 f-l">
         <label>关联标签：</label>
@@ -41,7 +45,7 @@
 <section class="z-bg-white clearfix">
   <header class="clearfix mb10">
     <h1 class="z-title-md-style dib">信息列表</h1>
-    <button class="z-btn-blue-lg f-r" routerLink="/admin/addTeam">创建</button>
+    <button class="z-btn-blue-lg f-r" routerLink="/admin/addTeam" *ngIf="permission['00020101']">创建</button>
   </header>
   <table class="z-table-sm">
     <thead>
@@ -62,24 +66,55 @@
     <tbody>
     <tr *ngFor="let item of lists; let i=index;">
       <td>{{i+1}}</td>
-      <td>{{item.name}}</td>
-      <td>{{item.type}}</td>
-      <td>{{item.address}}</td>
-      <td>{{item.status}}</td>
-      <td>{{item.cityId}}</td>
-      <td></td>
-      <td>{{item.members}}</td>
-      <td>{{item.creator}}</td>
-      <td>{{item.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+      <td>
+        <span *ngIf="!item.name">-</span>
+        <span *ngIf="item.name">{{item.name}}</span>
+      </td>
+      <td>{{teamTypeObj[item.type]}}</td>
+      <td>
+        <span *ngIf="!item.address">-</span>
+        <span *ngIf="item.address">{{item.address}}</span>
+        </td>
+      <td>
+        <span *ngIf="item.status==0">正常</span>
+        <span *ngIf="item.status==1">解散</span>
+      </td>
+      <td>
+        <span *ngIf="!item.teamCity?.length">-</span>
+        <span *ngIf="item.teamCity?.length>0">
+          <span *ngFor="let city of item.teamCity" class="mr3">{{city?.name}}</span>
+        </span>
+      </td>
+      <td>
+        <span *ngIf="!item.roles?.length">-</span>
+        <span *ngIf="item.roles?.length">
+          <span *ngFor="let role of item.roles">{{role.name}}</span>
+        </span>
+      </td>
+      <td>
+        <span *ngIf="!item.members">-</span>
+        <span *ngIf="item.members">{{item.members}}</span>
+      </td>
+      <td>
+        <span *ngIf="!item.createUserName">-</span>
+        <span *ngIf="item.createUserName">{{item.createUserName}}</span>
+      </td>
+      <td>
+        <span *ngIf="!item.createTime">-</span>
+        <span *ngIf="item.createTime">{{item.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+       </td>
       <td class="handle">
         <p>
-          <button class="z-btn-blue-sm mr5 mb5" (click)="openModal(edit, item)">编辑</button>
-          <button class="z-btn-grey-sm mr5 mb5" (click)="openModal(dissolveTem, item)">解散</button>
-          <app-role-modal [roles]="item.roles"></app-role-modal>
+          <button class="z-btn-blue-sm mr5 mb5" *ngIf="item.status===0 && permission['00020102']" (click)="openModal(edit, item,i)">编辑</button>
+          <button class="z-btn-grey-sm mr5 mb5" *ngIf="item.status===0 && permission['00020103']" (click)="openModal(dissolveTem, item,i)">解散</button>
         </p>
         <p>
-          <button class="z-btn-blue-sm mr5 mb5" routerLink="/admin/memberManage">成员管理</button>
-          <app-district-mult class="mb5" [ifResult]="false"></app-district-mult>
+          <button class="z-btn-blue-sm mr5 mb5"
+                  *ngIf="item.status===0 && permission['00020106']"
+                  routerLink="/admin/memberManage/{{item.teamId}}/{{item.name}}">成员管理</button>
+          <app-role-modal class="mr5 mb5" *ngIf="item.status===0 && permission['00020105']" [teamId]="item.teamId"  [(roles)]="item.roles" [ifResult]="false"></app-role-modal>
+          <app-district-mult class="mb5" *ngIf="item.status===0 && permission['00020104']" [ifResult]="false" [(cityList)]="item.teamCity"
+                             [(citys)]="cityChecked" (dealChecked)="asignDistrict(item.teamId)"></app-district-mult>
         </p>
       </td>
     </tr>
@@ -112,7 +147,9 @@
         <li>
           <label class="z-required">团队类型：</label>
           <div class="l-box">
-            <app-select [list]="teamType" [(selectedCode)]="team.type"></app-select>
+            <select name="editType" [(ngModel)]="team.type">
+              <option [value]="item.code" *ngFor="let item of teamType">{{item.name}}</option>
+            </select>
           </div>
         </li>
         <li>
@@ -124,19 +161,19 @@
         <li>
           <label class="z-required" for="editAddress">地址：</label>
           <div class="l-box">
-            <input class="z-input" id="editAddress" name="editAddress" [(ngModel)]="team.address">
+            <input class="z-input" id="editAddress" name="editAddress" maxlength="50" [(ngModel)]="team.address">
           </div>
         </li>
         <li>
           <label class="z-required">中心点位置：</label>
           <div class="l-box">
-            <span>{{item.latitude}}</span><span>{{item.longitude}}</span>
+            <app-map-modal [(point)]="point"></app-map-modal>
           </div>
         </li>
         <li>
           <label for="editRemark">团队说明：</label>
           <div class="l-box">
-            <textarea name="editRemark" id="editRemark" class="z-textarea">
+            <textarea name="editRemark" id="editRemark" class="z-textarea" [(ngModel)]="team.remark">
               {{team.remark}}
             </textarea>
           </div>
@@ -151,8 +188,8 @@
     </div>
     <div class="modal-footer">
       <div class="f-r">
-        <button type="button" class="z-btn-grey-lg mr7">取消</button>
-        <button type="button" class="z-btn-blue-lg" (click)="editTeam()">确定</button>
+        <button type="button" class="z-btn-grey-lg mr7" (click)="modalRef.hide()">取消</button>
+        <button type="button" class="z-btn-blue-lg" (click)="editTeam();modalRef.hide();">确定</button>
       </div>
     </div>
   </form>
@@ -165,9 +202,9 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body">
-    <div>
-      确认将 团队：深圳南油组 解散吗？
+  <div class="modal-body text-center">
+    <div class="mb10">
+      确认将 团队：{{team.name}} 解散吗？
     </div>
     <div>
       解散团队不可恢复，请谨慎操作！
@@ -176,7 +213,7 @@
   <div class="modal-footer">
     <div class="f-r">
       <button type="button" class="z-btn-grey-lg mr7">取消</button>
-      <button type="button" class="z-btn-blue-lg" (click)="dissolve()">确定</button>
+      <button type="button" class="z-btn-blue-lg" (click)="dissolve();modalRef.hide();">确定</button>
     </div>
   </div>
 </ng-template>

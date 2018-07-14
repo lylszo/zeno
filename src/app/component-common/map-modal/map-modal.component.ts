@@ -35,7 +35,7 @@ export class MapModalComponent implements OnInit {
   //打开弹框
   show() {
     if(this.point){//已选择时打开弹框设置中心为选择的经纬度
-      this.baiduMap.setCenter();
+      this.baiduMap.setCenter(this.point);
     }else{//未选择时打开弹框清除上次选择的无效标注
       this.baiduMap.clearMarker();
     }

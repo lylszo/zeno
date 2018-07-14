@@ -10,9 +10,6 @@ export class SelectCityMultiComponent implements OnInit {
   dataList: Array<any> = [];
   cityList: Array<any> = [];
   selectedCityList: Array<any>;
-  thisCode: number;
-  thisName: string;
-  selectedCityStr: string;
 
   constructor() {
   }
@@ -27,7 +24,6 @@ export class SelectCityMultiComponent implements OnInit {
   set selectedCityOut(val) {
     this.selectedCityList = val;
     this.seletedCityChange.emit(this.selectedCityList);
-    this.selectedCityStr = JSON.stringify(this.selectedCityList);
   }
 
   @Output() seletedCityChange: EventEmitter<any> = new EventEmitter();
@@ -45,12 +41,16 @@ export class SelectCityMultiComponent implements OnInit {
       }
     }
     // 对已选中的省份和城市标志checked
+    let selectCityStr = JSON.stringify(this.selectedCityList);
     for (let sigle of this.cityList) {
-      for (let select of this.selectedCityList) {
-        if (sigle.code.toString() === select.code.toString()) {
-          sigle.checked = true;
-        }
+      if(selectCityStr.indexOf(sigle.name)!==-1){
+        sigle.checked=true
       }
+      // for (let select of this.selectedCityList) {
+      //   if (sigle.code.toString() === select.code.toString()) {
+      //     sigle.checked = true;
+      //   }
+      // }
     }
     // 省、市形成父级和子级关系
     for (let item of this.cityList) {
@@ -73,8 +73,8 @@ export class SelectCityMultiComponent implements OnInit {
 
   changeChecked(item) {
     item.checked = !item.checked;
-    if (item.checked === true) {  //
-      if (item.code.toString().length === 2 && item.childs.length > 0) {
+    if (item.checked === true) {
+      if (item.code.toString().length === 2 && item.childs.length > 0) {   // 若下面的市有被选中，则取消选中
         let len = item.childs.length;
         for (let i = 0; i < len; i++) {
           if (item.childs[i].checked) {
@@ -101,11 +101,9 @@ export class SelectCityMultiComponent implements OnInit {
 
   delete(item) {
     this.selectedCityList.splice(this.selectedCityList.indexOf(item), 1);
-    this.thisCode = item.code;
-    this.thisName = item.name;
     let code = item.code;
 
-    if (code.toString().length === 2) {
+    if (code.toString().length === 2) {  // 删除的是省，则下面的市要变成可点击
       let index = this.cityList.findIndex(x => x.code === code);
       this.cityList[index].checked = false;
       if (this.cityList[index].childs.length) {
@@ -115,7 +113,7 @@ export class SelectCityMultiComponent implements OnInit {
           this.cityList[index].childs[i].disable = false;
         }
       }
-    } else if (code.toString().length === 4) {
+    } else if (code.toString().length === 4) {  // 删除的市
       let parentIndex = this.cityList.findIndex(x => x.code.toString() === code.toString().substr(0, 2));
       let childIndex = this.cityList[parentIndex].childs.findIndex(x => x.code === code);
       this.cityList[parentIndex].childs[childIndex].checked = false;

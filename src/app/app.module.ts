@@ -26,9 +26,8 @@ import { ModuleManageComponent } from './component-admin/module-manage/module-ma
 import { DistrictManageComponent } from './component-admin/district-manage/district-manage.component';
 import { TagManageComponent } from './component-admin/tag-manage/tag-manage.component';
 import { RuleManageComponent } from './component-admin/rule-manage/rule-manage.component';
-import { DataSetComponent } from './component-admin/data-set/data-set.component';
+import { DataSetComponent } from './component-common/user-center/data-set/data-set.component';
 import { MyInfoComponent } from './component-admin/my-info/my-info.component';
-import { PasswordUpdateComponent } from './component-admin/password-update/password-update.component';
 import { DecimalPipe } from './pipe/decimal.pipe';
 import { DemoDirective } from './directive/demo.directive';
 import { AdminComponent } from './component-admin/admin/admin.component';
@@ -41,13 +40,12 @@ import { RegisterComponent } from './component-app/register/register.component';
 import { ForgetPasswordComponent } from './component-app/forget-password/forget-password.component';
 import { AdduserComponent } from './component-admin/user-manage/adduser/adduser.component';
 import { StylesComponent } from './component-common/styles/styles.component';
-import { SelectComponent } from './component-common/select/select.component';
-import { UserDataSetComponent } from './component-user/user-data-set/user-data-set.component';
-import { ChangePhoneComponent } from './component-user/change-phone/change-phone.component';
+import { ChangePhoneComponent } from './component-common/user-center/change-phone/change-phone.component';
 import { ChooseCityComponent } from './component-common/choose-city/choose-city.component';
 import { HistoryLogComponent } from './component-user/history-log/history-log.component';
-import { ChangePwdComponent } from './component-user/change-pwd/change-pwd.component';
-import { NewsComponent } from './component-user/news/news.component';
+import { ChangePwdComponent } from './component-common/user-center/change-pwd/change-pwd.component';
+import { NewsComponent } from './component-common/user-center/news/news.component';
+import { NewsDetailComponent } from "./component-common/user-center/news/newsDetail.component";
 import { SetCategoryComponent } from './component-user/release-store/set-category/set-category.component';
 import { FillInformComponent } from './component-user/release-store/fill-inform/fill-inform.component';
 import { ReleaseOkComponent } from './component-user/release-store/release-ok/release-ok.component';
@@ -68,6 +66,22 @@ import { RoleModalComponent } from './component-common/role-modal/role-modal.com
 import {Guard} from "./service/guard.service";
 import { ChooseIndustryComponent } from './component-common/choose-industry/choose-industry.component';
 import { ChooseDistrictComponent } from './component-common/choose-district/choose-district.component';
+import { ParentPropertyPipe } from './pipe/parent-property.pipe';
+import { PositionDescPipe } from './pipe/position-desc.pipe';
+import { IndustryNamePipe } from './pipe/industry-name.pipe';
+import { RentUnitPipe } from './pipe/rent-unit.pipe';
+import { OperateStatusPipe } from './pipe/operate-status.pipe';
+import { NearStreetPipe } from './pipe/near-street.pipe';
+import { TransferCanEmptyPipe } from './pipe/transfer-can-empty.pipe';
+import { BuildingShapePipe } from './pipe/building-shape.pipe';
+import { PropertyRightPipe } from './pipe/property-right.pipe';
+import { RemoveRiskPipe } from './pipe/remove-risk.pipe';
+import { OperateModePipe } from './pipe/operate-mode.pipe';
+import { DecorateGradePipe } from './pipe/decorate-grade.pipe';
+import { OperateVipModePipe } from './pipe/operate-vip-mode.pipe';
+import { TransferStatusPipe } from './pipe/transfer-status.pipe';
+import { CertificateTypePipe } from './pipe/certificate-type.pipe';
+import { DatePipe } from "@angular/common";
 
 @NgModule({
   declarations: [
@@ -84,7 +98,6 @@ import { ChooseDistrictComponent } from './component-common/choose-district/choo
     RuleManageComponent,
     DataSetComponent,
     MyInfoComponent,
-    PasswordUpdateComponent,
     DecimalPipe,
     DemoDirective,
     AdminComponent,
@@ -97,13 +110,12 @@ import { ChooseDistrictComponent } from './component-common/choose-district/choo
     ForgetPasswordComponent,
     AdduserComponent,
     StylesComponent,
-    UserDataSetComponent,
-    SelectComponent,
     ChangePhoneComponent,
     ChooseCityComponent,
     HistoryLogComponent,
     ChangePwdComponent,
     NewsComponent,
+    NewsDetailComponent,
     SetCategoryComponent,
     FillInformComponent,
     ReleaseOkComponent,
@@ -122,7 +134,22 @@ import { ChooseDistrictComponent } from './component-common/choose-district/choo
     CityNamePipe,
     RoleModalComponent,
     ChooseIndustryComponent,
-    ChooseDistrictComponent
+    ChooseDistrictComponent,
+    ParentPropertyPipe,
+    PositionDescPipe,
+    IndustryNamePipe,
+    RentUnitPipe,
+    OperateStatusPipe,
+    NearStreetPipe,
+    TransferCanEmptyPipe,
+    BuildingShapePipe,
+    PropertyRightPipe,
+    RemoveRiskPipe,
+    OperateModePipe,
+    DecorateGradePipe,
+    OperateVipModePipe,
+    TransferStatusPipe,
+    CertificateTypePipe
   ],
   imports: [
     BrowserModule,
@@ -139,7 +166,7 @@ import { ChooseDistrictComponent } from './component-common/choose-district/choo
     NgProgressHttpModule,
     NgProgressRouterModule
   ],
-  providers: [CookieService, TipPopService, {provide: LocationStrategy, useClass: HashLocationStrategy}, Guard],
+  providers: [CookieService, TipPopService, {provide: LocationStrategy, useClass: HashLocationStrategy}, Guard, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,4 +1,7 @@
 <div *ngIf="ifResult" class="result">
+  <div class="z-tag-del mr5 mb5" *ngIf="checkedRoleName">
+    {{checkedRoleName}}<span class="del" (click)="delectRole()"></span>
+  </div>
   <a (click)="showModal()">设置</a>
 </div>
 <div *ngIf="!ifResult" class="dib mr5 mb5">
@@ -11,7 +14,8 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h4 id="dialog-auto-name" class="modal-title pull-left">选择用户角色</h4>
+        <h4 *ngIf="userId || addUser" class="modal-title pull-left">选择用户角色</h4>
+        <h4 *ngIf="teamId" class="modal-title pull-left">选择团队角色</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="onHidden()">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -21,27 +25,29 @@
           <ul class="body-ul clearfix">
             <li class="side-li">
               <ul>
-                <li class="role-name" *ngIf="!roles">该用户暂无角色</li>
-                <li  class="role-name" *ngFor="let role of roles, let i=index" [ngClass]="{'target':role.name===checkedRoleName}" (click)="facusRole(i)">
+                <li  class="role-name" *ngFor="let role of allRoles, let i=index" [ngClass]="{'target':role.id===checkedRoleId}" (click)="facusRole(i)">
                   <div class="role-name-div" *ngIf="!role.clicked">
                     <span class="pl5 role-name-span">{{role.name}}</span>
                   </div>
                 </li>
               </ul>
+
             </li>
             <li class="operator-li">
               <ul class="clearfix">
-                <li class="role-operate mt10" *ngFor="let menu of menus">
+                <li class="role-operate" *ngFor="let menu of menus">
                   {{menu.name}}
                   <ul class="clearfix mb20">
-                    <li class="mt10 ml20" *ngFor="let menuItem of menu.childs">
-                      <label class="menu-item role-modal-label">
-                        <input type="checkbox" [disabled]="true" [(ngModel)]="menuItem.checked">{{menuItem.name}}
+                    <li class="mt10" *ngFor="let menuItem of menu.childs">
+                      <label class="menu-item role-modal-label z-checkbox">
+                        <input type="checkbox" [disabled]="true" [(ngModel)]="menuItem.checked">
+                        <i></i>{{menuItem.name}}
                       </label>
                       <ul>
-                        <li class="items mr30 mt10 ml20" *ngFor="let item of menuItem.childs">
-                          <label class="role-modal-label">
-                            <input type="checkbox" [disabled]="true" [(ngModel)]="item.checked">{{item.name}}
+                        <li class="items mr30 mt10" *ngFor="let item of menuItem.childs">
+                          <label class="role-modal-label z-checkbox">
+                            <input type="checkbox" [disabled]="true" [(ngModel)]="item.checked">
+                            <i></i>{{item.name}}
                           </label>
                         </li>
                       </ul>
@@ -52,11 +58,11 @@
             </li>
           </ul>
         </div>
+        <div class="position-fixed btn-bl">
+          <button class="z-btn-blue-lg" (click)="submit()">确定</button>
+          <!--<button class="z-btn-grey-lg ml5" (click)="cancelSubmit()">取消</button>-->
+        </div>
       </div>
-      <!--<div class="modal-footer">-->
-        <!--<button class="z-btn-blue-lg" (click)="submit()">确定</button>-->
-        <!--<button class="z-btn-grey-lg ml50" (click)="cancelSubmit()">取消</button>-->
-      <!--</div>-->
     </div>
   </div>
 </div>

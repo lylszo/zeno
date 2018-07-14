@@ -6,15 +6,15 @@ import {UserIndexComponent} from './component-user/user-index/user-index.compone
 import {ShopServiceComponent} from './component-user/shop-service/shop-service.component';
 import {ShopDetailComponent} from './component-user/shop-detail/shop-detail.component';
 import {ShopEditComponent} from './component-user/shop-edit/shop-edit.component';
-import {UserDataSetComponent} from "./component-user/user-data-set/user-data-set.component";
-import {ChangePhoneComponent} from "./component-user/change-phone/change-phone.component";
-import {ChangePwdComponent} from "./component-user/change-pwd/change-pwd.component";
+import {ChangePhoneComponent} from "./component-common/user-center/change-phone/change-phone.component";
 import {HistoryLogComponent} from "./component-user/history-log/history-log.component";
-import {NewsComponent} from "./component-user/news/news.component";
 import {SetCategoryComponent} from "./component-user/release-store/set-category/set-category.component";
 import {FillInformComponent} from "./component-user/release-store/fill-inform/fill-inform.component";
 import {ReleaseOkComponent} from "./component-user/release-store/release-ok/release-ok.component";
-import {Guard} from "./service/guard.service";
+import {DataSetComponent} from "./component-common/user-center/data-set/data-set.component";
+import {ChangePwdComponent} from "./component-common/user-center/change-pwd/change-pwd.component";
+import {NewsComponent} from "./component-common/user-center/news/news.component";
+import {NewsDetailComponent} from "./component-common/user-center/news/newsDetail.component";
 
 const userRoutes: Routes = [
   {
@@ -26,14 +26,15 @@ const userRoutes: Routes = [
       {path: 'shopService', component: ShopServiceComponent},
       {path: 'shopDetail/:id', component: ShopDetailComponent},
       {path: 'shopEdit/:id', component: ShopEditComponent},
-      {path: 'dataSet', component: UserDataSetComponent},
+      {path: 'dataSet', component: DataSetComponent},
       {path: 'changePhone', component: ChangePhoneComponent},
       {path: 'changePwd', component: ChangePwdComponent},
       {path: 'historyLog', component: HistoryLogComponent},
       {path: 'news', component: NewsComponent},
+      {path: 'newsDetail/:id', component: NewsDetailComponent},
       {path: 'releaseStore', component: SetCategoryComponent},
       {path: 'fillInform', component: FillInformComponent},
-      {path: 'releaseOk', component: ReleaseOkComponent},
+      {path: 'releaseOk/:id', component: ReleaseOkComponent},
       {path: '**', redirectTo: '', pathMatch: 'full'}
     ]
   }

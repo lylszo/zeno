@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {HttpService} from '../../service/http.service';
 import {CityNamePipe} from '../../pipe/city-name.pipe';
+import {TipPopService} from '../../service/tipPop.service';
 
 @Component({
   selector: 'app-rule-add',
@@ -23,9 +24,12 @@ export class RuleAddComponent implements OnInit {
   teamTypeObj: object = {'0': '全部', '1': '自营', '2': '加盟商'};
   cityName: any;
 
-  constructor(private routerInfo: ActivatedRoute, private http: HttpService) {
+  constructor(private routerInfo: ActivatedRoute, private http: HttpService, private tip: TipPopService, private router: Router) {
     this.cityName = new CityNamePipe();
-    // console.log(this.cityName.transform(1101),"4344")
+  }
+
+  back() {
+    history.back();
   }
 
   /**
@@ -87,9 +91,10 @@ export class RuleAddComponent implements OnInit {
   }
 
 
-  submit() {
-    if (!this.ruleName) {
-      return;
+  submit(invalid) {
+    let error = document.getElementsByClassName('error');
+    if (invalid || error.length) {
+      this.tip.setValue('请填写相关字段', true);
     } else {
       let ruleName = this.ruleName;
       let targetTable = this.dataSelected;
@@ -98,13 +103,13 @@ export class RuleAddComponent implements OnInit {
       let userRight = '';
       let dataRight = '';
       this.items.forEach(function (value) {
-        if (value.selectedTeamType.length && value.attr === 'sv_city') {
+        if (value.selectedTeamType.length && value.attr === 'tm_type') {
           let teamType = [];
           for (let i = 0; i < value.selectedTeamType.length; i++) {
             teamType.push(value.selectedTeamType[i].value);
           }
           userRight = teamType.join(',');
-        } else if (value.selectedCity.length && value.attr === 'tm_type') {
+        } else if (value.selectedCity.length && value.attr === 'sv_city') {
           let cityCode = [];
           let len = value.selectedCity.length;
           for (let i = 0; i < len; i++) {
@@ -142,7 +147,7 @@ export class RuleAddComponent implements OnInit {
         }
         ruleDetails.push({
           dataLeft: value.leftAttr, dataRightType: value.rightObj,
-          dataSymbol: value.relate, dataRightValue: dataRight, andor: 'and'
+          dataSymbol: value.relate, dataRightValue: dataRight, andOr: 'and'
         });
       });
       let params = {
@@ -152,9 +157,17 @@ export class RuleAddComponent implements OnInit {
         ruleDetails: ruleDetails,
         targetTable: targetTable
       };
-      this.http.post('dataRule', params, (data) => {
-        console.log('adddata', data);
-      });
+
+      if (!this.id) {
+        this.http.post('dataRule', params, (data) => {
+          this.tip.setValue('修改成功', false);
+        });
+      } else {
+        this.http.put('dataRule/' + this.id, params, (data) => {
+          this.tip.setValue('添加成功', false);
+        });
+      }
+      history.back();
     }
   }
 
@@ -164,16 +177,17 @@ export class RuleAddComponent implements OnInit {
   ngOnInit() {
     this.id = this.routerInfo.snapshot.queryParams['id'];
     if (this.id) {
-      let resCity = [];
-      let resTeamType = [];
       let that = this;
       this.http.get('dataRule/' + this.id, '', (data) => {
         let result = data.ruleDetails;
         // let result = [{dataLeft: 'sv_city', dataRightType: 1, dataRightValue: '11,44', dataSymbol: '==', id: 7}];
         this.dataObj = [{value: 'all', name: '全部对象'}, {value: 'shop', name: '店铺管理'}];
         this.dataSelected = data.targetTable ? data.targetTable : 'all';
+        this.ruleName = data.ruleName;
         if (result) {
           result.forEach(function (value) {
+            let resCity = [];
+            let resTeamType = [];
             that.count += 1;
             let dataName = 'dataName' + that.count;
             let leftObj = 2;
@@ -188,7 +202,7 @@ export class RuleAddComponent implements OnInit {
               });
             } else if (leftAttr === 'tm_type' && val) {
               val.split(',').forEach(function (type) {
-                resTeamType.push({value: type, name: this.teamTypeObj[val], checked: true});
+                resTeamType.push({value: type, name: that.teamTypeObj[type], checked: true});
               });
             }
             that.datas.push({
@@ -240,11 +254,11 @@ export class RuleAddComponent implements OnInit {
 
         let user = data.ruleUserConditions;
         // let user = [{leftChoose: 'sv_city', rightValue: '11,44', midSymbol: '=='}];
-        let userCity = [];
-        let userTeamType = [];
         if (user) {
           user.forEach(function (userItem) {
             that.count += 1;
+            let userCity = [];
+            let userTeamType = [];
             let formName = 'formName' + that.count;
             let attr = userItem.leftChoose;
             let relate = userItem.midSymbol;

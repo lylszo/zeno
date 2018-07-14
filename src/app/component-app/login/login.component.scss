@@ -13,15 +13,24 @@
     border-radius:5px ;
   }
   .userHeader {
-    padding:  40px 50px;
-    text-align: center;
+    padding:  50px 50px 40px 50px;
+    //text-align: center;
    }
-  .userHeader p{
+  .userHeader .title{
     font-family: '微软雅黑';
     font-size: 18px;
-    line-height: 70px;
     letter-spacing: 8px;
     color: #333333;
+    font-weight: bold;
+  }
+  .userHeader .little-title{
+    font-family: '微软雅黑';
+    font-size: 14px;
+    color: #999999;
+    margin-left:-15px
+  }
+  .userHeader img{
+    margin-top: -4px;
   }
   .user{
     padding-left:50px ;
@@ -38,7 +47,7 @@
     margin-bottom:5px ;
     color: #333333;
   }
-  .userForm button{
+  .user-button{
     margin-top: 25px;
     display: block;
     width: 360px;
@@ -96,9 +105,17 @@
     margin-left: 3px;
   }
   .getCode{
-    float: right;
+    display: inline-block;
+    border: none;
+    position: absolute;
+    //float: right;
     margin-top: -40px;
+    right: 50px;
     cursor: pointer;
+    z-index: 455;
+    &:disabled{
+      cursor: no-drop;
+    }
   }
 }
 .userFooter > a{
@@ -106,5 +123,8 @@
   &:hover{
     color: #1976d2;
   }
+}
+input{
+  background: #ffffff;
 }
 

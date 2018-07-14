@@ -6,65 +6,46 @@
 			<div class="person clearfix">
 				<img src="{{personUrl || './assets/imgs/person-default.png'}}">
 				<div class="name">
-					<p *ngIf="login" class="f18 bold">{{userDetail.name}}</p>
-					<p *ngIf="login" class="color-999">你已加入2个团队</p>
+					<p *ngIf="login" class="f18 bold">{{userDetail?.name}}</p>
+					<p *ngIf="login && (teams && teams.length)" class="color-999">你已加入{{teams.length}}个团队</p>
+					<p *ngIf="login && (teams && !teams.length)" class="color-999">您未加入任何团队，请联系团队负责人添加</p>
 				</div>
 			</div>
 			<p *ngIf="!login" class="loginInfo"><a class="link" routerLink="/login">请登录</a></p>
-			<ul class="clearfix" *ngIf="login">
-				<li>
-					<p class="f16 bold">华南人事团队华南人事团队华南人事团队<br><span class="f14 color-666">（自营）</span></p>
-					<span class="z-group-red">人事组</span>
-				</li>
-				<li>
-					<p class="f16 bold">前端小组<br><span class="f14 color-666">（自营）</span></p>
-					<span class="z-group-orange">技术组</span>
-				</li>
-				<li>
-					<p class="f16 bold">华南人事团队华南人事团队华南人事团队<br><span class="f14 color-666">（自营）</span></p>
-					<span class="z-group-red">人事组</span>
-				</li>
-				<li>
-					<p class="f16 bold">前端小组<br><span class="f14 color-666">（自营）</span></p>
-					<span class="z-group-orange">技术组</span>
-				</li>
-			</ul>
+			<div class="team">
+				<div class="teamList">
+					<ul class="clearfix" *ngIf="login" [style.margin-left.px]="leftMargin">
+						<li *ngFor="let item of teams">
+							<p class="f16 bold">
+								{{item.name}}<br>
+								<span class="f14 color-666" *ngIf="item.type == 1">（自营）</span>
+								<span class="f14 color-666" *ngIf="item.type == 2">（加盟）</span>
+							</p>
+							<span class="z-group-red" *ngIf="item.tags">{{item.tags && item.tags[0].name}}</span>
+						</li>
+					</ul>
+				</div>
+				<div class="moveLeft" *ngIf="teams?.length > 3" (click)="teamMove('right')">
+					<i class="iconfont icon-arrow-right1"></i>
+				</div>
+				<div class="moveRight" *ngIf="teams?.length > 3" (click)="teamMove('left')">
+					<i class="iconfont icon-arrow-left1"></i>
+				</div>
+			</div>
 		</div>
 		<div class="info">
 			<h2 class="z-title-md-style">
 				消息提醒
-				<span *ngIf="login" class="red">（未读信息1）</span>
+				<span *ngIf="login && unReadNum>0" class="red">（未读信息{{unReadNum}}）</span>
 				<a *ngIf="!login" class="link" routerLink="/login">（请先登录）</a>
 			</h2>
-			<div *ngIf="login">
-				<p>
-					<span class="z-square-red mr5">new</span>
-					<span class="bold">【加入团队提醒】</span>
-					李四将您加入"深圳西乡组"团队
-				</p>
-				<p>
-					<span class="bold">【身份变更提醒】</span>
-					李四设置您为"深圳南油组"组长身份
-				</p>
-				<p>
-					<span class="bold">【公告】</span>
-					深圳西乡店KPI已发下，请各位查收深圳西乡店KPI已发下，请各位查收
-				</p>
-				<p>
-					<span class="bold">【公告】</span>
-					深圳西乡店KPI已发下，请各位查收
-				</p>
-				<p>
-					<span class="bold">【公告】</span>
-					深圳西乡店KPI已发下，请各位查收
-				</p>
-				<p>
-					<span class="bold">【公告】</span>
-					深圳西乡店KPI已发下，请各位查收
-				</p>
-				<p>
-					<span class="bold">【公告】</span>
-					深圳西乡店KPI已发下，请各位查收
+			<div *ngIf="login" style="overflow-y: auto;">
+				<p *ngFor="let item of noticeList">
+					<span class="z-square-red mr5" *ngIf="item.read==0">new</span>
+					<span class="bold">
+		            【<i *ngIf="item.type === 0">站内信</i><i *ngIf="item.type === 1">公告</i>】
+		          	</span>
+		          	<a routerLink="/user/newsDetail/{{item.id}}">{{item.subject}}</a>
 				</p>
 			</div>
 		</div>
@@ -79,6 +60,18 @@
 				</div>
 			</li>
 			<li *ngIf="login">
+				<div>
+					<span class="icon-5"></span>
+					<p>经营者信息</p>
+				</div>
+			</li>
+			<li *ngIf="login">
+				<div>
+					<span class="icon-4"></span>
+					<p>从业者信息</p>
+				</div>
+			</li>
+			<li *ngIf="login && permission['10000101']">
 				<div routerLink="/user/releaseStore">
 					<span class="icon-2"></span>
 					<p>发布信息</p>

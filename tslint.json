@@ -76,10 +76,7 @@
     "quotemark": false,
     "radix": false,
     "semicolon": false,
-    "triple-equals": [
-      true,
-      "allow-null-check"
-    ],
+    "triple-equals": false,
     "typedef-whitespace": [
       true,
       {

@@ -40,7 +40,7 @@
         <div class="l-box">
           <input class="z-input" name="addmail" id="addmail"
                  [(ngModel)]="email"
-                 #addmail="ngModel" pattern="^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+"
+                 #addmail="ngModel" pattern="\w+@\w+\.[a-z]+(\.[a-z]+)?"
                  minlength="5" maxlength="30">
         </div>
         <div *ngIf="addmail.invalid && (addmail.dirty || addmail.touched)">
@@ -57,7 +57,7 @@
       </li>
       <li>
         <label>关联标签：</label>
-        <div class="l-box">
+        <div class="l-box relative">
           <app-set-related-tags [(tags)]="tags"></app-set-related-tags>
         </div>
       </li>
@@ -70,7 +70,7 @@
       <li>
         <label>用户角色：</label>
         <div class="l-box">
-          <app-role-modal [ifResult]="true"></app-role-modal>
+          <app-role-modal [roles]="roles" (getRole)="getRole($event)" [addUser]="true" [ifResult]="true"></app-role-modal>
         </div>
       </li>
     </ul>

@@ -1,4 +1,5 @@
 .shopDetail {
+	padding-bottom: 550px;
 	.part1 {
 		.left {
 			width: 590px;
@@ -33,7 +34,9 @@
 				float: left;
 				ul {
 					transition: margin-left .3s;
-					width: 2000px;
+					width: 20000px;
+					height: 100px;
+					overflow: hidden;
 					li {
 						float: left;
 						margin: 0 5px;
@@ -46,23 +49,33 @@
 				}
 			}
 			.num {
-				width: 35px;
+				width: 50px;
 				height: 22px;
 				line-height: 22px;
 				color: #fff;
 				background-color: rgba(25, 114, 214, 0.8);
 				position: absolute;
-				right: 0px;
-				top: 378px;
+				right: 1px;
+				top: 377px;
 				text-align: center;
 			}
 		}
 		.right {
 			width: 530px;
 			float: right;
+			h1 {
+				.bigTitle {
+					float: left;
+					max-width: 300px;
+				}
+				.rent {
+					float: left;
+					margin-left: 20px;
+				}
+			}
 			table {
 				width: 100%;
-				margin-top: 20px;
+				margin-top: 15px;
 				tr {
 					td {
 						padding: 9px 5px;
@@ -84,6 +97,20 @@
 				display: inline-block;
 				padding-left: 10px;
 				width: 75%;
+				&.owner {
+					margin-top: 20px;
+					margin-left: -24px;
+					.ownerTitle{
+						width: 10%;
+						text-align: right;
+						float: left;
+					}
+					.ownerContent{
+						width: 90%;
+						float: left;
+						padding-left: 13px;
+					}
+				}
 				label.z-checkbox {
 					width: 170px;
 					margin-bottom: 10px;
@@ -101,7 +128,6 @@
 				margin-bottom: -13px;
 				li {
 					float: left;
-					width: 220px;
 					margin-right: 15px;
 					margin-bottom: 15px;
 					&:nth-child(5n+5) {
@@ -164,60 +190,106 @@
 	}
 }
 
-.catalog, .history {
+//左侧导航目录
+.fixNav{
+	width: 120px;
 	position: fixed;
-	z-index: 100;
-	right: 20px;
-	top: 25vh;
-	width: 150px;
+	top: 22%;
+	left: 0;
+	padding: 10px;
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+	border-radius: 0 10px 10px 0;
 	background-color: #fff;
-	border: 1px solid #d2d2d2;
-	box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.05);
-	border-radius: 2px;
-	opacity: 1;
-	transition: opacity .3s;
-	.title {
-		padding: 10px 15px;
-		background-color: #e8e8e8;
-		border-bottom: 1px solid #eee;
-		div {
-			height: 22px;
-			line-height: 22px;
-		}
-		.off {
-			float: right;
-			font-size: 28px;
-			font-family: 'Arial';
-			cursor: pointer;
-			&:hover {
-				color: #666;
-			}
+	transition: left .8s;
+	&.active {
+		left: -120px;
+	}
+	dt, dd {
+		height: 30px;
+		line-height: 30px;
+		padding-left: 16px;
+		border-bottom: 1px solid #ddd;
+		cursor: pointer;
+		&.active {
+			border-color: #1972d6;
+			color: #1972d6;
 		}
 	}
-	.content {
-		max-height: 40vh;
-		overflow: auto;
-		padding: 13px;
-		ul {
-			li {
-				line-height: 26px;
-				margin-left: 20px;
-				list-style-type: disc;
-				cursor: pointer;
-				&:hover, &.active {
-					color: #1972d6;
-				}
-			}
+	.toLeft {
+		position: absolute;
+		cursor: pointer;
+		width: 10px;
+		height: 40px;
+		line-height: 40px;
+		border-radius: 0 10px 10px 0;
+		box-shadow: 2px 1px 3px 0px rgba(0, 0, 0, 0.3);
+		font-size: 14px;
+		top: 0;
+		right: -10px;
+		bottom: 0;
+		margin: auto;
+		background-color: #fff;
+		i {
+			display: block;
+			margin-left: -3px;
 		}
-	}
-	&.hidden {
-		opacity: 0;
 	}
 }
 
 .history {
-	width: 240px;	
-	.content {
-		max-height: 50vh;
+	width: 240px;
+	height: calc(100vh - 150px);
+	min-height: 100px;
+	background-color: red;
+	position: fixed;
+	top: 64px;
+	right: -240px;
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+	border-radius: 0 0 0 10px;
+	background-color: #fff;
+	transition: right .8s;
+	padding: 10px;
+	&.active {
+		right: 0;
 	}
+	.content {
+		width: 100%;
+		height: 100%;
+		overflow: auto;
+	}
+	.toRight {
+		position: absolute;
+		cursor: pointer;
+		width: 10px;
+		height: 40px;
+		line-height: 40px;
+		border-radius: 10px 0 0 10px;
+		box-shadow: -2px 1px 3px 0px rgba(0, 0, 0, 0.3);
+		font-size: 14px;
+		top: 0;
+		left: -10px;
+		bottom: 0;
+		margin: auto;
+		background-color: #fff;
+		i {
+			display: block;
+			margin-left: -2px;
+		}
+	}
+}
+.history-way{
+  min-height: 50px;
+  max-width: 180px;
+  padding-top: 20px;
+  padding-left: 10px;
+  border-left: #00a3ff solid 4px;
+  &:before{
+    content:'o';
+    position: absolute;
+    width: 10px;
+    //height: 20px;
+    left: 8px;
+    z-index: 1000;
+    background: #ffffff;
+  }
 }

@@ -41,40 +41,21 @@ export class LoginComponent implements OnInit, OnDestroy {
         let time = 24*60*60*1000;  // 设置24小时
         let timer = new Date(new Date().getTime() + time);
         this.cookie.set("Authorization", "Bearer " + data.token, timer);  // 登录的时候将token保存在cookie里面
-        this.http.get("user/" + 0, '', (data) => {
-          if(data) {
-            this.cookie.set("userDetail", JSON.stringify(data), timer);
-          }
 
-          //获取当前城市放入localStorage
-          let currentCity = {code: 4403, name: '深圳'};
-          let myCity = new BMap.LocalCity();
-          let districts = [];
-          if(data && data.districts) {
-            // districts = data.districts.filter(function(v){return v.code.toString.}) : [];
-          }
-          myCity.get(rs => {
-            let cityName = rs.name.replace('市', '');
-            if(districts.length) {
-              let hasCity = false;
-              districts.forEach(v => {
-                if(cityName == v.name){
-                  hasCity = true;
-                  currentCity = {code: v.code, name: v.name};
-                }
-              })
-              if(!hasCity){
-                currentCity = districts[0];
-              }
-            }
-            localStorage.setItem('currentCity', JSON.stringify(currentCity));
-            if(this.router.url==="/login"){
-              this.router.navigate(['/user']);
-            }else{
-              this.router.navigate(['/admin']);
-            }
-          });
+        if(this.router.url==="/login"){
+          this.router.navigate(['/user']);
+        }else{
+          this.router.navigate(['/admin']);
+        }
 
+        this.http.get('user/permissions', '', data => {
+          let permitObj = {};
+          if (data && data.length) {
+            data.forEach(value => {
+              permitObj[value] = '1';
+            });
+          }
+          this.cookie.set('permit', JSON.stringify(permitObj));
         });
       })
     }

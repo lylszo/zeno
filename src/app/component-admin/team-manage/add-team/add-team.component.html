@@ -6,61 +6,73 @@
     <h1 class="z-title-md-style dib">创建团队</h1>
     <button class="z-btn-blue-lg f-r" (click)="back()">返回</button>
   </header>
-  <ul>
-    <li>
-      <label class="z-required" for="teamname">团队名称：</label>
-      <div class="l-box">
-        <input class="z-input" id="teamname">
-      </div>
-    </li>
-    <li>
-      <label class="z-required">团队类型：</label>
-      <div class="l-box">
-        <app-select [list]="teamType" [(selectedCode)]="type"></app-select>
-      </div>
-    </li>
-    <li>
-      <label class="z-required">所在区域：</label>
-      <div class="l-box">
-        <app-district [(checkedCode)]="city"></app-district>
-      </div>
-    </li>
-    <li>
-      <label for="address">地址：</label>
-      <div class="l-box">
-        <input class="z-input" id="address">
-      </div>
-    </li>
-    <li>
-      <label>中心点位置：</label>
-      <div class="l-box"></div>
-    </li>
-    <li>
-      <label for="introduce">团队说明：</label>
-      <div class="l-box">
-        <textarea class="z-textarea" id="introduce"></textarea>
-      </div>
-    </li>
-    <li>
-      <label>关联标签：</label>
-      <div class="l-box">
-        <app-set-related-tags [(tags)]="tags"></app-set-related-tags>
-      </div>
-    </li>
-    <li>
-      <label>可服务区域：</label>
-      <div class="l-box">
-        <app-district-mult [ifResult]="true" [citys]="citys"></app-district-mult>
-      </div>
-    </li>
-    <li>
-      <label>用户角色：</label>
-      <div class="l-box">
-        <app-role-modal [ifResult]="true"></app-role-modal>
-      </div>
-    </li>
-  </ul>
-  <div class="text-center mt10 mb60">
-    <button type="button" class="z-btn-blue-lg">确定</button>
-  </div>
+  <form #addTeamForm="ngForm" name="addTeam">
+    <ul>
+      <li>
+        <label class="z-required" for="teamname">团队名称：</label>
+        <div class="l-box">
+          <input class="z-input" id="teamname" name="teamname"
+                 [(ngModel)]="name"
+                 #teamname="ngModel" maxlength="20" required>
+          <div class="z-error" *ngIf="teamname.invalid && (teamname.dirty || teamname.touched)">
+            <span *ngIf="teamname.errors?.required">请输入团队名称</span>
+          </div>
+        </div>
+      </li>
+      <li>
+        <label class="z-required">团队类型：</label>
+        <div class="l-box">
+          <select name="addtype" [(ngModel)]="addtype" #type="ngModel">
+            <option [value]="item.code" *ngFor="let item of teamType">{{item.name}}</option>
+          </select>
+        </div>
+      </li>
+      <li>
+        <label class="z-required">所在区域：</label>
+        <div class="l-box">
+          <app-district [(checkedCode)]="city"></app-district>
+        </div>
+      </li>
+      <li>
+        <label for="address">地址：</label>
+        <div class="l-box">
+          <input class="z-input" name="address" id="address" maxlength="50" [(ngModel)]="address">
+        </div>
+      </li>
+      <li>
+        <label>中心点位置：</label>
+        <div class="l-box">
+          <app-map-modal [(point)]="point"></app-map-modal>
+        </div>
+      </li>
+      <li>
+        <label for="remark">团队说明：</label>
+        <div class="l-box">
+          <textarea class="z-textarea" id="remark" name="remark" maxlength="200" [(ngModel)]="remark"></textarea>
+        </div>
+      </li>
+      <li>
+        <label>关联标签：</label>
+        <div class="l-box relative">
+          <app-set-related-tags [(tags)]="tags"></app-set-related-tags>
+        </div>
+      </li>
+      <li>
+        <label>可服务区域：</label>
+        <div class="l-box">
+          <app-district-mult [ifResult]="true" [citys]="citys"></app-district-mult>
+        </div>
+      </li>
+      <li>
+        <label>用户角色：</label>
+        <div class="l-box">
+          <app-role-modal [roles]="roles" (getRole)="getRole($event)"  [addUser]="true"  [ifResult]="true"></app-role-modal>
+        </div>
+      </li>
+    </ul>
+    <div class="mt10 mb60 team-add-submit">
+      <button type="button" class="z-btn-blue-lg"
+              (click)="submit()">确定</button>
+    </div>
+  </form>
 </section>

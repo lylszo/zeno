@@ -1,13 +1,13 @@
 export class City {
-  code: number;
-  name: string;
+  code?: number;
+  name?: string;
   alphabet?: string;
   hot?: number;
   status?: number;
   active?: boolean;
 
-  constructor(code: number,
-              name: string,
+  constructor(code?: number,
+              name?: string,
               hot?: number,
               status?: number,
               active?: boolean) {

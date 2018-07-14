@@ -1,33 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { HttpService } from "../../service/http.service";
 import { TipPopService} from '../../service/tipPop.service';
+import { Page } from "../../component-common/pagination/page.model";
+import { CookieService } from 'ngx-cookie-service';
+import { CommonService } from '../../service/common.service';
 
 @Component({
   selector: 'app-shop-service',
   templateUrl: './shop-service.component.html',
   styleUrls: ['./shop-service.component.scss']
 })
-export class ShopServiceComponent implements OnInit {
-
-	cities = [
-		{code: 1103, name: '深圳'},
-		{code: 1101, name: '北京'},
-		{code: 1102, name: '上海'},
-		{code: 1104, name: '广州'},
-	];
-
-	districts = [
-		{code: 110302, name: '南山区'},
-		{code: 110301, name: '宝安区'},
-		{code: 110303, name: '福田区'},
-		{code: 110304, name: '罗湖区'},
-	];
-
-	businessAreas = [
-		{code: 110302, name: '来福士广场'},
-		{code: 110301, name: '海岸城'},
-		{code: 110303, name: '欢乐颂'},
-	];
+export class ShopServiceComponent implements OnInit, AfterViewInit {
+	//是否已登录
+	login = this.cookie.get("Authorization") ? true : false;
 
 	descriptions = [
 		{code: 0, name: '全部'},
@@ -50,33 +35,62 @@ export class ShopServiceComponent implements OnInit {
 	minDoorWide;
 	maxDoorWide;
 	districtId;
-	positionDesc;
+	positionDesc = 0;
 	nearStreet;
 	notNearStreet;
 	keyword;
 	mobile;
 
-	constructor(private http: HttpService, private tip: TipPopService) { }
+	//权限
+	permission:any;
+
+	constructor(private http: HttpService, private tip: TipPopService, private cookie: CookieService, private common: CommonService) { }
 
 	ngOnInit() {
+		//获取权限
+	    this.common.getUserPermission(data => {
+	        this.permission = data;
+	    });
+	}
 
+	ngAfterViewInit() {
+		this.getList();
+	}
+
+	//计算列表中的租金剩余时间
+	getRemainMonth(total:any, begin:any){
+		let now = new Date().getTime();
+		let num = parseInt((now - begin)/(86400000 * 30) + '') + 1;
+		if(total - num > 0) {
+			return (total - num);
+		}else {
+			return 0;
+		}
 	}
 
 	//获取列表
-	getList(invalid){
+	shopList = [];
+	isQuery = false;
+    pageConf: Page = {
+		currentPage: 1,
+		itemsPerPage: 30,
+		maxSize: 5,
+		numPages: 0
+    };
+	getList(invalid?){
 		//表单验证
 		let industryInValid = (this.industryIds && this.industryIds.length && !this.currentI && !this.suitI && !this.recommendI) || ((!this.industryIds || !this.industryIds.length) && (this.currentI || this.suitI || this.recommendI));
 		let areaInvalid = this.minArea > this.maxArea;
 		let doorWidthInvalid = this.minDoorWide > this.maxDoorWide;
 		if(invalid || industryInValid || areaInvalid || doorWidthInvalid){
-			this.tip.setValue('请按提示输入正确的查询数据！', false);
+			this.tip.setValue('请按提示输入正确的查询数据！', true);
 			return;
 		}
 
 		//数据处理
 		let params:any = {
-			page: 1, 
-			pageSize: 30
+			page: this.pageConf.currentPage, 
+			pageSize: this.pageConf.itemsPerPage
 		};
 		this.minArea ? params.minArea = this.minArea : false;
 		this.maxArea ? params.maxArea = this.maxArea : false;
@@ -87,13 +101,34 @@ export class ShopServiceComponent implements OnInit {
 		this.keyword ? params.keyword = this.keyword : false;
 		this.mobile ? params.mobile = this.mobile : false;
 		if(this.nearStreet && !this.notNearStreet){
-			params.nearSheet = 1;
+			params.nearStreet = 1;
 		}else if(!this.nearStreet && this.notNearStreet){
-			params.nearSheet = 2;
+			params.nearStreet = 2;
+		}
+		if(this.industryIds && this.industryIds.length) {
+			let ids = this.industryIds.map(v => v.code);
+			if(this.currentI){
+				params.industryIds = ids;
+			}
+			if(this.suitI){
+				params.suitIndustry = ids;
+			}
+			if(this.recommendI){
+				params.recommendarIndustry = ids;
+			}
 		}
 		//发送请求
-		this.http.get('shops', params, (data) => {
-			console.log(data);
+		this.isQuery = true;
+		let method = this.login ? 'get' : '_get'; 
+		this.http[method]('shops', params, (data) => {
+			this.isQuery = false;
+			this.shopList = data.items;
+			this.pageConf.totalItems = data.meta.total;
+			this.pageConf.currentPage = data.meta.current_page;
+			this.pageConf.numPages = data.meta.total_pages;
+		}, (error) => {
+			this.isQuery = false;
+			this.shopList = [];
 		})
 	}
 }

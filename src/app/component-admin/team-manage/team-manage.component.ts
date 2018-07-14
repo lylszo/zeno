@@ -12,6 +12,7 @@ import {Page} from '../../component-common/pagination/page.model';
 import {HttpService} from '../../service/http.service';
 import {Team} from './team.model';
 import {TipPopService} from '../../service/tipPop.service';
+import {CommonService} from "../../service/common.service";
 
 @Component({
   selector: 'app-team-manage',
@@ -20,45 +21,21 @@ import {TipPopService} from '../../service/tipPop.service';
 })
 export class TeamManageComponent implements OnInit {
 
-  params: SearchParam;
+  params: SearchParam = {
+    type: 0,
+    name: '',
+    status: -1,
+    working_district: -1,
+    page: 1,
+    pageSize: 10
+  };
   pageConf: Page;
   lists: Team[];
   team: Team;
-
-// 标签
-  tagList: Tag[]; // 标签对象列表
-  tags: Array<number>;  // 标签id数组
-
-  constructor(private modalService: BsModalService, private http: HttpService, private tip: TipPopService) {
-    this.tagList = [];
-    this.tags = [];
-    this.pageConf = {
-      currentPage: 1,
-      itemsPerPage: 10,
-      maxSize: 5,
-      numPages: 0
-    };
-    this.params = {
-      name: '',
-      type: 0,
-      status: -1,
-      workingDistrict: -1,
-      page: 1,
-      pageSize: 10
-    };
-  }
-
-  ngOnInit() {
-    this.submit();
-  }
-
-  // 模态框
-  modalRef: BsModalRef;
-
-  openModal(template: TemplateRef<any>, obj) {
-    this.modalRef = this.modalService.show(template);
-    this.team = obj;
-  }
+  point: Point;
+  newTeam: Team;
+  thisIndex: number;
+  permission: any;
 
   teamType = [{
     code: 0,
@@ -82,24 +59,64 @@ export class TeamManageComponent implements OnInit {
     name: '解散'
   }];
 
-  // 查询
+  teamTypeObj = {1: '自营团队', 2: '加盟商团队'};
+
+// 标签
+  tagList: Tag[]; // 标签对象列表
+  tags: Array<number>;  // 标签id数组
+
+  constructor(private modalService: BsModalService, private  http: HttpService,
+              private tip: TipPopService, private common: CommonService) {
+    this.tagList = [];
+    this.tags = [];
+    this.pageConf = {
+      currentPage: 1,
+      itemsPerPage: 10,
+      maxSize: 5,
+      numPages: 0
+    };
+  }
+
+  ngOnInit() {
+    this.submit();
+    this.common.getUserPermission(data => {
+      this.permission = data;
+    });
+  }
+
+// 模态框
+  modalRef: BsModalRef;
+
+  openModal(template: TemplateRef<any>, obj, index) {
+    this.modalRef = this.modalService.show(template);
+    this.newTeam = obj;
+    this.thisIndex = index;
+    this.team = JSON.parse(JSON.stringify(obj));
+    this.point = {
+      lng: this.team.longitude,
+      lat: this.team.latitude
+    };
+  }
+
+// 查询
   submit() {
-    this.params.page = this.pageConf.currentPage;
-    this.params.pageSize = this.pageConf.itemsPerPage;
-    if (!this.params.name) {
-      delete this.params.name;
+    let param = JSON.parse(JSON.stringify(this.params));
+    param.page = this.pageConf.currentPage;
+    param.pageSize = this.pageConf.itemsPerPage;
+    if (!param.name) {
+      delete param.name;
     }
-    if (this.params.type === 0) {
-      delete this.params.type;
+    if (param.type == 0) {
+      delete param.type;
     }
-    if (this.params.status === -1) {
-      delete this.params.status;
+    if (param.status == -1) {
+      delete param.status;
     }
-    if (this.params.workingDistrict === -1) {
-      delete this.params.workingDistrict;
+    if (param.working_district == -1) {
+      delete param.working_district;
     }
-    this.tags.length > 0 ? this.params.tag = this.tags : isUndefined(this.params.tag);
-    this.http.get('teams', this.params, (data) => {
+    this.tags.length > 0 ? param.tag = this.tags : isUndefined(param.tag);
+    this.http.get('teams', param, (data) => {
       this.lists = data.items;
       this.pageConf.totalItems = data.meta.total;
       this.pageConf.currentPage = data.meta.current_page;
@@ -107,13 +124,13 @@ export class TeamManageComponent implements OnInit {
     });
   }
 
-  // 清空搜索条件
+// 清空搜索条件
   clearSearch() {
     this.params = {
       name: '',
       type: 0,
       status: -1,
-      workingDistrict: -1,
+      working_district: -1,
       page: 1,
       pageSize: 10
     };
@@ -124,28 +141,80 @@ export class TeamManageComponent implements OnInit {
     this.tagList = [];
   }
 
-  // 分页
+// 分页
   pageChanged() {
     this.submit();
   }
 
   editTags = [];
 
-  // 编辑团队信息
+// 编辑团队信息
   editTeam() {
-    let params = {
-      name: this.team.name
+    if (!this.team.name) {
+      this.tip.setValue('请输入团队名称', true);
+      return;
+    }
+    if (this.team.type == -1) {
+      this.tip.setValue('请选择团队类型', true);
+      return;
+    }
+    if (this.team.cityId == -1) {
+      this.tip.setValue('请选择所在区域', true);
+      return;
+    }
+    if (!this.team.address) {
+      this.tip.setValue('请输入团队地址', true);
+      return;
+    }
+    if (!this.point.lat && !this.point.lng) {
+      this.tip.setValue('请选择具体位置', true);
+      return;
+    }
+    let params: any = {
+      name: this.team.name,
+      type: this.team.type,
+      working_district: this.team.cityId,
+      address: this.team.address,
+      latitude: this.point.lat,
+      longitude: this.point.lng,
     };
+    this.team.remark ? params.descriptoin = this.team.remark : isUndefined(params.descriptoin);
+
+    this.editTags.length > 0 ? params.tags = this.editTags : isUndefined(params.tags);
+
     this.http.put('team/' + this.team.teamId, params, () => {
-
+      this.tip.setValue('修改成功', false);
+      this.newTeam.name = this.team.name;
+      this.newTeam.type = this.team.type;
+      this.newTeam.cityId = this.team.cityId;
+      this.newTeam.address = this.team.address;
     });
   }
 
-  // 解散
+// 解散
   dissolve() {
-    this.http.del('team/' + this.team.teamId, (data) => {
-
+    this.http.del('team/' + this.team.teamId, () => {
+      this.team.status = 1;
+      this.tip.setValue('该团队已解散！', true);
+      // this.lists.splice(this.thisIndex,1)
+      this.submit();
     });
   }
 
+  // 分配服务区域
+  cityChecked: Number[] = [];
+  asignDistrict(id) {
+      let param = {
+        cityIds: this.cityChecked
+      };
+      this.http.put('team/' + id, param, () => {
+        this.tip.setValue('服务区域分配成功', false);
+      });
+  }
+
+}
+
+interface Point {
+  lng: any;
+  lat: any;
 }

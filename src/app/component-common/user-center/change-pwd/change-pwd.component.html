@@ -1,0 +1,51 @@
+<div id="changePwd">
+  <h1 class="z-title-lg">密码修改</h1>
+  <div class="z-bg-white">
+    <h2 class="z-title-md-style mb50">密码修改</h2>
+    <div class="wrap">
+      <form #changPwdForm="ngForm" name="changePwd">
+        <ul>
+          <li>
+            <label for="oldPwd">旧密码：</label>
+            <input type="password" id="oldPwd" class="z-input" name="oldPwd"
+                   [(ngModel)]="oldPwd"
+                   #thisOldPwd="ngModel" pattern="^[^ \f\n\r\t\v]{6,12}$" required>
+            <div class="z-error" *ngIf="thisOldPwd.invalid && (thisOldPwd.dirty || thisOldPwd.touched)">
+              <span *ngIf="thisOldPwd.errors?.pattern">请输入6-12位数字和字符</span>
+              <span *ngIf="thisOldPwd.errors?.required">请输入旧密码</span>
+            </div>
+          </li>
+          <li>
+            <label for="newPwd">新密码：</label>
+            <input type="password" id="newPwd" class="z-input" name="newPwd"
+                   [(ngModel)]="newPwd"
+                   #thisNewPwd="ngModel" pattern="^[^ \f\n\r\t\v]{6,12}$" required>
+            <div class="z-error" *ngIf="thisNewPwd.invalid && (thisNewPwd.dirty || thisNewPwd.touched)">
+              <span *ngIf="thisNewPwd.errors?.pattern">请输入6-12位数字和字符</span>
+              <span *ngIf="thisNewPwd.errors?.required">请输入新密码</span>
+            </div>
+          </li>
+          <li>
+            <label for="repeatPwd">确认密码：</label>
+            <input type="password" id="repeatPwd" class="z-input" name="repeatPwd"
+                   [(ngModel)]="repeatPwd"
+                   #thisRepeatPwd="ngModel" pattern="^[^ \f\n\r\t\v]{6,12}$" required>
+            <div class="z-error" *ngIf="thisRepeatPwd.invalid && (thisRepeatPwd.dirty || thisRepeatPwd.touched)">
+              <span *ngIf="newPwd!=repeatPwd">两次密码输入不一致</span>
+              <span *ngIf="thisRepeatPwd.errors?.pattern">请输入6-12位数字和字符</span>
+              <span *ngIf="thisRepeatPwd.errors?.required">请再次输入密码</span>
+            </div>
+            <div class="z-error" *ngIf="newPwd!=repeatPwd">
+              <span>两次密码输入不一致</span>
+            </div>
+          </li>
+        </ul>
+        <div class="text-center mt60 mb100">
+          <button class="z-btn-blue-lg text-center"
+                  [disabled]="thisOldPwd.invalid || thisNewPwd.invalid || thisRepeatPwd.invalid"
+                  (click)="submit()">提交</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

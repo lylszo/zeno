@@ -1,11 +1,17 @@
 .edit {
+	padding-bottom: 650px;
 	.edit-group {
-		margin-bottom: 15px;
+		margin-bottom: 20px;
 		.edit-title {
 			width: 15%;
 			text-align: right;
 			display: inline-block;
 			vertical-align: top;
+		}
+		.tipEmpty {
+			padding-left: 20px;
+			line-height: 50px;
+			// color: #1972d6;
 		}
 		.edit-content {
 			padding-left: 20px;
@@ -22,7 +28,7 @@
 			table {
 				margin-bottom: -10px;
 				tr>td{
-					padding-bottom: 10px;
+					padding-bottom: 18px;
 				}
 			}
 		}
@@ -70,14 +76,30 @@
 			}
 		}
 	}
+	.picContent {
+		margin-left: -10px;
+		margin-bottom: 20px;
+	}
 	.transfer {
 		.z-radio {
 			margin-right: 40px;
 		}		
 	}
 }
+
+.error {
+	position: relative;
+	span {
+		position: absolute;
+		top: 0;
+		left: 0;
+		color: #dd0031;
+		font-size: 12px;	
+	}
+
+}
 .modal-group {
-	margin-bottom: 15px;
+	margin-bottom: 18px;
 	&:last-child {
 		margin-bottom: 0;
 	}
@@ -91,9 +113,49 @@
 	.edit-content {
 		padding-left: 20px;
 		display: inline-block;
+		width: 400px;
+	}
+	.certificateImg{
+		margin-left: -10px;
 	}
 }
 
+.certificate {
+	.modal-group {
+		.edit-title {
+			width: 115px;
+		}
+	}
+}
+
+.certificateList {
+	margin-left: 20px;
+	margin-top: 20px;
+	.group {
+		p {
+			line-height: 20px;
+		}
+		border: 1px dotted #ccc;
+		display: inline-block;
+		margin-right: 10px;
+		padding: 10px;
+		button {
+			margin-right: 5px;
+		}
+	}
+}
+
+//提交修改
+.submitEdit {
+	width: 300px;
+	position: fixed;
+	left: calc(50% - 150px);
+	bottom: 1px;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+//回到顶部
 .fixBar {
 	position: fixed;
 	bottom: 20px;
@@ -118,59 +180,49 @@
 	}
 }
 
-.fixBox {
+//左侧导航目录
+.fixNav{
+	width: 120px;
 	position: fixed;
-	z-index: 100;
-	right: 20px;
-	top: 25vh;
-	width: 150px;
+	margin: auto;
+	top: 22%;
+	left: 0;
+	padding: 10px;
+	box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.3);
+	border-radius: 0 10px 10px 0;
 	background-color: #fff;
-	border: 1px solid #d2d2d2;
-	box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.05);
-	border-radius: 2px;
-	opacity: 1;
-	transition: opacity .3s;
-	.fixTitle {
-		padding: 10px 15px;
-		background-color: #e8e8e8;
-		border-bottom: 1px solid #eee;
-		div {
-			height: 22px;
-			line-height: 22px;
-		}
-		.closeFix {
-			float: right;
-			font-size: 28px;
-			font-family: 'Arial';
-			cursor: pointer;
-			&:hover {
-				color: #666;
-			}
+	transition: left .8s;
+	&.active {
+		left: -120px;
+	}
+	dt, dd {
+		height: 30px;
+		line-height: 30px;
+		text-align: center;
+		border-bottom: 1px solid #ddd;
+		cursor: pointer;
+		&.active {
+			border-color: #1972d6;
+			color: #1972d6;
 		}
 	}
-	.fixContent {
-		max-height: 40vh;
-		overflow: auto;
-		padding: 13px;
-		ul {
-			li {
-				line-height: 26px;
-				margin-left: 20px;
-				list-style-type: disc;
-				cursor: pointer;
-				&:hover, &.active {
-					color: #1972d6;
-				}
-				&.level1 {
-					font-weight: bold;
-				}
-				&.level2 {
-					list-style-type: none;
-				}
-			}
+	.toLeft {
+		position: absolute;
+		cursor: pointer;
+		width: 10px;
+		height: 40px;
+		line-height: 40px;
+		border-radius: 0 10px 10px 0;
+		box-shadow: 2px 1px 3px 0px rgba(0, 0, 0, 0.3);
+		font-size: 14px;
+		top: 0;
+		right: -10px;
+		bottom: 0;
+		margin: auto;
+		background-color: #fff;
+		i {
+			display: block;
+			margin-left: -3px;
 		}
-	}
-	&.hidden {
-		opacity: 0;
 	}
 }

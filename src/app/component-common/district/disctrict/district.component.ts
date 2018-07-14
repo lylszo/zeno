@@ -1,8 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
-import {HttpService} from "../../../service/http.service";
 import {City} from "../../../component-admin/user-manage/city.model";
-import {CookieService} from "ngx-cookie-service";
+import {CommonService} from "../../../service/common.service";
 
 @Component({
   selector: 'app-district',
@@ -19,29 +18,24 @@ export class DistrictComponent implements OnInit {
   showContent: false;
   checkedName: string;
 
-  constructor(private http: HttpService, private cookie: CookieService) {
+  constructor(private common: CommonService) {
+    if (!this.districts) {
+      this.common.getUserDetail((data) => {
+        if(data.districts){
+          this.districts = this.handle(data.districts);
+        }
+      })
+    }
   }
 
   ngOnInit() {
     this.checkedCode = -1;
-    this.checkedItem = {
-      name: '-请选择-',
-      code: -1
-    };
-    /*this.http.get('districts', {parentId: 0}, (data) => {
-      this.districts = data;
-    })*/
-    // this.districts = JSON.parse(this.cookie.get('userDetail')).districts;
-    this.districts = [{
-      "alpha": "A",
-      "list": [{"code": 34, "name": "安徽", "hot": 0, "status": 1, "alphabet": "A"}, {
-        "code": 82,
-        "name": "澳门",
-        "hot": 0,
-        "status": 1,
-        "alphabet": "A"
-      }]
-    }, {"alpha": "B", "list": [{"code": 11, "name": "北京", "hot": 0, "status": 1, "alphabet": "B"}]}];
+    if (!this.checkedItem) {
+      this.checkedItem = {
+        name: '-请选择-',
+        code: -1
+      };
+    }
 
   }
 
@@ -61,5 +55,25 @@ export class DistrictComponent implements OnInit {
     }
     this.checkedCodeChange.emit(this.checkedCode);
     this.showContent = false;
+  }
+
+  //处理数据
+  handle(arr){
+    if(!arr){
+      return [];
+    }
+    let alphArr = [];
+    arr.forEach(v => {
+      if(alphArr.indexOf(v.alphabet) == -1) {
+        alphArr.push(v.alphabet);
+      }
+    })
+    let newArr = alphArr.map(v => {
+      let a = arr.filter(w => {
+        return w["alphabet"] == v;
+      })
+      return {"alpha": v, list: a};
+    });
+    return newArr;
   }
 }

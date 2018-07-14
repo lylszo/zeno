@@ -1,0 +1,24 @@
+<div class="news-detail">
+  <p class="clearfix mb30">
+    <button class="z-btn-blue-sm f-r" (click)="goback()">返回</button>
+  </p>
+  <dl>
+    <dt>
+      <label>主题：</label>
+      <span>{{details.subject}}</span>
+    </dt>
+    <dd>
+      <label>时间：</label>
+      <span>{{details.sendTime | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+    </dd>
+    <dd>
+      <label>发件人：</label>
+      <span>{{details.sender}}</span>
+    </dd>
+    <dd>
+      <label>内容：</label>
+      <span>{{details.content}}</span>
+    </dd>
+  </dl>
+</div>
+

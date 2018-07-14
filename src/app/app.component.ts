@@ -15,11 +15,10 @@ export class AppComponent implements OnDestroy {
   constructor(private http: HttpService, public tipService: TipPopService) {
     this.getDistrict();
     this.getIndustries();
-    this.getCurrentCity();
     this.tip = {
       showError: false,
       errorText: '',
-      success: false
+      fail: false
     };
     this.subscription = this.tipService.getValue().subscribe((data) => {
       this.tip = data;
@@ -27,28 +26,34 @@ export class AppComponent implements OnDestroy {
         this.tip = {
           showError: false,
           errorText: '',
-          success: false
+          fail: false
         };
       }, 2000);
     });
   }
 
-  //  在app启动的时候将区域的数据存到localstrage中
+  //  在app启动的时候将区域的数据存到localStorage中
   getDistrict() {
     let districtStore = localStorage.getItem("district");
-    if(!districtStore){
+    if (!districtStore) {
       this.http._get("district", {parent_id: -1}, (data) => {
         localStorage.setItem("district", JSON.stringify(data));
+        this.putToStorage(data);
       })
+    } else {
+      let districtData = JSON.parse(districtStore);
+      this.putToStorage(districtData);
     }
 
-    let districtData = JSON.parse(districtStore);
+  }
+
+  putToStorage(data: Array<any>) {
     let districtMap = localStorage.getItem('cityMap');
     let cityListStr = localStorage.getItem("cityList");
     if (!districtMap || !cityListStr) {
       let cityObj = {};
       let cityList = [];
-      districtData.forEach(function (item) {
+      data.forEach(function (item) {
         let value = item.code.toString();
         cityObj[value] = item.name;
         if(item.code.toString().length === 4) {
@@ -66,14 +71,6 @@ export class AppComponent implements OnDestroy {
       this.http._get('industryList', '', (data) => {
         localStorage.setItem('industry', JSON.stringify(data));
       });
-    }
-  }
-
-  //获取当前城市放入localStorage
-  getCurrentCity() {
-    if(!localStorage.getItem('currentCity')) {
-      let currentCity = {code: 4403, name: '深圳'};
-      localStorage.setItem('currentCity', JSON.stringify(currentCity));
     }
   }
 

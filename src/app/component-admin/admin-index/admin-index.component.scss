@@ -35,31 +35,62 @@
 					}
 				}
 			}
-			ul{
-				margin-top: 20px;
-				width: 730px;
-				overflow: hidden;
-				height: 100px;
-				li{
-					width: 218px;
-					height: 98px;
-					padding: 20px 28px;
-					vertical-align: middle;
+			.team{
+				position: relative;
+				.teamList {
+					width: 684px;
+					overflow: hidden;
+					ul{
+						width: 20000px;
+						margin-top: 20px;
+						height: 100px;
+						transition: margin-left .5s;
+						li{
+							width: 218px;
+							height: 98px;
+							padding: 20px 28px;
+							vertical-align: middle;
+							text-align: center;
+							float: left;
+							border: 1px solid #e6e6e6;
+							border-radius: 3px;
+							margin-right: 10px;
+							margin-bottom: 20px;
+							position: relative;
+							>p{
+								line-height: 20px;
+							}
+							>span{
+								position: absolute;
+								top: -1px;
+								right: -1px;
+							}
+						}
+					}					
+				}
+				.moveLeft, .moveRight {
+					width: 32px;
+					height: 32px;
+					position: absolute;
+					top: 25px;
+					right: 10px;
+					border: 1px solid #ccc;
+					border-radius: 16px;
 					text-align: center;
-					float: left;
-					border: 1px solid #e6e6e6;
-					border-radius: 3px;
-					margin-right: 10px;
-					margin-bottom: 20px;
-					position: relative;
-					>p{
-						line-height: 20px;
+					line-height: 32px;
+					cursor: pointer;
+					i{
+						font-size: 20px;
+						color: #ccc;
 					}
-					>span{
-						position: absolute;
-						top: -1px;
-						right: -1px;
+					&:hover {
+						i {
+							color: #666;
+						}
 					}
+				}
+				.moveRight {
+					top: 80px;
 				}
 			}
 			.loginInfo {
@@ -115,13 +146,13 @@
 						margin: 0 auto;
 						margin-top: -4px;
 						background-image: url('../../../assets/imgs/sprite.png');
-						background-position: -54px 0;
+						background-position: -425px 0;
 					}
 					.icon-2{
-						background-position-x: -127px;
+						background-position-x: -499px;
 					}
 					.icon-3{
-						background-position-x: -198px;
+						background-position-x: -576px;
 					}
 					p{
 						padding-top: 20px;

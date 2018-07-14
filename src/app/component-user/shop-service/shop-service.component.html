@@ -2,7 +2,7 @@
 <div class="part1 p20">
 	<h2 class="z-title-md-style">
 		筛选条件
-		<button type="submit" class="z-btn-blue-lg f-r" (click)="getList(searchForm.invalid)">查询</button>
+		<button type="submit" class="z-btn-blue-lg f-r" (click)="getList(searchForm.invalid)" [disabled]="isQuery">查询</button>
 	</h2>
 	<form class="clearfix">
 		<form class="clearfix" #searchForm="ngForm">
@@ -13,7 +13,6 @@
 						<app-choose-industry [(selectedList)]="industryIds"></app-choose-industry>
 					</div>				
 				</div>
-				
 				<div class="group">
 					<span class="tag"></span>
 					<div class="content">
@@ -34,16 +33,18 @@
 				</div>
 				
 				<div class="group">
-					<span class="tag">区域</span>{{szo}}
+					<span class="tag">区域</span>
 					<div class="content">
-						<app-choose-district [(lyl)]="szo"></app-choose-district>
+						<app-choose-district [(selectedCode)]="districtId"></app-choose-district>
 					</div>				
 				</div>
 				
 				<div class="group">
 					<span class="tag">位置描述</span>
 					<div class="content">
-						<app-select [list]="descriptions" [(selectedCode)]="positionDesc"></app-select>
+						<select [(ngModel)]="positionDesc" name="positionDesc">
+							<option [value]="item.code" *ngFor="let item of descriptions">{{item.name}}</option>
+						</select>
 						<label class="z-checkbox ml20">
 							<input name="nearStreet" type="checkbox" value=1 [(ngModel)]="nearStreet"><i></i>临街
 						</label>
@@ -69,8 +70,8 @@
 				<div class="group">
 					<span class="tag">门宽</span>
 					<div class="content">
-						<input name="minDoorWide" #_minDoorWide="ngModel" [(ngModel)]="minDoorWide"  pattern="^[1-9][0-9]*(.[0-9]{0,2})?$" [style.width.px]=160 type="number" class="z-input" placeholder="最短"> -
-						<input name="maxDoorWide" #_maxDoorWide="ngModel" [(ngModel)]="maxDoorWide"  pattern="^[1-9][0-9]*(.[0-9]{0,2})?$" [style.width.px]=160 type="number" class="z-input" placeholder="最长"> <span class="color-999"> 米</span>
+						<input name="minDoorWide" #_minDoorWide="ngModel" [(ngModel)]="minDoorWide"  pattern="^[1-9][0-9]*(\.[0-9]{0,2})?$" [style.width.px]=160 type="number" class="z-input" placeholder="最短"> -
+						<input name="maxDoorWide" #_maxDoorWide="ngModel" [(ngModel)]="maxDoorWide"  pattern="^[1-9][0-9]*(\.[0-9]{0,2})?$" [style.width.px]=160 type="number" class="z-input" placeholder="最长"> <span class="color-999"> 米</span>
 						<div class="error">
 							<p class="red" *ngIf="_minDoorWide.errors?.pattern || _maxDoorWide.errors?.pattern">请输入大于零的整数, 允许两位小数</p>
 							<p class="red" *ngIf="minDoorWide > maxDoorWide">最小面积不能大于最大面积</p>							
@@ -101,61 +102,108 @@
 <div class="part2 p20 mt20">
 	<h1 class="z-title-md-style">
 		信息列表
-		<button class="f-r z-btn-red-lg">我要发布</button>
+		<a class="f-r z-btn-red-lg" *ngIf="login && permission['10000101']" routerLink="/user/releaseStore" target="_blank">我要发布</a>
 	</h1>
-	<table class="z-table mt20">
+	<div class="z-empty mt20"*ngIf="!shopList.length">未查询到相关信息</div>
+	<table class="z-table mt20" *ngIf="shopList.length">
 		<tr>
 			<th width="18%">物业建筑</th>
-			<th width="18%">面积</th>
+			<th width="20%">面积</th>
 			<th width="20%">当前店铺</th>
 			<th width="18%">租金</th>
-			<th width="18%">转让情况</th>
+			<th width="16%">转让情况</th>
 			<th width="8%">操作</th>			
 		</tr>
-		<tr *ngFor="let item of [1, 2, 3, 4, 5, 6, 7]">
+		<tr *ngFor="let item of shopList">
 			<td>
 				<div>
-					<span class="z-title-md">深圳南山区</span><span class="info-green ml5">商铺</span>
+					<span class="z-title-md">
+						{{item.district?.toString().slice(0, 4) | cityName}}<span *ngIf="item.district?.toString().length >=6">{{item.district?.toString().slice(0, 6) | cityName}}</span>
+					</span>
+					<span class="z-square-red ml5" *ngIf="item.parentProperty">{{item.parentProperty | parentProperty}}</span>
 				</div>
-				<p class="color-888">登良路26号公园道大厦8层，靠近星卡可咖啡</p>
-				<p class="lightgrey f12">临街 街道转角</p>
-			</td>
-			<td>
-				<p class="z-title-md">158㎡</p>
-				<p>
-					<span class="color-888">门宽：3.5m</span>
-					<span class="ml10 color-888">层高：4m</span>
-				</p>
-				<p>
-					<span class="color-888">开间：3.5m</span>
-					<span class="ml10 color-888">进深：4m</span>
+				<p class="color-888">{{item.address}}</p>
+				<p class="lightgrey f12">
+					<span *ngIf="item.nearStreet">临街</span>
+					<span *ngIf="!item.nearStreet">不临街</span>
+					<span class="ml6">{{item.positionDesc | positionDesc}}</span>
 				</p>
 			</td>
 			<td>
-				<span class="z-title-md">肯德基（公园道VIP）</span>
-				<span class="z-square-red">品牌</span>
-				<p class="color-888">快餐</p>
-				<p class="color-888">老板：李先生</p>
-				<p class="lightgrey f12">&lt;100m</p>
+				<p class="z-title-md">{{item.area}}㎡</p>
+				<p>
+					<span class="color-888">
+						门宽：
+						<span *ngIf="item.doorWidth">{{item.doorWidth}}m</span>
+						<span *ngIf="!item.doorWidth">-</span>
+					</span>
+					<span class="ml10 color-888">
+						层高：
+						<span *ngIf="item.height">{{item.height}}m</span>
+						<span *ngIf="!item.height">-</span>
+					</span>
+				</p>
+				<p>
+					<span class="color-888">
+						开间：
+						<span *ngIf="item.width">{{item.width}}m</span>
+						<span *ngIf="!item.width">-</span>
+					</span>
+					<span class="ml10 color-888">
+						进深：
+						<span *ngIf="item.deep">{{item.deep}}m</span>
+						<span *ngIf="!item.deep">-</span>
+					</span>
+				</p>
 			</td>
 			<td>
-				<p class="z-title-md">2000元/1月</p>
-				<p class="color-888">支付：一月一付</p>
-				<p class="color-888">租约：24个月</p>
+				<span class="z-title-md">
+					<span *ngIf="item.name">{{item.name}}</span>
+					<span *ngIf="item.branchName">（{{item.branchName}}）</span>
+				</span>
+				<span class="z-square-red" *ngIf="item.checkBrand">品牌</span>
+				<p class="color-888" *ngIf="item.industryId">{{item.industryId.toString().slice(0, 2) | industryName}}</p>
+				<p class="color-888">
+					老板：
+					<span *ngIf="item.name">{{item.name}}</span>
+					<span *ngIf="!item.name">-</span>
+				</p>
+				<!-- <p class="lightgrey f12">&lt;100m</p> -->
 			</td>
 			<td>
-				<p class="z-title-md">230万</p>
-				<p class="color-888">含：家具、设备、桌椅板凳等</p>
-				<p class="color-888">可以空转</p>
+				<p class="z-title-md">
+					<span *ngIf="item.rent">{{item.rent/100 | decimal}}{{item.rentUnit | rentUnit}}</span>
+				</p>
+				<p class="color-888">
+					支付：
+					<span *ngIf="item.rentDepositMode">押{{item.rentDepositMode}}</span>
+					<span *ngIf="item.rentPayMode">付{{item.rentPayMode}}</span>
+					<span *ngIf="!item.rentPayMode && !item.rentDepositMod">-</span>
+				</p>
+				<p class="color-888">
+					租约：
+					<span *ngIf="item.rentContractMonths">
+						{{item.rentContractMonths}}个月
+						<span>（剩{{getRemainMonth(item.rentContractMonths, item.rentContractBeginDate) | decimal:0}}个月）</span>
+					</span>
+					<span *ngIf="!item.rentContractMonths">-</span>
+				</p>
+			</td>
+			<td>
+				<p class="z-title-md" *ngIf="item.transferFee">{{item.transferFee/1000000 | decimal}}万</p>
+				<p class="color-888">{{item.transferContent}}</p>
+				<p class="color-888" *ngIf="item.transferCanEmpty">可以空转</p>
+				<p *ngIf="!item.transferFee && !item.transferContent && !item.transferCanEmpty" class="color-888">不转让</p>
 			</td>
 			<td>
 				<div>
-					<a class="z-btn-green-sm" target="_blank" routerLink="/user/shopDetail/{{0}}">详情</a>
+					<a class="z-btn-green-sm" target="_blank" routerLink="/user/shopDetail/{{item.id}}">详情</a>
 				</div>
 				<div>
-					<a class="z-btn-blue-sm" target="_blank" routerLink="/user/shopEdit/{{0}}">编辑</a>
+					<a class="z-btn-blue-sm" target="_blank" routerLink="/user/shopEdit/{{item.id}}" *ngIf="login && permission['10000102']">编辑</a>
 				</div>
 			</td>
 		</tr>
 	</table>
+	<app-pagination *ngIf="shopList.length" (pageChanged)="getList()" [(pageConf)]="pageConf"></app-pagination>
 </div>

@@ -4,8 +4,11 @@ import {Pipe, PipeTransform} from '@angular/core';
   name: 'cityName'
 })
 export class CityNamePipe implements PipeTransform {
-
+  // 省市区商圈
   transform(value: any) {
+    if(!value){
+      return '';
+    }
     let code = value.toString();
     let cityObjData = localStorage.getItem('cityMap');
     if (!cityObjData) {
@@ -21,7 +24,7 @@ export class CityNamePipe implements PipeTransform {
     } else {
       let cityObj = JSON.parse(cityObjData);
       if(!cityObj[code]){
-        code = code.substr(0,2)
+        code = 0
       }
       return cityObj[code];
     }

@@ -1,5 +1,6 @@
 <div>
   <input type="text" placeholder="请选择团队类型" class="z-input" name="item.city" (click)="showPanelOr()">
+  <span class="red error ml5" *ngIf="!selectedTeamType.length">请选择团队类型</span>
   <span class="z-tag-del"   *ngFor="let type of selectedTeamType">
   {{type.name}}
   <span class="del" (click)="delete(type)"></span>

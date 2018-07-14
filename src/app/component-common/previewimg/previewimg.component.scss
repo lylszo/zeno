@@ -5,6 +5,8 @@
   position: relative;
   vertical-align: top;
   display: inline-block;
+  margin-left: 10px;
+  cursor: pointer;
   .iconfont{
     font-size: 30px;
   }
@@ -18,8 +20,8 @@
 
   .uploadimgremove {
     position: absolute;
-    right: 0;
-    bottom: 0;
+    right: -2px;
+    bottom: -2px;
     display: none;
   }
   &:hover{
@@ -29,6 +31,26 @@
     }
   }
 }
-.preview-label>input {
+
+.preview-label>input, .head-photo-up>input {
   display: none;
+}
+.head-photo {
+  border-radius: 50%;
+  border: none;
+  .icon-nanrentouxiang {
+    font-size: 115px;
+    position: absolute;
+    top: -45px;
+    left: -9px;
+    width: 100px;
+    height: 100px;
+  }
+}
+.head-photo-up {
+  display: block;
+  color: #1972D6;
+  cursor: pointer;
+  padding-left: 10px;
+  margin-top: 15px;
 }

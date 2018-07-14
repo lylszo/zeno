@@ -1,5 +1,16 @@
-<label class="preview-label" *ngFor="let img of previewImgSrcs let i = index">
-  <img src="{{img}}" width="100px" height="100px">
-  <i class="iconfont icon-jian uploadimgremove" (click)="remove(i)"></i>
-</label>
-<label class="preview-label"><input type="file" (change)="previewPic($event)"><i class="iconfont icon-tianjia uploadimgicon"></i></label>
+<div *ngIf="!headPhoto">
+  <label class="preview-label" *ngFor="let img of previewImgSrcs;let i = index">
+    <img src="{{img}}" width="100px" height="100px">
+    <i class="iconfont icon-jian uploadimgremove" (click)="remove(i)" title="点击删除"></i>
+  </label>
+  <label class="preview-label" *ngIf="previewImgSrcs.length < max">
+    <input type="file" (change)="previewPic($event)"><i class="iconfont icon-tianjia uploadimgicon"></i>
+  </label>
+</div>
+<div *ngIf="headPhoto">
+  <label class="preview-label head-photo">
+    <i class="iconfont icon-nanrentouxiang" *ngIf="previewImgSrcs.length===0"></i>
+    <img *ngIf="previewImgSrcs.length>0" src="{{previewImgSrcs[previewImgSrcs.length-1]}}" width="100px" height="100px" alt="头像">
+  </label>
+  <label class="head-photo-up"><input type="file" (change)="previewPic($event)">上传头像</label>
+</div>

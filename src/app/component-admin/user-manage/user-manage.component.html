@@ -13,10 +13,10 @@
         <label for="mobile">手机号码：</label>
         <input class="z-input" id="mobile" name="mobile"
                [(ngModel)]="mobile"
-               #userMobile="ngModel" pattern="^1[3456789]\d{9}"
+               #userMobile="ngModel"
                maxlength="11">
         <div class="z-error" *ngIf="userMobile.invalid && (userMobile.dirty || userMobile.touched)">
-          <span *ngIf="userMobile.errors?.pattern">手机号码格式不正确</span>
+          <!--<span *ngIf="userMobile.errors?.pattern">手机号码格式不正确</span>-->
         </div>
       </li>
       <li class="col-lg-3 col-md-4 f-l">
@@ -26,7 +26,9 @@
       </li>
       <li class="col-lg-3 col-md-4 f-l">
         <label>状态：</label>
-        <app-select [list]="statusList" [(selectedCode)]="status"></app-select>
+        <select name="status" [(ngModel)]="status">
+          <option [value]="item.code" *ngFor="let item of statusList">{{item.name}}</option>
+        </select>
       </li>
       <li class="col-lg-3 col-md-4 f-l">
         <label>工作城市：</label>
@@ -47,7 +49,7 @@
 <section class="z-bg-white clearfix">
   <header class="clearfix mb10">
     <h1 class="z-title-md-style dib">信息列表</h1>
-    <button class="z-btn-blue-lg f-r" routerLink="/admin/adduser">新增</button>
+    <button class="z-btn-blue-lg f-r" routerLink="/admin/adduser" *ngIf="permission['00010101']">新增</button>
   </header>
   <table class="z-table-sm">
     <thead>
@@ -63,34 +65,56 @@
       <th width="20%">操作</th>
     </tr>
     </thead>
-    <tbody>
+    <tbody *ngIf="pageConf.totalItems">
     <tr *ngFor="let item of userList; let i=index;">
       <td>{{i+1}}</td>
-      <td>{{item.name}}<br>({{item.mobile}})</td>
-      <td><span>{{item.workingCity&&item.workingCity.name}}</span></td>
       <td>
-        <span *ngFor="let r of item.roles"></span>
+        <span *ngIf="item.name">{{item.name}}<br>({{item.mobile}})</span>
+        <span *ngIf="!item.name">-</span>
+        </td>
+      <td>
+        <span *ngIf="item.workingCity&&item.workingCity.name">{{item.workingCity.name}}</span>
+        <span *ngIf="!item.workingCity">-</span>
       </td>
       <td>
-        <span *ngFor="let d of item.districts"></span>
+        <span *ngIf="item.roles?.length">
+          <span *ngFor="let r of item.roles">{{r.name}}</span>
+        </span>
+        <span *ngIf="!item.roles?.length">-</span>
       </td>
       <td>
-        <span *ngFor="let v of item.teams">{{v.name}}</span>
+        <span *ngIf="item.districts?.length>0">
+          <span *ngFor="let d of item.districts" class="mr5">{{d?.name}}</span>
+        </span>
+        <span *ngIf="!item.districts?.length">-</span>
       </td>
-      <td>{{item.states}}</td>
-      <td>{{item.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+      <td>
+        <span *ngIf="item.teams?.length">
+          <span *ngFor="let v of item.teams" class="mr5">{{v.name}}</span>
+        </span>
+        <span *ngIf="!item.teams?.length">-</span>
+      </td>
+      <td>
+        <span *ngIf="item.status===0">正常</span>
+        <span *ngIf="item.status===1">停用</span>
+      </td>
+      <td>
+        <span *ngIf="item.createTime">{{item.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+        <span *ngIf="!item.createTime">-</span>
+      </td>
       <td class="handle">
         <p class="pb3">
-          <button class="z-btn-blue-sm mr5" (click)="openModal(edit, item)">编辑</button>
-          <button class="z-btn-blue-sm mr5" *ngIf="item.status===0" (click)="openModal(disable, item)">禁用账号</button>
-          <button class="z-btn-grey-sm mr5" *ngIf="item.status===1" (click)="openModal(active, item)">恢复账号</button>
+          <button class="z-btn-blue-sm mr5" *ngIf="permission['00010102']" (click)="openModal(edit, item)">编辑</button>
+          <button class="z-btn-blue-sm mr5" *ngIf="item.status===0 && permission['00010103']" (click)="openModal(disable, item)">禁用账号</button>
+          <button class="z-btn-grey-sm mr5" *ngIf="item.status===1 && permission['00010103']" (click)="openModal(active, item)">恢复账号</button>
         </p>
         <p class="pb3">
-          <app-role-modal [roles]="item.roles"></app-role-modal>
-          <button class="z-btn-blue-sm mr5" (click)="openModal(asignTeam, item)">分配团队</button>
+          <app-role-modal *ngIf="permission['00010104']" [userId]="item.userId" [(roles)]="item.roles" [ifResult]="false"></app-role-modal>
+          <button *ngIf="permission['00010105']" class="z-btn-blue-sm mr5" (click)="openModal(asignTeam, item)">分配团队</button>
         </p>
         <p class="pb3">
-          <app-district-mult [ifResult]="false" [(citys)]="item.districts"></app-district-mult>
+          <app-district-mult [ifResult]="false" [cityList]="item.districts" *ngIf="permission['00010106']"
+                             [(citys)]="cityChecked" (dealChecked)="asignDistrict(item.userId)"></app-district-mult>
         </p>
       </td>
     </tr>
@@ -122,7 +146,7 @@
           <label class="z-required" for="cellphone">手机号码：</label>
           <input class="z-input" id="cellphone" name="cellphone"
                  [(ngModel)]="user.mobile"
-                 #eidtCellphone pattern="^1[3456789]\d{9}"
+                 #eidtCellphone="ngModel" pattern="^1[3456789]\d{9}"
                  maxlength="11" required>
           <div *ngIf="eidtCellphone.invalid && (eidtCellphone.dirty || eidtCellphone.touched)">
             <span class="z-error f-r" *ngIf="eidtCellphone.errors.pattern">请输入正确的手机号码</span>
@@ -133,7 +157,7 @@
           <label class="z-required" for="mail">邮箱地址：</label>
           <input class="z-input" id="mail" name="mail"
                  [(ngModel)]="user.email"
-                 #editMail="ngModel" pattern="^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+"
+                 #editMail="ngModel" pattern="\w+@\w+\.[a-z]+(\.[a-z]+)?"
                  minlength="5" maxlength="30" required>
           <div class="z-error" *ngIf="editMail.invalid && (editMail.dirty || editMail.touched)">
             <span *ngIf="editMail.errors?.required">请输入邮箱地址</span>
@@ -176,7 +200,7 @@
   </div>
   <div class="modal-body text-center">
     <div>
-      确认将 用户：{{user.name}}（user.mobile）账号禁用吗？
+      确认将 用户：{{user.name}}（{{user.mobile}}）账号禁用吗？
     </div>
     <div>
       禁用账号将不可登录
@@ -199,7 +223,7 @@
   </div>
   <div class="modal-body text-center">
     <div>
-      确认将 用户：{{user.name}}（user.mobile）账号恢复吗？
+      确认将 用户：{{user.name}}（{{user.mobile}}）账号恢复吗？
     </div>
   </div>
   <div class="modal-footer">
@@ -235,7 +259,7 @@
     <div class="sec">
       <h4>分配团队</h4>
       <div class="relative search mb20">
-        <input class="z-input" placeholder="请输入要加入的团队名称" [(ngModel)]="searchTeamParam">
+        <input class="z-input" type="text" name="teamName" placeholder="请输入要加入的团队名称" [(ngModel)]="searchTeamParam">
         <i class="iconfont icon-tubiao11 search-icon" (click)="searchTeam()"></i>
       </div>
       <ul class="mb20">
@@ -245,8 +269,8 @@
   </div>
   <div class="modal-footer">
     <div class="f-r">
-      <button type="button" class="z-btn-grey-lg mr7">取消</button>
-      <button type="button" class="z-btn-blue-lg">确定</button>
+      <button type="button" class="z-btn-grey-lg mr7" (click)="modalRef.hide()">取消</button>
+      <button type="button" class="z-btn-blue-lg" (click)="addTeamSubmit();modalRef.hide()">确定</button>
     </div>
   </div>
 </ng-template>

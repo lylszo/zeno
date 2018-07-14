@@ -73,21 +73,9 @@
     color: #1972d6;
   }
 }
-.select{
+select{
   width: 148px;
   height: 38px;
-  border: none;
-  outline: none;
-  padding-left: 15px;
-  background-color: #ffffff;
-  //border-width: 1px;
-  //border-style: solid;
-  //border-color: #e6e6e6;
-  appearance:none;
-  -moz-appearance:none;
-  -webkit-appearance:none;
-  //background: url("../../../assets/imgs/sprite.png") no-repeat center;
-  //background-position: -12px, -50px;
 }
 /*清除ie的默认选择框样式清除，隐藏下拉箭头*/
 .select::-ms-expand { display: none; }

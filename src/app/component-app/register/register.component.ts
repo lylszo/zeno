@@ -1,6 +1,7 @@
 import {Component, OnInit, OnDestroy} from '@angular/core';
 import {HttpService} from '../../service/http.service';
 import {Router} from '@angular/router';
+import {TipPopService} from '../../service/tipPop.service';
 
 @Component({
   selector: 'app-register',
@@ -17,11 +18,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   clicked: boolean = false;
   showCityPanel: boolean = false;
-  time: any = '获取验证码';
+  time: number = -1;
   text: string = '获取验证码';
   disable:boolean = false;
 
-  constructor(private http: HttpService, public router: Router) {
+  constructor(private http: HttpService, public router: Router, private tip:TipPopService) {
   }
 
   registerSubmit(invalid) {
@@ -39,6 +40,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
         workCity: this.city['code']
       };
       this.http._post('user/register', userRegisterParam, (data) => {
+        this.tip.setValue("注册成功", false);
         this.router.navigateByUrl('/login');
       });
     }
@@ -57,21 +59,23 @@ export class RegisterComponent implements OnInit, OnDestroy {
 
   getVC(invalid) {
     if (invalid) {
-      alert('请输入正确手机号码');
+      this.tip.setValue('请输入正确手机号码',true);
     } else {
       let params = {
         'mobile': this.account,
         'purpose': 'REGISTER'
       };
       this.http._post('vcode/send_sms', params, (data) => {
-        this.code = data;
+        if(data){
+          this.code=data;
+        }
       });
       this.time = 60;
       let timer = setInterval(() => {
         this.time = this.time - 1;
         if (this.time === -1) {
           clearInterval(timer);
-          this.time = '再次获取验证码';
+          this.text = '再次获取验证码';
         }
       }, 1000);
     }

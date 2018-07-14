@@ -81,12 +81,12 @@ export class ChooseIndustryComponent implements OnInit, OnChanges {
   //选择行业
   choose(item) {
   	if(item.child && !this.chooseBig) {
-		  this.tip.setValue(`不能选择大行业！`);
+		  this.tip.setValue(`不能选择大行业！`, true);
 		  return;
   	}
   	if(this.num >= this.max && !item.selected){
   		let txt = `最多可以选择${this.max}个行业！`;
-  		this.tip.setValue(txt);
+  		this.tip.setValue(txt, true);
   		return;
   	}
   	item.selected = !item.selected;

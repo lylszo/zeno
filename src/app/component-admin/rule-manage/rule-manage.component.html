@@ -2,11 +2,10 @@
   规则管理
 </nav>
 <section class="z-bg-white clearfix">
-  <header class="clearfix">
+  <header class="clearfix mb20">
     <h1 class="z-title-md-style">
       筛选条件
     </h1>
-    <button class="f-r z-btn-blue-lg" (click)="getRuleList()">搜索</button>
   </header>
   <ul class="clearfix">
     <li class="col-lg-3 col-md-4 f-l">
@@ -15,16 +14,21 @@
     </li>
     <li class="col-lg-3 col-md-4 f-l">
       <label>试用对象：</label>
-      <app-select [list]="probationList" [(selectedCode)]="probation"></app-select>
+      <select [(ngModel)]="probation">
+        <option [value]="item.code" *ngFor="let item of probationList">{{item.name}}</option>
+      </select>
+    </li>
+    <li>
+      <button class="f-r z-btn-blue-lg" (click)="getRuleList()">搜索</button>
     </li>
   </ul>
 </section>
 <section class="z-bg-white clearfix">
-  <header class="clearfix">
-    <h1 class="z-title-md-style">
+  <header class="clearfix mb10">
+    <h1 class="z-title-md-style dib">
       信息列表
     </h1>
-    <span class="f-r z-btn-red-lg" routerLink="/admin/addRule">规则添加</span>
+    <span class="f-r z-btn-blue-lg" routerLink="/admin/addRule">规则添加</span>
   </header>
   <table class="z-table tac" width="100%">
     <thead>
@@ -48,21 +52,28 @@
       </td>
       <td class="text-left">
         <p *ngIf="i.ruleUserConditions">
-          满足以下条件的用户【
-          <span *ngFor="let user of i.ruleUserConditions">
+          <span class="bold">满足以下条件的用户</span>【
+          <span *ngFor="let user of i.ruleUserConditions,let index=index">
+            <span *ngIf="index>0"> &nbsp;and &nbsp;</span>
             {{attrObj[user.leftChoose]}} &nbsp;
             {{symbolObj[user.midSymbol]}} &nbsp;
-            {{user.rightValue}}
+            <span *ngIf="user.leftChoose!=='sv_city'&&user.leftChoose!=='tm_type'">{{user.rightValue}}</span>
+            <span *ngIf="user.leftChoose==='sv_city'||user.leftChoose==='tm_type'">{{user.userResult}}</span>
           </span>
           】
         </p>
         <p *ngIf="i.ruleDetails">
-          可筛选 店铺信息【
-          <span *ngFor="let item of i.ruleDetails">
+          <span class="bold">可筛选 店铺信息</span>
+          【
+          <span *ngFor="let item of i.ruleDetails,let index=index">
+            <span *ngIf="index>0"> &nbsp;and &nbsp;</span>
             {{attrObj[item.dataLeft]}} &nbsp;
             {{symbolObj[item.dataSymbol]}} &nbsp;
             {{targetObj[item.dataRightType]}} &nbsp;
-            and &nbsp;
+            <span *ngIf="item.dataLeft!=='sv_city'&&item.dataLeft!=='tm_type'&&item.dataRightType===1">
+              {{item.dataRightValue}}</span>
+            <span *ngIf="(item.dataLeft==='sv_city'||item.dataLeft==='tm_type')&&item.dataRightType===1">
+              {{item.dataResult}}</span>
           </span>
           】
         </p>
@@ -72,12 +83,11 @@
       <td>
         <span *ngIf="i.createTime">{{i.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</span></td>
       <td>
-        <span class="z-btn-blue-sm" routerLink="/admin/addRule" target="_blank" [queryParams]="{id:'1'}">编辑</span><br>
+        <span class="z-btn-blue-sm" routerLink="/admin/addRule" target="_blank" [queryParams]="{id:i.id}">编辑</span><br>
         <span class="z-btn-red-sm" (click)="deleteRule(i.id)">删除</span>
       </td>
     </tr>
     </tbody>
   </table>
-
   <app-pagination (pageChanged)="pageChanged()" [(pageConf)]="pageConf"></app-pagination>
 </section>

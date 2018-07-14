@@ -9,22 +9,22 @@
         <li  class="func-name" *ngFor="let sys of sysMenu, let m=index">
           <span class="folder" *ngIf="sys.clicked" (click)="folderNextMenu(m,sysMenu)"></span>
           <span class="open" *ngIf="!sys.clicked" (click)="getSysMenu(m,sysMenu)"></span>
-          <span class="detailName" [class.clickDetail]="sys.code===clickedCode" (click)="getDetail(sys.code)">{{sys.name}}</span>
+          <span class="detailName" [class.clickDetail]="sys.code===clickedCode" (click)="getDetail(sys.code)">【{{typeObj[sys.type]}}{{sys.code}}】{{sys.name}}</span>
             <ul class="ml20" *ngIf="sys.clicked">
               <li  class="func-name" *ngFor="let dictionary of sys.childs, let i=index">
                 <span class="folder" *ngIf="dictionary.clicked && dictionary.childs.length" (click)="folderNextMenu(i,sys.childs)"></span>
                 <span class="open" *ngIf="!dictionary.clicked && dictionary.childs.length" (click)="getfuncMenu(i,sys.childs)"></span>
-               <span class="detailName" [class.clickDetail]="dictionary.code===clickedCode" (click)="getDetail(dictionary.code)">【菜单{{dictionary.code}}】{{dictionary.name}}</span>
+               <span class="detailName" [class.clickDetail]="dictionary.code===clickedCode" (click)="getDetail(dictionary.code)">【{{typeObj[dictionary.type]}}{{dictionary.code}}】{{dictionary.name}}</span>
                 <ul class="ml40"  *ngIf="dictionary.clicked">
                   <li  class="func-name" *ngFor="let func of dictionary.childs, let k=index">
                     <span class="folder" *ngIf="func.clicked && func.childs.length" (click)="folderNextMenu(k,dictionary.childs)"></span>
                     <span class="open" *ngIf="!func.clicked && func.childs.length" (click)="getOperateMenu(k,dictionary.childs)"></span>
-                    <span class="detailName" [class.clickDetail]="func.code===clickedCode" (click)="getDetail(func.code)">【功能{{func.code}}】{{func.name}}</span>
+                    <span class="detailName" [class.clickDetail]="func.code===clickedCode" (click)="getDetail(func.code)">【{{typeObj[func.type]}}{{func.code}}】{{func.name}}</span>
                     <ul class="ml60"  *ngIf="func.clicked">
                       <li  class="func-name" *ngFor="let operate of func.childs, let j=index">
                         <!--<span class="folder" *ngIf="operate.clicked" (click)="folderNextMenu(j)"></span>-->
                         <!--<span class="open" *ngIf="!operate.clicked" (click)="getfuncMenu(operate.code,j)"></span>-->
-                        <span class="detailName" [class.clickDetail]="operate.code===clickedCode" (click)="getDetail(operate.code)">【操作{{operate.code}}】{{operate.name}}</span>
+                        <span class="detailName" [class.clickDetail]="operate.code===clickedCode" (click)="getDetail(operate.code)">【{{typeObj[operate.type]}}{{operate.code}}】{{operate.name}}</span>
                         <!--<span class="editor"></span>-->
                         <!--<span class="add"></span>-->
                         <!--<span class="delete"></span>-->
@@ -48,7 +48,7 @@
         <form name="operateForm">
           <div class="mt15">
             <span class="z-required func-label mr20">类型</span>
-            <input type="text" name="type" [ngModel]="detail.type" [readonly]="true" class="z-input">
+            <input type="text" name="type" [ngModel]="typeObj[detail.type]" [readonly]="true" class="z-input">
           </div>
           <div class="mt15">
             <span class="z-required func-label mr20">名称</span>
@@ -56,7 +56,7 @@
           </div>
           <div class="mt15">
             <span class="z-required func-label mr20">归属父级</span>
-            <input type="text" name="parent" [ngModel]="detail.parentCode" [readonly]="true" class="z-input">
+            <input type="text" name="parent" [ngModel]="clickedName" [readonly]="true" class="z-input">
           </div>
           <div class="mt15">
             <span class="z-required func-label mr20">字典编码</span>

@@ -4,7 +4,8 @@ import {ModalDirective} from "ngx-bootstrap";
 
 import {HttpService} from "../../../service/http.service";
 import {City} from "../../../component-admin/user-manage/city.model";
-import {CookieService} from "ngx-cookie-service";
+import {CommonService} from '../../../service/common.service';
+import {TipPopService} from "../../../service/tipPop.service";
 
 @Component({
   selector: 'app-district-mult',
@@ -14,35 +15,32 @@ import {CookieService} from "ngx-cookie-service";
 export class DistrictMultComponent implements OnInit {
 
   @ViewChild('districtModal') districtModal: ModalDirective;   // 模态框
+  // isModalShown: Boolean = false;
 
   @Input() ifResult: boolean;       // true:显示选择结果 2:不显示
-  @Input() cityList: City[];        // 城市对象列表
+  @Input() cityList: any[];        // 城市对象列表
   @Input() citys: number[];         // 城市code列表
 
   @Output() citysChange = new EventEmitter();        // 输出城市code列表
+  @Output() dealChecked = new EventEmitter();        // 函数暴露，再父组件中处理选中值
 
-  districts: Array<object>;
+  // originCityList: City[];
+  districts: Array<any>;
+  cookieDistricts: Array<any>;
 
-  constructor(private http: HttpService, private cookie: CookieService) {
-    this.cityList = [];
+  constructor(private http: HttpService, private common: CommonService, private tip: TipPopService) {
+    if (!this.cookieDistricts) {
+      this.common.getUserDetail((data) => {
+        if (data.districts) {
+          this.cookieDistricts = data.districts;
+        }
+      })
+    }
   }
 
   ngOnInit() {
-    /*this.http.get('districts', {parentId: 0}, (data) => {
-      this.districts = data;
-    })*/
-    // this.districts = JSON.parse(this.cookie.get('userDetail')).districts;
-    this.districts = [{
-      "alpha": "A",
-      "list": [{"code": 34, "name": "安徽", "hot": 0, "status": 1, "alphabet": "A"}, {
-        "code": 82,
-        "name": "澳门",
-        "hot": 0,
-        "status": 1,
-        "alphabet": "A"
-      }]
-    }, {"alpha": "B", "list": [{"code": 11, "name": "北京", "hot": 0, "status": 1, "alphabet": "B"}]}];
-
+    // this.originCityList = this.cityList ? this.cityList : [];
+    this.cityList = this.cityList ? this.cityList : [];
   }
 
   check(obj) {
@@ -58,7 +56,7 @@ export class DistrictMultComponent implements OnInit {
         this.cityList.push(obj);
         this.citys.push(obj.code);
       } else {
-        alert('服务区域最多10个！');
+        this.tip.setValue('服务区域最多10个！', true);
       }
     }
   }
@@ -72,7 +70,50 @@ export class DistrictMultComponent implements OnInit {
 
   certain() {
     this.citysChange.emit(this.citys);
-    this.districtModal.hide();
+    this.dealChecked.emit();
+    this.hideModal();
   }
 
+  // 处理数据
+  handle(arr) {
+    if (!arr) {
+      return [];
+    }
+    let alphArr = [];
+    arr.forEach(v => {
+      if (alphArr.indexOf(v.alphabet) == -1) {
+        alphArr.push(v.alphabet);
+      }
+    });
+    let newArr = alphArr.map(v => {
+      let a = arr.filter(w => {
+        return w["alphabet"] == v;
+      });
+      return {"alpha": v, list: a};
+    });
+    return newArr;
+  }
+
+  // 模态框
+  showModal(): void {
+    let that = this;
+    that.districtModal.show();
+    if (that.cityList) {
+      that.cityList.forEach((v) => {
+        if (JSON.stringify(v) != 'null') {
+          let i = that.cookieDistricts.findIndex(d => d.code === v.code);
+          if (i >= 0) {
+            that.cookieDistricts[i].active = true;
+          }
+        }
+      })
+    } else {
+      that.cityList = [];
+    }
+    that.districts = this.handle(that.cookieDistricts);
+  }
+
+  hideModal(): void {
+    this.districtModal.hide();
+  }
 }

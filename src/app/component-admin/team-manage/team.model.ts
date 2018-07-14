@@ -16,6 +16,7 @@ export class Team {
   remark: string;
   roles: Object[];
   tags: Tag[];
+  id:number;
 
   getStatus() {
     return this.status === 0 ? '正常' : '解散'

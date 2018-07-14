@@ -7,9 +7,30 @@
 			<div class="title f-l bold">
 				大数据系统
 			</div>
-			<div class="position f-l f14 pointer">
-				<i class="iconfont icon-dingwei f14"></i>
-				{{currentCity.name}}
+			<div class="position">
+				<div class="positionContent">
+					<i class="iconfont icon-dingwei f14"></i>
+					{{currentCity?.name}}
+				</div>
+				<div class="changeCity" [class.active]="cityBox">
+					<p class="blue">点击切换城市</p>
+					<div class="list">
+					    <table>
+					        <tr *ngFor="let item of districts">
+						        <td width="45">
+						            <span class="alpah">{{item.alpha}}</span>
+						        </td>
+						        <td>
+						            <ul class="clearfix">
+							            <li class="district" *ngFor="let v of item.list" (click)="chooseCity(v)">
+							              {{v.name}}
+							            </li>
+					                </ul>
+						        </td>
+					        </tr>
+					    </table>
+				    </div>
+				</div>
 			</div>
 			<div class="links">
 				<div class="sort" routerLink="/user">
@@ -33,37 +54,29 @@
 			</div>
 			<div class="right">
 				<div class="item">
-					<div class="phone" title="APP下载">
+					<div class="phone vcode" title="APP下载">
 						<i class="iconfont icon-shouji1"></i>
+              <img id="vcodeImg" src="../../../assets/imgs/vcodeUrl.png" alt="扫一扫二维码">
 					</div>
+
 				</div>
-				<div class="item" routerLink="/user/news">
+				<div class="item" routerLink="/user/news" *ngIf="login">
 					<div class="message" title="消息提醒">
 						<i class="iconfont icon-xiaoxi">
-							<span>1</span>
+							<!--<span>1</span>-->
 						</i>
 					</div>
 				</div>
 				<div *ngIf="!login" class="item person" routerLink="/login">
 					<div class="pic">
-						<img *ngIf="userDetail && userDetail.photoId" src="{{userDetail.photoId}}">
-						<i *ngIf="!userDetail || !userDetail.photoId" class="iconfont icon-nanrentouxiang"></i>
+						<i class="iconfont icon-nanrentouxiang"></i>
 					</div>
 					<span class="text">请登录</span>
-					<div class="downList">
-						<ul>
-							<li routerLink="/user/dataSet">资料设置</li>
-							<li routerLink="/user/changePwd">密码修改</li>
-							<!-- <li routerLink="/user/historyLog">活动日志</li> -->
-							<li routerLink="/admin">管理平台</li>
-							<li (click)="logout()">退出登录</li>
-						</ul>
-					</div>
 				</div>
 				<div *ngIf="login" class="item person in">
 					<div class="pic">
-						<img *ngIf="userDetail && userDetail.photoId" src="{{userDetail.photoId}}">
-						<i *ngIf="!userDetail || !userDetail.photoId" class="iconfont icon-nanrentouxiang"></i>
+						<img *ngIf="personUrl" src="{{personUrl}}">
+						<i *ngIf="!personUrl" class="iconfont icon-nanrentouxiang"></i>
 					</div>
 					<span class="text">{{userDetail.name}}</span>
 					<div class="downList">
@@ -71,7 +84,7 @@
 							<li routerLink="/user/dataSet">资料设置</li>
 							<li routerLink="/user/changePwd">密码修改</li>
 							<!-- <li routerLink="/user/historyLog">活动日志</li> -->
-							<li routerLink="/admin">管理平台</li>
+							<li *ngIf="toAdmin" routerLink="/admin">管理平台</li>
 							<li (click)="logout()">退出登录</li>
 						</ul>
 					</div>
@@ -81,6 +94,11 @@
 	</div>
 	<div class="main">
 		<router-outlet></router-outlet>
+	</div>
+	<div class="footer">
+		Copyright © www.pupuwang.com, All Rights Reserved.
+		<br>
+		Tel:0755-26637688 mail:service@pupuwang.com
 	</div>
 </div>
 

@@ -1,0 +1,50 @@
+<div id="dataSet">
+  <h1 class="z-title-lg">资料设置</h1>
+  <div class="z-bg-white">
+    <h2 class="z-title-md-style">资料设置</h2>
+    <div class="wrap">
+      <form #dataSetForm="ngForm" name="dataSet">
+        <div class="text-center mb25">
+          <app-previewimg [(previewImgFile)]="photo" [headPhoto]="true"></app-previewimg>
+        </div>
+        <ul>
+          <li>
+            <label class="z-required" for="name">姓名：</label>
+            <input class="z-input" id="name" name="name"
+                   [(ngModel)]="name"
+                   #username="ngModel" maxlength="20" required>
+            <div class="z-error" *ngIf="username.invalid && (username.dirty || username.touched)">
+              <span *ngIf="username.errors?.required">请输入用户姓名</span>
+            </div>
+          </li>
+          <!-- <li> 暂时隐藏不做
+             <label class="z-required" for="email">Email：</label>
+             <input type="email" id="email" name="email" class="z-input">
+           </li>-->
+          <li>
+            <label class="z-required" for="city">工作城市：</label>
+            <div class="dib">
+              <input class="z-input" name="city" id="city" (click)="openPanel()" [ngModel]="city.name"
+                     autocomplete="off" #cityName="ngModel" placeholder="请选择城市" required>
+              <div class="user-error" *ngIf="clicked">
+                <span *ngIf="cityName.errors?.required">请输入城市</span>
+                <span *ngIf="cityName.errors" class="error-icon">!</span>
+              </div>
+              <app-choose-city [showCityPanel]="showCityPanel" (event)="getThisCity($event)"></app-choose-city>
+            </div>
+          </li>
+          <li>
+            <label class="z-required" for="phone">手机号码：</label>
+            <input id="phone" name="phone" class="z-input" disabled [(ngModel)]="mobile">
+            <a class="ml10" (click)="goChangePhone()">更换号码</a>
+          </li>
+        </ul>
+        <div class="text-center">
+          <button class="z-btn-blue-lg text-center"
+                  [disabled]="username.invalid || cityName.invalid"
+                  (click)="submit()">提交</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

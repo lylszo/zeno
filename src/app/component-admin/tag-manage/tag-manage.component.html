@@ -27,8 +27,8 @@
       <td><span *ngIf="item.creator">{{item.creator}}</span></td>
       <td>{{"2018-09-03" | date:'yyyy-MM-dd HH:mm:ss'}}</td>
       <!--<td>-->
-        <!--<span class="z-btn-blue-sm">编辑</span><br>-->
-        <!--<span class="z-btn-red-sm">删除</span>-->
+      <!--<span class="z-btn-blue-sm">编辑</span><br>-->
+      <!--<span class="z-btn-red-sm">删除</span>-->
       <!--</td>-->
     </tr>
     </tbody>
@@ -38,35 +38,37 @@
 </section>
 
 <!--<ng-template #addTag>-->
-  <!--<div class="modal-header">-->
-    <!--<h4 class="modal-title pull-left">添加标签</h4>-->
-    <!--<button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">-->
-      <!--<span aria-hidden="true">&times;</span>-->
-    <!--</button>-->
-  <!--</div>-->
-  <!--<div class="modal-body">-->
-    <!--<form #tagForm="ngForm"></form>-->
-    <!--<div>-->
-      <!--<label class="z-required">标签文本</label>-->
-      <!--<input type="text" class="z-input">-->
-    <!--</div>-->
-    <!--<div>-->
-      <!--<label class="z-input">标签应用对象</label>-->
-      <!--<app-select [list]='fruitSelect' [(selectedItem)]="demo" [(selectedCode)]="code"></app-select>-->
-    <!--</div>-->
-    <!--<div>-->
-      <!--<h4>分配团队</h4>-->
-      <!--<input type="text" placeholder="请输入要加入的团队名称">-->
-      <!--<ul>-->
-        <!--<li>深圳天鹰队</li>-->
-        <!--<li>深圳天鹰队</li>-->
-      <!--</ul>-->
-    <!--</div>-->
-  <!--</div>-->
-  <!--<div class="modal-footer">-->
-    <!--<div class="f-r">-->
-      <!--<button type="button" class="z-btn-grey-lg mr7" (click)="modalRef.hide()">取消</button>-->
-      <!--<button type="button" class="z-btn-blue-lg">确定</button>-->
-    <!--</div>-->
-  <!--</div>-->
+<!--<div class="modal-header">-->
+<!--<h4 class="modal-title pull-left">添加标签</h4>-->
+<!--<button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">-->
+<!--<span aria-hidden="true">&times;</span>-->
+<!--</button>-->
+<!--</div>-->
+<!--<div class="modal-body">-->
+<!--<form #tagForm="ngForm"></form>-->
+<!--<div>-->
+<!--<label class="z-required">标签文本</label>-->
+<!--<input type="text" class="z-input">-->
+<!--</div>-->
+<!--<div>-->
+<!--<label class="z-input">标签应用对象</label>-->
+<!-- <select [(ngModel)]="code">
+  <option [value]="item.code" *ngFor="let item of fruitSelect">{{item.name}}</option>
+</select> -->
+<!--</div>-->
+<!--<div>-->
+<!--<h4>分配团队</h4>-->
+<!--<input type="text" placeholder="请输入要加入的团队名称">-->
+<!--<ul>-->
+<!--<li>深圳天鹰队</li>-->
+<!--<li>深圳天鹰队</li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="modal-footer">-->
+<!--<div class="f-r">-->
+<!--<button type="button" class="z-btn-grey-lg mr7" (click)="modalRef.hide()">取消</button>-->
+<!--<button type="button" class="z-btn-blue-lg">确定</button>-->
+<!--</div>-->
+<!--</div>-->
 <!--</ng-template>-->
