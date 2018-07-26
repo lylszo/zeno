@@ -1,0 +1,117 @@
+<nav class="z-title-lg clearfix">
+  成员管理
+  <button class="z-btn-blue-sm f-r" (click)="goback()">返回</button>
+</nav>
+<div class="left-box f-l">
+  <div class="z-bg-white mb20 clearfix">
+    <header>
+      <h1 class="z-title-md-style">
+        筛选查询
+      </h1>
+    </header>
+    <ul class="clearfix">
+      <li>
+        <label for="username">用户姓名：</label>
+        <input class="z-input" name="username" id="username" maxlength="20" [(ngModel)]="username">
+      </li>
+      <li>
+        <label for="phone">手机号码：</label>
+        <input class="z-input" name="phone" maxlength="11" #phone="ngModel" pattern="^[0-9]*$" type="text" id="phone" [(ngModel)]="usermobile">
+        <span class="red ml5" *ngIf="phone?.errors">手机号码格式不正确</span>
+      </li>
+    </ul>
+    <div class="f-r">
+      <a class="mr5" (click)="clear()">清空搜索条件</a>
+      <button class="z-btn-blue-lg" [disabled]="phone?.errors" (click)="search()">搜索</button>
+    </div>
+  </div>
+  <div class="user-list z-bg-white">
+    <header class="clearfix mb20">
+      <h1 class="f-l z-title-md-style">
+        选择用户
+      </h1>
+      <button class="f-r z-btn-blue-lg" [disabled]="!checkedItem" (click)="join()">加入</button>
+    </header>
+    <table class="table table-list-header">
+      <thead>
+      <tr>
+        <td width="50">
+          <!--<label class="z-checkbox">
+            <input type="checkbox" [(ngModel)]="all" (click)="checkAll()"><i></i>
+          </label>-->
+        </td>
+        <td width="140">用户/号码</td>
+        <td width="100">工作城市</td>
+        <td width="90">当前状态</td>
+        <td width="84">已加入团队数量</td>
+      </tr>
+      </thead>
+    </table>
+    <div class="table-list">
+      <table class="table">
+        <tbody>
+        <tr *ngFor="let item of users">
+          <td width="50">
+            <label class="z-checkbox">
+              <input type="checkbox" [(ngModel)]="item.checked" (click)="check(item)"><i></i>
+            </label>
+          </td>
+          <td width="140">{{item.name}} <br> {{item.mobile}}</td>
+          <td width="100">{{item.workingCity&&item.workingCity.name}}</td>
+          <td width="90">
+            <span *ngIf="item?.status===0">正常</span>
+            <span *ngIf="item?.status===1">停用</span>
+          </td>
+          <td width="84">{{item.teams&&item.teams.length}}</td>
+        </tr>
+        </tbody>
+      </table>      
+    </div>
+  </div>
+</div>
+<div class="member-list z-bg-white f-r">
+  <header>
+    <h1 class="z-title-md-style">
+      成员列表【{{teamName}}】
+    </h1>
+  </header>
+  <table class="table mt20">
+    <thead>
+    <tr>
+      <!--<td><input type="checkbox"></td>-->
+      <td width="10%">序号</td>
+      <td width="20%">用户/号码</td>
+      <td width="10%">状态</td>
+      <td width="13%">成员身份</td>
+      <td width="14%">邀请者</td>
+      <td width="18%">加入时间</td>
+      <td width="15%">操作</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of groupMerbers; let i=index;">
+      <!--<td><input type="checkbox"></td>-->
+      <td>{{i+1}}</td>
+      <td>{{item.memberName}}<br>{{item.memberMobile}}</td>
+      <td>
+        <span *ngIf="item.status===0">正常</span>
+        <span *ngIf="item.status===1">退团</span>
+      </td>
+      <td>
+        <span *ngIf="item.category===0">成员</span>
+        <span *ngIf="item.category===1">组长</span>
+      </td>
+      <td>
+        <span *ngIf="item.joinUserName">{{item.joinUserName}}</span>
+      </td>
+      <td>{{item.joinTime | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+      <td>
+        <a class="mr5" *ngIf="item.category===1" (click)="setLeader(item, 0)">取消组长</a>
+        <a class="mr5" *ngIf="item.category===0" (click)="setLeader(item, 1)">设为组长</a>
+        <a (click)="delMember(item.userId)">移除</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <app-pagination (pageChanged)="pageChanged()" [(pageConf)]="pageConf"></app-pagination>
+</div>

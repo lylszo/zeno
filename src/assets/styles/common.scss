@@ -56,17 +56,17 @@ a:hover, a:not([href]):not([tabindex]):hover {
 .z-table {
   width: 100%;
   background-color: #fff;
-  >tbody,>thead,>tfoot{
-    >tr {
-      >th {
+  > tbody, > thead, > tfoot {
+    > tr {
+      > th {
         font-weight: bold;
         font-size: 16px;
         background-color: #f9f9f9;
         padding: 20px 15px;
         border-top: 1px solid #e6e6e6;
       }
-      >td {
-        padding: 15px;
+      > td {
+        padding: 10px;
         border-top: 1px solid #e6e6e6;
         vertical-align: top;
       }
@@ -81,16 +81,16 @@ a:hover, a:not([href]):not([tabindex]):hover {
 .z-table-sm {
   width: 100%;
   background-color: #fff;
-  >tbody,>thead,>tfoot{
-    >tr {
-      >th {
+  > tbody, > thead, > tfoot {
+    > tr {
+      > th {
         background-color: #f9f9f9;
         height: 40px;
         padding: 10px;
         font-weight: bold;
         border-top: 1px solid #e6e6e6;
       }
-      >td {
+      > td {
         padding: 10px;
         border-top: 1px solid #e6e6e6;
         vertical-align: top;
@@ -127,7 +127,7 @@ label.z-checkbox {
   input[type=checkbox] {
     visibility: hidden;
     &:checked + i {
-      background-position-y: -288px;
+      background-position: -62px -288px;
     }
     &[disabled] + i {
       cursor: no-drop;
@@ -489,48 +489,53 @@ label.z-radio {
   position: fixed;
   z-index: 99999;
   overflow: hidden;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
+  top: 67px;
+  left: 0;
+  right: 0;
   margin: auto;
   padding: 0 20px;
   background-color: rgba(0, 0, 0, .9);
   border-radius: 10px;
   color: #fff;
   text-align: center;
-  width: 500px;
+  width: 97%;
   height: 50px;
   line-height: 50px;
   opacity: 0;
   pointer-events: none;
-  animation: fadeout 2s 1;
-  -webkit-animation: fadeout 2s 1;
+  animation: fadeout 3s 1;
+  -webkit-animation: fadeout 3s 1;
 }
 
 @keyframes fadeout {
-    100% {
-        opacity: 0;
-    }
-    70% {
-        opacity: 1;
-    }
-    20% {
-        opacity: 1;
-    }
-    0% {
-        opacity: 1;
-    }
+  100% {
+    top: 67px;
+    opacity: 0;
+  }
+  70% {
+    top: 67px;
+    opacity: 1;
+  }
+  20% {
+    top: 67px;
+    opacity: 1;
+  }
+  0% {
+    top: -60px;
+    opacity: 1;
+  }
 }
-.tip-success{
-  color:#155724;
-  background-color: rgba(212, 237, 218, .9);
-  border-color: #c3e6cb;
+
+.tip-success {
+  color: #155724;
+  background-color: #b9f3c7;
+  border: 1px solid #93f3aa;
 }
-.tip-danger{
+
+.tip-danger {
   color: #721c24;
-  background-color: rgba(248, 215, 218, .9);
-  border-color: #f5c6cb;
+  background-color: #fddadb;
+  border: 1px solid #eca4a4
 }
 
 // loading-bar

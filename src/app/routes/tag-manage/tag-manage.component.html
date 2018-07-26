@@ -1,0 +1,74 @@
+<nav class="z-title-lg">
+  标签管理
+</nav>
+<section class="z-bg-white clearfix">
+  <header class="clearfix">
+    <h1 class="z-title-md-style mb10">
+      标签库
+    </h1>
+    <!--<button class="f-r z-btn-red-lg" (click)="openModal(addTag)">标签添加</button>-->
+  </header>
+  <table class="z-table tac" width="100%">
+    <thead>
+    <tr>
+      <th width="10%">标签ID</th>
+      <th width="20%">标签名称</th>
+      <th width="20%">标签应用对象</th>
+      <th width="15%">创建人</th>
+      <th width="35%">创建时间</th>
+      <!--<th width="20%">操作</th>-->
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of list">
+      <td><span *ngIf="item.id">{{item.id}}</span></td>
+      <td><span *ngIf="item.name">{{item.name}}</span></td>
+      <td><span *ngIf="item.type===0||item.type===1">{{applyObj[item.type]}}</span></td>
+      <td><span *ngIf="item.creator">{{item.creator}}</span></td>
+      <td><span *ngIf="item.createTime">{{item.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</span></td>
+      <!--<td>-->
+      <!--<span class="z-btn-blue-sm">编辑</span><br>-->
+      <!--<span class="z-btn-red-sm">删除</span>-->
+      <!--</td>-->
+    </tr>
+    </tbody>
+  </table>
+
+  <app-pagination (pageChanged)="pageChanged()" [(pageConf)]="pageConf"></app-pagination>
+</section>
+
+<!--<ng-template #addTag>-->
+<!--<div class="modal-header">-->
+<!--<h4 class="modal-title pull-left">添加标签</h4>-->
+<!--<button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">-->
+<!--<span aria-hidden="true">&times;</span>-->
+<!--</button>-->
+<!--</div>-->
+<!--<div class="modal-body">-->
+<!--<form #tagForm="ngForm"></form>-->
+<!--<div>-->
+<!--<label class="z-required">标签文本</label>-->
+<!--<input type="text" class="z-input">-->
+<!--</div>-->
+<!--<div>-->
+<!--<label class="z-input">标签应用对象</label>-->
+<!-- <select [(ngModel)]="code">
+  <option [value]="item.code" *ngFor="let item of fruitSelect">{{item.name}}</option>
+</select> -->
+<!--</div>-->
+<!--<div>-->
+<!--<h4>分配团队</h4>-->
+<!--<input type="text" placeholder="请输入要加入的团队名称">-->
+<!--<ul>-->
+<!--<li>深圳天鹰队</li>-->
+<!--<li>深圳天鹰队</li>-->
+<!--</ul>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="modal-footer">-->
+<!--<div class="f-r">-->
+<!--<button type="button" class="z-btn-grey-lg mr7" (click)="modalRef.hide()">取消</button>-->
+<!--<button type="button" class="z-btn-blue-lg">确定</button>-->
+<!--</div>-->
+<!--</div>-->
+<!--</ng-template>-->

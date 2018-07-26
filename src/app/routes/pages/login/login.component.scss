@@ -1,0 +1,130 @@
+.box {
+  width: 100vw;
+  height: 100vh;
+  overflow: auto;
+  background:linear-gradient(to bottom right, rgba(30, 168, 247, 0.8), rgba(27, 74, 179, 0.8)),  url("../../../../assets/imgs/bg.png") no-repeat center 50% ;
+  .userLogin{
+    width: 460px;
+    height: auto;
+    //margin: calc(50vh - 200px) auto;
+    //margin: 10px auto;
+    margin: 11.7% auto;
+    background-color: #ffffff;
+    border-radius:5px ;
+  }
+  .userHeader {
+    padding:  50px 50px 40px 50px;
+    //text-align: center;
+   }
+  .userHeader .title{
+    font-family: '微软雅黑';
+    font-size: 18px;
+    letter-spacing: 8px;
+    color: #333333;
+    font-weight: bold;
+  }
+  .userHeader .little-title{
+    font-family: '微软雅黑';
+    font-size: 14px;
+    color: #999999;
+    margin-left:-15px
+  }
+  .userHeader img{
+    margin-top: -4px;
+  }
+  .user{
+    padding-left:50px ;
+    padding-right:50px
+  }
+  .userForm input{
+    display: block;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid #e6e6e6;
+    font-size: 14px;
+    line-height: 1;
+    padding:15px 5px;
+    margin-bottom:5px ;
+    color: #333333;
+  }
+  .user-button{
+    margin-top: 25px;
+    display: block;
+    width: 360px;
+    height: 50px;
+    border: none;
+    font-size: 18px;
+  }
+  .buttonBgDis{
+    color: #999999;
+    background-color: #e5e5e5;
+    cursor: no-drop;
+  }
+  .buttonBgOk{
+    background-color: #1976d2;
+    color: #ffffff;
+    cursor: pointer;
+  }
+  .userToRes{
+    float: left;
+    color: #666666;
+    font-size: 14px;
+    line-height: 40px;
+  }
+  .userToPass{
+    float: right;
+    color: #666666;
+    font-size: 14px;
+    line-height: 40px;
+  }
+  .userFooter{
+    margin-top: 10px;
+    padding-bottom: 100px;
+  }
+
+  .user-error{
+    display: inline-block;
+    float: right;
+    margin-top: -40px;
+    color: #dd0031;
+  }
+  .user-error .error-icon{
+    margin:0 10px;
+    display: inline-block;
+    position: relative;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    background: #dd0031;
+  }
+  .user-error .error-icon:after{
+    position: absolute;
+    content: '!';
+    display: inline-block;
+    color: #ffffff;
+    margin-left: 3px;
+  }
+  .getCode{
+    display: inline-block;
+    border: none;
+    position: absolute;
+    //float: right;
+    margin-top: -40px;
+    right: 50px;
+    cursor: pointer;
+    z-index: 455;
+    &:disabled{
+      cursor: no-drop;
+    }
+  }
+}
+.userFooter > a{
+  text-decoration: none;
+  &:hover{
+    color: #1976d2;
+  }
+}
+input{
+  background: #ffffff;
+}
+

@@ -1,0 +1,40 @@
+li{
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.left-box {
+  width: 42%;
+}
+.user-list {
+  height: 450px;
+}
+.table-list-header {
+  tr:last-child{
+    td{
+      border-bottom: 1px solid #dee2e6;
+    }    
+  }    
+  margin-bottom: 0;
+}
+.table-list{
+  height: 289px;
+  overflow: auto;
+  margin-top: -1px;
+  table {
+    tr:last-child{
+      td{
+        border-bottom: 1px solid #dee2e6;
+      }    
+    }    
+  }
+}
+.member-list {
+  width: 55%;
+  height: 703px;
+  overflow-y: auto;
+  table {
+    thead {
+      background: #f9f9f9;
+    }
+  }
+}

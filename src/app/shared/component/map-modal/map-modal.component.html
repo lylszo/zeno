@@ -1,0 +1,26 @@
+<div class="map-modal">
+  <div class="pointer">
+    <a *ngIf="!point" (click)="show()">地图选点</a>
+    <span *ngIf="point" (click)="show()">
+			<i class="iconfont icon-dingwei f14 blue"></i>
+			{{point.lng}}，{{point.lat}}
+		</span>
+  </div>
+  <div class="content" [style.visibility]="showMap ? 'visible' : 'hidden'">
+    <div class="modal-header">
+      <h4 class="modal-title pull-left z-title-md">选择位置</h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="showMap = false">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <app-map [(point)]="pt" #baiduMap></app-map>
+    </div>
+    <div class="modal-footer">
+      <div class="f-r">
+        <button type="button" class="z-btn-grey-lg mr7" (click)="showMap = false">取消</button>
+        <button type="button" class="z-btn-blue-lg" (click)="submit()">确定</button>
+      </div>
+    </div>
+  </div>
+</div>

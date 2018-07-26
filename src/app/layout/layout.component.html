@@ -1,0 +1,14 @@
+<div class="layout">
+	<app-toolbar></app-toolbar>
+	<app-sidebar></app-sidebar>
+	<div class="main" [class.hidden]="!showSiderbar">
+		<div class="w">
+			<router-outlet></router-outlet>
+		</div>
+		<div class="footer">
+			Copyright © www.pupuwang.com, All Rights Reserved.
+			<br>
+			Tel:0755-26637688 mail:service@pupuwang.com
+		</div>
+	</div>
+</div>

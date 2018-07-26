@@ -1,0 +1,95 @@
+.part1 {
+	background-color: #fff;
+	h2 {
+		height: 50px;
+		border-bottom: 1px solid #efefef;
+	}
+	form {
+		margin-top: 20px;
+		.left {
+			width: 570px;
+			display: inline-block;
+			float: left;
+		}
+		.right {
+			width: 590px;
+			float: left;
+		}
+		.left, .right  {
+			.group:last-child {
+				margin-bottom: 5px;
+			}
+		}
+		.tag {
+			width: 70px;
+			display: inline-block;
+			text-align: right;
+			vertical-align: top;
+			margin-top: 7px;
+		}
+		.content {
+			display: inline-block;
+			margin-left: 20px;
+			.error{
+				position: relative;
+				p{
+					font-size: 12px;
+					position: absolute;
+					left: 0;
+					top: 0;
+				}
+			}
+		}
+		.group {
+			margin-bottom: 20px;
+		}	
+	}
+}
+.part2 {
+	background-color: #fff;
+	h1 {
+		height: 38px;
+	}
+	.shopName{
+		cursor: pointer;
+		font-size: 20px;
+		font-weight: bold;
+		color: #333;
+		&:hover {
+			color: #1972d6;
+		}
+	}
+	.firstImg {
+		border-radius: 2px;
+	}
+	.time{
+		color: #888;
+		text-align: right;
+	}
+	.operation {
+		float: right;
+		margin-top: 15px;
+		a{
+			color: #666;
+			display: inline-block;
+			text-align: center;
+			&:hover {
+				color: #1972d6;
+			}
+			i.iconfont{
+				font-size: 40px;
+				line-height: 40px;
+			}
+			p{
+				line-height: 14px;
+				font-size: 12px;
+			}
+		}
+	}
+}
+
+
+// 设置转让内容宽度
+.autoHide {
+    width: 155px;
+}

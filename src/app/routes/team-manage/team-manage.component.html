@@ -1,0 +1,220 @@
+<nav class="z-title-lg">
+  团队管理
+</nav>
+<section class="z-bg-white clearfix">
+  <header>
+    <h1 class="z-title-md-style">
+      筛选查询
+    </h1>
+  </header>
+  <form class="clearfix" #teamListForm="ngForm" name="teamList">
+    <ul class="clearfix">
+      <li class="col-lg-3 col-md-4 col-sm-4 f-l">
+        <label for="teamname">团队名称：</label>
+        <input class="z-input" name="teamname" id="teamname"
+               [(ngModel)]="params.name" maxlength="20">
+      </li>
+      <li class="col-lg-3 col-md-4 col-sm-4 f-l">
+        <label>团队类型：</label>
+        <select name="teamtype" [(ngModel)]="params.type">
+          <option [value]="item.code" *ngFor="let item of teamType">{{item.name}}</option>
+        </select>
+      </li>
+      <li class="col-lg-3 col-md-4 col-sm-4 f-l">
+        <label>状态：</label>
+        <select name="teamstatus" [(ngModel)]="params.status">
+          <option [value]="item.code" *ngFor="let item of teamState">{{item.name}}</option>
+        </select>
+      </li>
+      <li class="col-lg-3 col-md-4 col-sm-4 f-l">
+        <label>所在区域：</label>
+        <app-district [(checkedItem)]="cityItem" [(checkedCode)]="params.workingDistrict"></app-district>
+      </li>
+      <li class="col-lg-12 col-md-8 col-sm-8 f-l">
+        <label>关联标签：</label>
+        <app-set-related-tags [(tagList)]="tagList" [(tags)]="tags"></app-set-related-tags>
+      </li>
+    </ul>
+    <div class="f-r">
+      <a class="mr8" (click)="clearSearch()">清空搜索条件</a>
+      <button class="z-btn-blue-lg" (click)="submit()">搜索</button>
+    </div>
+  </form>
+</section>
+
+<section class="z-bg-white clearfix">
+  <header class="clearfix mb10">
+    <h1 class="z-title-md-style dib">信息列表</h1>
+    <button class="z-btn-blue-lg f-r" routerLink="/admin/addTeam" *ngIf="permission['00020101']">创建</button>
+  </header>
+  <table class="z-table-sm">
+    <thead>
+    <tr>
+      <th width="5%">序号</th>
+      <th width="10%">团队名称</th>
+      <th width="10%">团队类型</th>
+      <th width="10%">所在区域</th>
+      <th width="5%">状态</th>
+      <th width="11%">可服务区域</th>
+      <th width="10%">团队角色</th>
+      <th width="5%">成员人数</th>
+      <th width="10%">创建者</th>
+      <th width="9%">创建时间</th>
+      <th width="15%">操作</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of lists; let i=index;">
+      <td>{{i+1}}</td>
+      <td>
+        <span *ngIf="!item.name">-</span>
+        <span *ngIf="item.name">{{item.name}}</span>
+      </td>
+      <td>{{teamTypeObj[item.type]}}</td>
+      <td>
+        <span *ngIf="!item.cityVo">-</span>
+        <span *ngIf="item.cityVo">{{item.cityVo.name}}</span>
+        </td>
+      <td>
+        <span *ngIf="item.status==0">正常</span>
+        <span *ngIf="item.status==1">解散</span>
+      </td>
+      <td>
+        <span *ngIf="!item.teamCity?.length">-</span>
+        <span *ngIf="item.teamCity?.length>0">
+          <span *ngFor="let city of item.teamCity;let i=index" class="mr3">{{city?.name}}<i *ngIf="i!=item.teamCity.length-1"> | </i></span>
+        </span>
+      </td>
+      <td>
+        <span *ngIf="!item.roles?.length">-</span>
+        <span *ngIf="item.roles?.length">
+          <span *ngFor="let role of item.roles">{{role.name}}</span>
+        </span>
+      </td>
+      <td>
+        <span *ngIf="!item.members">-</span>
+        <span *ngIf="item.members">{{item.members}}</span>
+      </td>
+      <td>
+        <span *ngIf="!item.createUserName">-</span>
+        <span *ngIf="item.createUserName">{{item.createUserName}}</span>
+      </td>
+      <td>
+        <span *ngIf="!item.createTime">-</span>
+        <span *ngIf="item.createTime">{{item.createTime | date:'yyyy-MM-dd HH:mm:ss'}}</span>
+       </td>
+      <td class="handle">
+        <p>
+          <button class="z-btn-blue-sm mr5 mb5" *ngIf="item.status===0 && permission['00020102']" (click)="openModal(edit, item,i)">编辑</button>
+          <button class="z-btn-grey-sm mr5 mb5" *ngIf="item.status===0 && permission['00020103']" (click)="openModal(dissolveTem, item,i)">解散</button>
+        </p>
+        <p>
+          <button class="z-btn-blue-sm mr5 mb5"
+                  *ngIf="item.status===0 && permission['00020106']"
+                  routerLink="/admin/memberManage/{{item.teamId}}/{{item.name}}">成员管理</button>
+          <app-role-modal class="mr5 mb5" *ngIf="item.status===0 && permission['00020105']" [teamId]="item.teamId"  [(roles)]="item.roles" [ifResult]="false"></app-role-modal>
+          <app-district-mult class="mb5" *ngIf="item.status===0 && permission['00020104']" [ifResult]="false" [(cityList)]="item.teamCity"
+                             [(citys)]="cityChecked" (dealChecked)="asignDistrict(item.teamId)"></app-district-mult>
+        </p>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <app-pagination (pageChanged)="pageChanged()" [(pageConf)]="pageConf"></app-pagination>
+</section>
+
+<ng-template #edit>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">编辑团队信息</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <form #editTeamForm="ngForm" name="editTeam">
+    <div class="modal-body edit-modal">
+      <ul>
+        <li>
+          <label class="z-required" for="editName">团队名称：</label>
+          <div class="l-box">
+            <input class="z-input" id="editName" name="editName"
+                   [(ngModel)]="team.name"
+                   #editName="ngModel" maxlength="20" required>
+            <div class="z-error" *ngIf="editName.invalid && (editName.dirty || editName.touched)">
+              <span *ngIf="editName.errors?.required">请输入团队名称</span>
+            </div>
+          </div>
+        </li>
+        <li>
+          <label class="z-required">团队类型：</label>
+          <div class="l-box">
+            <select name="editType" [(ngModel)]="team.type">
+              <option [value]="item.code" *ngFor="let item of teamType">{{item.name}}</option>
+            </select>
+          </div>
+        </li>
+        <li>
+          <label class="z-required">所在区域：</label>
+          <div class="l-box">
+            <app-district [(checkedItem)]="team.cityVo" [(checkedCode)]="team.cityId"></app-district>
+          </div>
+        </li>
+        <li>
+          <label class="z-required" for="editAddress">地址：</label>
+          <div class="l-box">
+            <input class="z-input" id="editAddress" name="editAddress" maxlength="50" [(ngModel)]="team.address">
+          </div>
+        </li>
+        <li>
+          <label class="z-required">中心点位置：</label>
+          <div class="l-box">
+            <app-map-modal [(point)]="point"></app-map-modal>
+          </div>
+        </li>
+        <li>
+          <label for="editRemark">团队说明：</label>
+          <div class="l-box">
+            <textarea name="editRemark" id="editRemark" class="z-textarea" [(ngModel)]="team.remark">
+              {{team.remark}}
+            </textarea>
+          </div>
+        </li>
+        <li>
+          <label>关联标签：</label>
+          <div class="l-box">
+            <app-set-related-tags [(tagList)]="team.tags" [(tags)]="editTags"></app-set-related-tags>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="modal-footer">
+      <div class="f-r">
+        <button type="button" class="z-btn-grey-lg mr7" (click)="modalRef.hide()">取消</button>
+        <button type="button" class="z-btn-blue-lg" (click)="editTeam()">确定</button>
+      </div>
+    </div>
+  </form>
+</ng-template>
+
+<ng-template #dissolveTem>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">团队解散确认</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    <div class="mb10">
+      确认将 团队：{{team.name}} 解散吗？
+    </div>
+    <div>
+      解散团队不可恢复，请谨慎操作！
+    </div>
+  </div>
+  <div class="modal-footer">
+    <div class="f-r">
+      <button type="button" class="z-btn-grey-lg mr7">取消</button>
+      <button type="button" class="z-btn-blue-lg" (click)="dissolve();modalRef.hide();">确定</button>
+    </div>
+  </div>
+</ng-template>
+

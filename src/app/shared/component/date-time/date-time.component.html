@@ -1,0 +1,23 @@
+<div class="dateTime">
+	<input type="text" class="z-input" readonly [(ngModel)]="time" (click)="showBox = !showBox">
+	<div class="box" *ngIf="showBox">
+		<div class="head">
+			选择时间
+		</div>
+		<div class="body clearfix">
+			<div class="item clearfix" *ngFor="let item of data">
+				<p class="title">{{item.text}}</p>
+				<ul class="clearfix">
+					<li *ngFor="let num of item.list">{{num}}</li>
+				</ul>
+			</div>
+		</div>
+		<div class="foot">
+			<div class="btns">
+				<button>清空</button>
+				<button>现在</button>
+				<button>确认</button>
+			</div>
+		</div>
+	</div>		
+</div>

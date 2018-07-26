@@ -1,0 +1,18 @@
+<div>
+  <input type="button" value="+请选择团队类型" class="z-btn-grey-lg mr5" name="item.city" (click)="showPanelOr()">
+  <span class="red error ml5" *ngIf="!selectedTeamType.length">请选择团队类型</span>
+  <span class="z-tag-del"   *ngFor="let type of selectedTeamType">
+  {{type.name}}
+  <span class="del" (click)="delete(type)"></span>
+  </span>
+</div>
+<div class="team-type" *ngIf="showPanel">
+  <button type="button" class="close pull-right" aria-label="Close">
+    <span aria-hidden="true" (click)="hideModal()">&times;</span>
+  </button>
+  <ul>
+    <li *ngFor="let type of types" class="team-type-li mb10" [ngClass]="{'checked':type.checked}" (click)="changeChecked(type)">
+      {{type.name}}
+    </li>
+  </ul>
+</div>

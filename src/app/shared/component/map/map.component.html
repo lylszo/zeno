@@ -1,0 +1,15 @@
+<div class="map">
+	<div class="header">
+		<span>{{address}}</span>
+		<span class="f-r" *ngIf="point">
+			<i class="iconfont icon-dingwei f14 blue"></i>
+			{{point.lng}}，{{point.lat}}
+		</span>
+	</div>
+	<div [id]="mapId" class="mapContainer">
+	</div>
+	<div class="search" [hidden]="hideSearch">
+		<input type="text" class="z-input f-l" placeholder="搜地点" [(ngModel)]="key">
+		<div class="search-btn" (click)="searchMap()"><i class="iconfont icon-tubiao11"></i></div>
+	</div>
+</div>

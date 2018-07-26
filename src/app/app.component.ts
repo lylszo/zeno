@@ -1,7 +1,11 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {HttpService} from './service/http.service';
-import {Subscription} from 'rxjs';
-import {TipPopService} from './service/tipPop.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { HttpService } from './shared/service/http.service';
+import { Subscription } from 'rxjs';
+import { TipPopService } from './shared/service/tipPop.service';
+import { defineLocale } from 'ngx-bootstrap/chronos';
+import { deLocale } from 'ngx-bootstrap/locale';
+import { BsDatepickerConfig, BsLocaleService } from 'ngx-bootstrap/datepicker';
+defineLocale('zh-cn', deLocale);
 
 @Component({
   selector: 'app-root',
@@ -12,7 +16,8 @@ export class AppComponent implements OnDestroy {
   tip: object;  // 用于所有接口报错的信息提示
   subscription: Subscription;
 
-  constructor(private http: HttpService, public tipService: TipPopService) {
+  constructor(private http: HttpService, public tipService: TipPopService, private localeService: BsLocaleService) {
+    this.localeService.use('zh-cn');
     this.getDistrict();
     this.getIndustries();
     this.tip = {
@@ -28,8 +33,13 @@ export class AppComponent implements OnDestroy {
           errorText: '',
           fail: false
         };
-      }, 2000);
+      }, 3000);
     });
+  }
+
+  ngOnDestroy() {
+    // unsubscribe to ensure no memory leaks
+    this.subscription.unsubscribe();
   }
 
   //  在app启动的时候将区域的数据存到localStorage中
@@ -74,8 +84,6 @@ export class AppComponent implements OnDestroy {
     }
   }
 
-  ngOnDestroy() {
-    // unsubscribe to ensure no memory leaks
-    this.subscription.unsubscribe();
-  }
+
+
 }

@@ -1,0 +1,75 @@
+<div class="box">
+<div class="userRegister">
+  <div class="userHeader">
+    <img class="f-l mr10" src="../../../assets/imgs/logo_user.png"/>
+    <p class="title">铺铺旺大数据系统</p>
+    <p class="little-title">BigData Management System</p>
+  </div>
+  <p class="user mb20 f18 bold">注册</p>
+  <form class="user userForm relative" #userRegister="ngForm" name="userRegister">
+    <input type="text" name="name" [(ngModel)]="name" #userName="ngModel" placeholder="请输入真实姓名" required
+    minlength="2" maxlength="15">
+    <div class="user-error" *ngIf="clicked">
+      <span *ngIf="userName.errors?.minlength">请输入1~15位</span>
+      <span *ngIf="userName.errors?.maxlength">请输入1~15位</span>
+      <span *ngIf="userName.errors?.required">请输入姓名</span>
+      <span *ngIf="userName.errors" class="error-icon">!</span>
+    </div>
+
+    <input type="text" name="account" [(ngModel)]="account"  #userMobile="ngModel"
+           maxlength="11" minlength="11"
+           pattern="^1[3|4|5|6|7|8|9]\d{9}$" placeholder="请输入手机号码用于登录和找回密码" required>
+    <div class="user-error" *ngIf="clicked">
+      <span *ngIf="userMobile.errors?.pattern">手机号码格式不正确</span>
+      <span *ngIf="userMobile.errors?.required">请输入手机号码</span>
+      <span *ngIf="userMobile.errors" class="error-icon">!</span>
+    </div>
+
+    <input type="text" name="code" [(ngModel)]="code" #userCode="ngModel" placeholder="请输入验证码" required>
+
+    <div class="user-error mr75" *ngIf="clicked">
+      <span *ngIf="userCode.errors?.required">请输入验证码</span>
+      <span *ngIf="userCode.errors" class="error-icon">!</span>
+    </div>
+
+    <button class="getCode" *ngIf="time>-1" [disabled]="userMobile.errors" [ngClass]="{'lightgrey':userMobile.errors}">{{time}} s </button>
+    <button class="getCode" *ngIf="time===-1" [disabled]="userMobile.errors" [ngClass]="{'lightgrey':userMobile.errors}"
+            (click)="getVC(userMobile.errors)">{{text}}</button>
+
+    <input type="text" name="city" (click)="openPanel()" [ngModel]="city.name" autocomplete="off" #cityName="ngModel" placeholder="请选择城市" required>
+    <div class="user-error" *ngIf="clicked">
+      <span *ngIf="cityName.errors?.required">请输入城市</span>
+      <span *ngIf="cityName.errors" class="error-icon">!</span>
+    </div>
+
+    <app-choose-city [showCityPanel]="showCityPanel"  (event)="getThisCity($event)"></app-choose-city>
+
+    <input type="password" name="password1" [(ngModel)]="password1" #password11="ngModel" placeholder="请输入登录密码"
+           required maxlength="12" minlength="6" pattern="^[A-Za-z0-9]{6,12}$" autocomplete="off">
+    <div class="user-error" *ngIf="clicked">
+      <span *ngIf="password11.errors?.pattern">请输入6-12位数字或字符</span>
+      <!--<span *ngIf="password11.errors?.minlength">请输入6-12位数字或字符</span>-->
+      <span *ngIf="password11.errors?.required">请输入密码</span>
+      <span *ngIf="password11.errors" class="error-icon">!</span>
+    </div>
+
+    <input type="password" name="password2" [(ngModel)]="password2" maxlength="12" minlength="6" pattern="^[A-Za-z0-9]{6,12}$"
+           autocomplete="off" #password22="ngModel" placeholder="请再输入登录密码" required>
+    <div class="user-error" *ngIf="clicked">
+      <span *ngIf="password22.errors?.required">请再次输入密码</span>
+      <!--<span *ngIf="password22.errors?.pattern">请输入6-12位数字或字符</span>-->
+      <!--<span *ngIf="password22.errors?.minlength">请输入6-12位数字或字符</span>-->
+      <span *ngIf="password1!=password2&&password2">两次密码输入不一致</span>
+      <span *ngIf="password1!=password2 || password22.errors" class="error-icon">!</span>
+    </div>
+
+    <button class="user-button" [ngClass]="{'buttonBgDis':disable,'buttonBgOk':(userRegister.valid && password1===password2) || !clicked}"
+            (click)="registerSubmit(userRegister.invalid || password1!=password2)">注册</button>
+  </form>
+
+  <div class="user userFooter">
+    <a class="userToRes" routerLink="/login">已有账号，马上登录</a>
+    <a class="userToPass" routerLink="/forgetPassword">忘记密码</a>
+  </div>
+</div>
+</div>

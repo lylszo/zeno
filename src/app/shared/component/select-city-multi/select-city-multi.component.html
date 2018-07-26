@@ -1,0 +1,44 @@
+<div style="max-width: 600px">
+  <input type="button" value="+请选择城市" class="z-btn-grey-lg mr5" name="item.city" (click)="showPanelOr()">
+  <span class="red error ml5" *ngIf="!selectedCityList.length">请选择城市</span>
+  <span class="z-tag-del"   *ngFor="let city of selectedCityList">
+  {{city.name}}
+  <span class="del" (click)="delete(city)"></span>
+  </span>
+</div>
+<div class="select-city" *ngIf="showPanel">
+  <ul class="select-city-ul clearfix">
+    <li class="selected">
+      <p class="city-title">已选择区域</p>
+      <ul>
+        <li class="z-tag-del mt5 ml5" *ngFor="let city of selectedCityList">
+         <p>
+           {{city.name}}
+           <span class="del" (click)="delete(city)"></span>
+         </p>
+        </li>
+      </ul>
+    </li>
+    <li class="noselect">
+      <p class="city-title">选择服务区域<span class="city-title-span">（可选国家、省、市任意一级）</span></p>
+      <button type="button" class="close pull-right mt-25 close-city" aria-label="Close">
+        <span aria-hidden="true" (click)="hidePanel()">&times;</span>
+      </button>
+      <ul class="clearfix">
+        <li *ngFor="let item of cityList, let i =index">
+          <ul class="city-name">
+            <li class="mt10">
+              <button class="f16" [ngClass]="{'blue':item.checked}" (click)="changeChecked(item)">{{item.name}}</button>
+            </li>
+            <li>
+              <button class="ml20 f14" *ngFor="let city of item.childs" [disabled]="city.disable"
+                      [ngClass]="{'blue':city.checked&&!city.disable}"
+                      (click)="changeChecked(city)">{{city.name}}</button>
+            </li>
+
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>

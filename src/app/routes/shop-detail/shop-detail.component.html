@@ -1,0 +1,846 @@
+<div class="shopDetail">
+	<div class="part1 clearfix z-bg-white">
+		<div class="left">
+			<img src="{{imgs[idx]?.url}}" width="590" height="400">
+			<div class="clearfix mt20">
+				<div class="img-left" (click)="turn('left', imgs)">
+					<i class="iconfont icon-arrow-left1"></i>
+				</div>
+				<div class="img-content">
+					<ul class="clearfix" [style.margin-left.px]="imgLeft">
+						<li *ngFor="let pic of imgs;let i = index;" (click)="idx = i" [class.active]="i == idx">
+							<img src="{{pic?.url || '../../../assets/imgs/default.png'}}" width="125" height="100">
+						</li>
+					</ul>
+				</div>
+				<div class="img-right" (click)="turn('right', imgs)">
+					<i class="iconfont icon-arrow-right1"></i>
+				</div>
+			</div>
+			<span class="num">
+				{{idx + 1}}/{{imgs.length}}
+			</span>
+		</div>
+		<div class="right">
+			<h1 class="f24 bold clearfix pt10">
+				<div class="bigTitle">
+					{{detail.district?.toString().slice(0, 4) | cityName}}<span *ngIf="detail.district?.toString().length >=6">{{detail.district?.toString().slice(0, 6) | cityName}}</span>
+					{{detail.name}}
+				</div>
+				<span class="rent">
+					<span *ngIf="detail.rent">{{detail.rent/100}}</span>
+					<span>{{detail.rentUnit | rentUnit}}</span>
+				</span>
+			</h1>
+			<table>
+				<tr>
+					<td align="right" width="85">经营行业：</td>
+					<td>
+						<span class="red bold" *ngIf="detail.industryId">
+							<span>{{detail.industryId?.toString().slice(0, 2) | industryName}}</span><span *ngIf="detail.industryId.toString().length == 4">-{{detail.industryId | industryName}}</span>
+						</span>
+						<span *ngIf="!detail.industryId">暂无</span>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">经营状态：</td>
+					<td>
+						<span class="red bold" *ngIf="detail.operateStatus">{{detail.operateStatus | operateStatus}}</span>
+						<span *ngIf="!detail.operateStatus">暂无</span>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">建筑面积：</td>
+					<td>
+						<span class="red bold" *ngIf="detail.buildVo?.area">{{detail.buildVo?.area}}㎡</span>
+						<span *ngIf="!detail.buildVo?.area">暂无</span>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">付款方式：</td>
+					<td>
+						<span *ngIf="detail.rentPayMode">{{detail.rentPayMode}}</span>
+						<span *ngIf="!detail.rentPayMode">暂无</span>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">押金：</td>
+					<td>
+						<span *ngIf="detail.rentDepositMode">{{detail.rentDepositMode}}</span>
+						<span *ngIf="!detail.rentDepositMode">暂无</span>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">方位描述：</td>
+					<td>
+						<span>{{detail.buildVo?.positionDesc | positionDesc}}</span><span *ngIf="detail.buildVo?.nearStreet">-{{detail.buildVo?.nearStreet | nearStreet}}</span>
+						<span *ngIf="!detail.buildVo?.positionDesc && !detail.buildVo?.nearStreet">暂无</span>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">剩余租期：</td>
+					<td>
+						<span *ngIf="detail.rentContractRemainMonths">{{detail.rentContractRemainMonths}}个月</span>
+						<span *ngIf="!detail.rentContractRemainMonths">暂无</span>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">所在区域：</td>
+					<td>
+						<span>{{detail.buildVo?.district.toString().slice(0, 4) | cityName}}</span><span *ngIf="detail.buildVo?.district.toString().length >= 6">-{{detail.buildVo?.district.toString().slice(0, 6) | cityName}}</span><span *ngIf="detail.buildVo?.district.toString().length >= 8">-{{detail.buildVo?.district.toString().slice(0, 8) | cityName}}</span>
+						<span *ngIf="!detail.buildVo?.district">暂无</span>
+					</td>
+				</tr>
+				<tr>
+					<td align="right" class="vat">转让信息：</td>
+					<td>
+						<span class="red bold" *ngIf="detail.transferFee">
+							{{detail.transferFee/1000000}}万
+						</span>
+						<span>{{detail.transferCanEmpty | transferCanEmpty}}</span>
+						<p class="f12 lightgrey" *ngIf="detail.transferContent">{{detail.transferContent}}</p>
+						<span *ngIf="!detail.transferFee && !detail.transferCanEmpty && !detail.transferContent">暂无</span>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">详细地址：</td>
+					<td>
+						<span *ngIf="detail.buildVo?.address">{{detail.buildVo?.address}}</span>
+						<span *ngIf="!detail.buildVo?.address">暂无</span>
+					</td>
+				</tr>
+			</table>
+			<h2 class="z-title-lg blue ml9">联系人 {{detail.contact}} TEL {{detail.mobile}}</h2>
+		</div>
+	</div>
+	<div class="part2 z-bg-white" id="jianzhu">
+		<h2 class="z-title-md-style mb20">建筑详情</h2>
+		<div class="detail-group">
+			<span class="detail-title">方位描述：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.buildVo?.positionDesc">{{detail.buildVo?.positionDesc | positionDesc}}</span>
+				<span *ngIf="!detail.buildVo?.positionDesc">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">是否临街：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.buildVo?.nearStreet">{{detail.buildVo?.nearStreet | nearStreet}}</span>
+				<span *ngIf="!detail.buildVo?.nearStreet">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">所在区域：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.buildVo?.district">
+					<span>{{detail.buildVo?.district.toString().slice(0, 4) | cityName}}</span><span *ngIf="detail.buildVo?.district.toString().length >= 6">-{{detail.buildVo?.district.toString().slice(0, 6) | cityName}}</span><span *ngIf="detail.buildVo?.district.toString().length >= 8">-{{detail.buildVo?.district.toString().slice(0, 8) | cityName}}</span>
+				</span>
+				<span *ngIf="!detail.buildVo?.district">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">详细地址：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.buildVo?.address">{{detail.buildVo?.address}}</span>
+				<span *ngIf="!detail.buildVo?.address">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">建筑面积：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.buildVo?.area">{{detail.buildVo?.area}}㎡</span>
+				<span *ngIf="!detail.buildVo?.area">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">适合经营行业：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.buildVo && detail.buildVo.suitIndustry && detail.buildVo.suitIndustry.length">
+					<span *ngFor="let item of detail.buildVo.suitIndustry; let i = index;">
+						<span>{{item.slice(0, 2) | industryName}}</span>-<span *ngIf="item.length == 4">{{item | industryName}}</span>
+						<span *ngIf="i < detail.buildVo.suitIndustry.length - 1">、</span>
+					</span>
+				</span>
+				<span *ngIf="!detail.buildVo?.suitIndustry">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">推荐经营行业：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.buildVo && detail.buildVo.recommendarIndustry && detail.buildVo.recommendarIndustry.length">
+					<span *ngFor="let item of detail.buildVo.recommendarIndustry; let i = index;">
+						<span>{{item.slice(0, 2) | industryName}}</span>-<span *ngIf="item.length == 4">{{item | industryName}}</span>
+						<span *ngIf="i < detail.buildVo.recommendarIndustry.length - 1">、</span>
+					</span>
+				</span>
+				<span *ngIf="!detail.buildVo?.recommendarIndustry">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">不宜经营行业：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.buildVo && detail.buildVo.unsuitIndustry && detail.buildVo.unsuitIndustry.length">
+					<span *ngFor="let item of detail.buildVo.unsuitIndustry; let i = index;">
+						<span>{{item.slice(0, 2) | industryName}}</span>-<span *ngIf="item.length == 4">{{item | industryName}}</span>
+						<span *ngIf="i < detail.buildVo.unsuitIndustry.length - 1">、</span>
+					</span>
+				</span>
+				<span *ngIf="!detail.buildVo?.unsuitIndustry">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">使用面积：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.buildVo?.useArea">{{detail.buildVo?.useArea}}㎡</span>
+				<span *ngIf="!detail.buildVo?.useArea">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">开间：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.buildVo?.width">{{detail.buildVo?.width}}米</span>
+				<span *ngIf="!detail.buildVo?.width">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">进深：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.buildVo?.deep">{{detail.buildVo?.deep}}米</span>
+				<span *ngIf="!detail.buildVo?.deep">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">门宽：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.buildVo?.doorWidth">{{detail.buildVo?.doorWidth}}米</span>
+				<span *ngIf="!detail.buildVo?.doorWidth">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">层高：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.buildVo?.height">{{detail.buildVo?.height}}米</span>
+				<span *ngIf="!detail.buildVo?.height">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">所处楼层：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.buildVo?.floor">{{detail.buildVo?.floor}}</span>
+				<span *ngIf="!detail.buildVo?.floor">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">总楼层数：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.buildVo?.floorNum">{{detail.buildVo?.floorNum}}</span>
+				<span *ngIf="!detail.buildVo?.floorNum">暂无</span>
+			</div>
+		</div>
+	</div>
+	<div class="part2 z-bg-white" id="wuye">
+		<h2 class="z-title-md-style mb20">物业信息</h2>
+		<div class="detail-group">
+			<span class="detail-title">上级物业：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.buildVo?.parentProperty">{{detail.buildVo?.parentProperty | parentProperty}}</span>
+				<span *ngIf="!detail.buildVo?.parentProperty">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">上级物业名称：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.buildVo?.parentPropertyName">{{detail.buildVo?.parentPropertyName}}</span>
+				<span *ngIf="!detail.buildVo?.parentPropertyName">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">物业配套：</span>
+			<div class="detail-content">
+				<label class="z-checkbox" *ngFor="let item of properties">
+					<input type="checkbox" [(checked)]="item.value" disabled><i></i>{{item.name}}
+				</label>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">费用成本：</span>
+			<div class="detail-content">
+				<table>
+					<tr>
+						<td width="40" class="bold">水费</td>
+						<td width="180">
+							<span *ngIf="detail.buildVo?.waterFee">{{detail.buildVo?.waterFee/100}}元/吨</span>
+							<span *ngIf="!detail.buildVo?.waterFee">暂无</span>
+						</td>
+						<td width="40" class="bold">电费</td>
+						<td width="180">
+							<span *ngIf="detail.buildVo?.electricityFee">{{detail.buildVo?.electricityFee/100}}元/吨</span>
+							<span *ngIf="!detail.buildVo?.electricityFee">暂无</span>
+						</td>
+						<td width="40" class="bold">物业</td>
+						<td width="180">
+							<span *ngIf="detail.buildVo?.propertyFee">{{detail.buildVo?.propertyFee/100}}元/平米/月</span>
+							<span *ngIf="!detail.buildVo?.propertyFee">暂无</span>
+						</td>
+					</tr>
+					<tr>
+						<td class="bold">租金</td>
+						<td>
+							<span *ngIf="detail.buildVo?.rent">{{detail.buildVo?.rent/100}}元/月</span>
+							<span *ngIf="!detail.buildVo?.rent">暂无</span>
+						</td>
+						<td class="bold">燃气</td>
+						<td>
+							<span *ngIf="detail.buildVo?.gasFee">{{detail.buildVo?.gasFee/100}}元/立方</span>
+							<span *ngIf="!detail.buildVo?.gasFee">暂无</span>
+						</td>
+						<td class="bold">暖气</td>
+						<td>
+							<span *ngIf="detail.buildVo?.warmAirFee">{{detail.buildVo?.warmAirFee/100}}元/平米/月</span>
+							<span *ngIf="!detail.buildVo?.warmAirFee">暂无</span>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">建筑形状：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.buildVo?.shape">{{detail.buildVo?.shape | buildingShape}}</span>
+				<span *ngIf="!detail.buildVo?.shape">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">产权类型：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.buildVo?.propertyRight">{{detail.buildVo?.propertyRight | propertyRight}}</span>
+				<span *ngIf="!detail.buildVo?.propertyRight">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">拆迁风险：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.buildVo?.risk">{{detail.buildVo?.risk | removeRisk}}</span>
+				<span *ngIf="!detail.buildVo?.risk">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">风险备注：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.buildVo?.riskDescription">{{detail.buildVo?.riskDescription}}</span>
+				<span *ngIf="!detail.buildVo?.riskDescription">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title bold">房东信息：</span>
+			<div class="detail-content owner">
+				<div class="clearfix">
+					<div class="ownerTitle">昵称：</div>
+					<div class="ownerContent">
+						<span *ngIf="detail.buildVo?.ownerNickname">{{detail.buildVo?.ownerNickname}}</span>
+						<span *ngIf="!detail.buildVo?.ownerNickname">暂无</span>
+					</div>
+				</div>
+				<div class="clearfix">
+					<div class="ownerTitle">电话：</div>
+					<div class="ownerContent">
+						<span *ngIf="detail.buildVo?.ownerMobile">{{detail.buildVo?.ownerMobile}}</span>
+						<span *ngIf="!detail.buildVo?.ownerMobile">暂无</span>
+					</div>
+				</div>
+				<div class="clearfix">
+					<div class="ownerTitle">真实姓名：</div>
+					<div class="ownerContent">
+						<span *ngIf="detail.buildVo?.ownerName">{{detail.buildVo?.ownerName}}</span>
+						<span *ngIf="!detail.buildVo?.ownerName">暂无</span>
+					</div>
+				</div>
+				<div class="clearfix">
+					<div class="ownerTitle">年龄：</div>
+					<div class="ownerContent">
+						<span *ngIf="detail.buildVo?.ownerBirthday">{{detail.buildVo?.ownerBirthday | date: 'yyyy-MM-dd'}}</span>
+						<span *ngIf="!detail.buildVo?.ownerBirthday">暂无</span>
+					</div>
+				</div>
+				<div class="clearfix">
+					<div class="ownerTitle">联系地址：</div>
+					<div class="ownerContent">
+						<span *ngIf="detail.buildVo?.ownerAddress">{{detail.buildVo?.ownerAddress}}</span>
+						<span *ngIf="!detail.buildVo?.ownerAddress">暂无</span>
+					</div>
+				</div>
+				<div class="clearfix">
+					<div class="ownerTitle">电子邮件：</div>
+					<div class="ownerContent">
+						<span *ngIf="detail.buildVo?.ownerEmail">{{detail.buildVo?.ownerEmail}}</span>
+						<span *ngIf="!detail.buildVo?.ownerEmail">暂无</span>
+					</div>
+				</div>
+				<div class="clearfix">
+					<div class="ownerTitle">QQ号：</div>
+					<div class="ownerContent">
+						<span *ngIf="detail.buildVo?.ownerQq">{{detail.buildVo?.ownerQq}}</span>
+						<span *ngIf="!detail.buildVo?.ownerQq">暂无</span>
+					</div>
+				</div>
+				<div class="clearfix">
+					<div class="ownerTitle">微信号：</div>
+					<div class="ownerContent">
+						<span *ngIf="detail.buildVo?.ownerWechat">{{detail.buildVo?.ownerWechat}}</span>
+						<span *ngIf="!detail.buildVo?.ownerWechat">暂无</span>
+					</div>
+				</div>
+				<div class="clearfix">
+					<div class="ownerTitle">其他描述：</div>
+					<div class="ownerContent">
+						<span *ngIf="detail.buildVo?.ownerDescription">{{detail.buildVo?.ownerDescription	}}</span>
+						<span *ngIf="!detail.buildVo?.ownerDescription">暂无</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="part2 z-bg-white" id="dianpu">
+		<h2 class="z-title-md-style mb20">店铺详情</h2>
+		<div class="detail-group">
+			<span class="detail-title">店铺名称：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.name">{{detail.name}}</span>
+				<span *ngIf="!detail.name">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">是否品牌店铺：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.checkBrand">是</span>
+				<span *ngIf="detail.checkBrand === 0">否</span>
+				<span *ngIf="!detail.checkBrand && detail.checkBrand !== 0">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">品牌名：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.brandName">{{detail.brandName}}</span>
+				<span *ngIf="!detail.brandName">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">分店名：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.branchShop">{{detail.branchShop}}</span>
+				<span *ngIf="!detail.branchShop">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">运营模式：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.operateMode">{{detail.operateMode | operateMode}}</span>
+				<span *ngIf="!detail.operateMode">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">经营行业：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.industryId">{{detail.industryId | industryName}}</span>
+				<span *ngIf="!detail.industryId">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">经营状态：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.operateStatus">{{detail.operateStatus | operateStatus}}</span>
+				<span *ngIf="!detail.operateStatus">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">联系人：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.contact">{{detail.contact}}</span>
+				<span *ngIf="!detail.contact">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">联系电话：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.mobile">{{detail.mobile}}</span>
+				<span *ngIf="!detail.mobile">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">开业日期：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.openDate">{{detail.openDate | date: 'yyyy-MM-dd'}}</span>
+				<span *ngIf="!detail.openDate">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">停业日期：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.stopDate">{{detail.stopDate | date: 'yyyy-MM-dd'}}</span>
+				<span *ngIf="!detail.stopDate">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">外卖电话：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.outSaleMobile">{{detail.outSaleMobile}}</span>
+				<span *ngIf="!detail.outSaleMobile">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">营业时间：</span>
+			<div class="detail-content">
+				<span *ngIf="weekDay.length && weekDay.length < 7">
+					<span *ngFor="let item of weekDay; let i = index;">{{item}}<span *ngIf="i < weekDay.length - 1">、</span></span>
+				</span>
+				<span *ngIf="weekDay.length && weekDay.length == 7">整周</span>
+				<span *ngIf="weekDay.length && (workStartTime || workEndTime)" class="ml20"></span>
+				<span *ngIf="workStartTime && workStartTime == '00:00' && workEndTime && workEndTime == '00:00'">24小时营业</span>
+				<span *ngIf="workStartTime != '00:00' || workEndTime != '00:00'">
+					<span *ngIf="workStartTime">{{workStartTime}}</span>
+					<span *ngIf="workStartTime && workEndTime">-</span>
+					<span *ngIf="workEndTime">{{workEndTime}}</span>
+				</span>
+				<span *ngIf="!weekDay.length && !workStartTime && !workEndTime">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">装修档次：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.decorateGrade">{{detail.decorateGrade | decorateGrade}}</span>
+				<span *ngIf="!detail.decorateGrade">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">提供服务：</span>
+			<div class="detail-content">
+				<label class="z-checkbox" *ngFor="let item of serviceItems">
+					<input type="checkbox" [(checked)]="item.value" disabled><i></i>{{item.name}}
+				</label>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">店铺租金：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.rent">{{detail.rent/100}} {{detail.rentUnit | rentUnit}}</span>
+				<span *ngIf="!detail.rent">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">支付方式：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.rentPayMode">{{detail.rentPayMode}}</span>
+				<span *ngIf="!detail.rentPayMode">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">押金：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.rentDepositMode">{{detail.rentDepositMode}}</span>
+				<span *ngIf="!detail.rentDepositMode">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">是否递增：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.rentIsIncrease === 0">否</span>
+				<span *ngIf="detail.rentIsIncrease === 1">是</span>
+				<span *ngIf="!detail.rentIsIncrease && detail.rentIsIncrease !== 0">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group" *ngIf="detail.rentIsIncrease === 1">
+			<span class="detail-title">递增幅度：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.rentIncreaseNum">{{detail.rentIncreaseNum}}</span>
+				<span *ngIf="!detail.rentIncreaseNum">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">租约日期：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.rentContractBeginDate">{{detail.rentContractBeginDate | date: 'yyyy-MM-dd'}}</span>
+				<span *ngIf="!detail.rentContractBeginDate">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">租期：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.rentContractMonths">{{detail.rentContractMonths}}个月</span>
+				<span *ngIf="!detail.rentContractMonths">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">剩余合同租期：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.rentContractRemainMonths">{{detail.rentContractRemainMonths}}个月</span>
+				<span *ngIf="!detail.rentContractRemainMonths">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">客单价：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.operatePrice">{{detail.operatePrice/100}}元/人</span>
+				<span *ngIf="!detail.operatePrice">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">日均营业额：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.operateDayVolume">{{detail.operateDayVolume/100}}元/天</span>
+				<span *ngIf="!detail.operateDayVolume">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">消费人群：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.operateConsumer">{{detail.operateConsumer}}</span>
+				<span *ngIf="!detail.operateConsumer">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">最旺时段：</span>
+			<div class="detail-content bestTimes">
+				<label class="z-checkbox mr20" *ngFor="let item of bestTimes">
+					<input type="checkbox" name="{{'bestTimes' + item.code}}" disabled [(ngModel)]="item.value"><i></i>{{item.name}}
+				</label>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">堂食量：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.operateNumInRoom">{{detail.operateNumInRoom}}</span>
+				<span *ngIf="!detail.operateNumInRoom">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">外卖量：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.operateOutSaleNum">{{detail.operateOutSaleNum}}</span>
+				<span *ngIf="!detail.operateOutSaleNum">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">会员数：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.operateVipNum">{{detail.operateVipNum}}</span>
+				<span *ngIf="!detail.operateVipNum">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">会员形式：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.operateVipMode">{{detail.operateVipMode | operateVipMode}}</span>
+				<span *ngIf="!detail.operateVipMode">暂无</span>
+			</div>
+		</div>
+		<div class="detail-group">
+			<span class="detail-title">店铺详细描述：</span>
+			<div class="detail-content">
+				<span *ngIf="detail.description">{{detail.description}}</span>
+				<span *ngIf="!detail.description">暂无</span>
+			</div>
+		</div>
+	</div>
+	<div class="part2 z-bg-white" id="jingying">
+		<h2 class="z-title-md-style mb20">店铺老板</h2>
+		<p *ngIf="!bossList.length">暂无老板信息</p>
+		<table class="z-table-sm" *ngIf="bossList.length">
+			<tr>
+				<th>身份</th>
+				<th>称呼</th>
+				<th>参股比例</th>
+				<th>联系方式</th>
+				<th>出生年月</th>
+				<th>地址</th>
+				<th>QQ</th>
+				<th>微信</th>
+			</tr>
+			<tr *ngFor="let item of bossList; let i = index;">
+				<td>
+					<span *ngIf="item.type == 0">老板</span>
+					<span *ngIf="item.type == 1">合伙人</span>
+				</td>
+				<td>{{item.nickname}}</td>
+				<td>
+					<span *ngIf="item.stock">{{item.stock}}%</span>
+					<span *ngIf="!item.stock">暂无</span>
+				</td>
+				<td>{{item.mobile || '暂无'}}</td>
+				<td>{{item.birthday || '暂无'}}</td>
+				<td>
+					<span *ngIf="item.districtId">{{item.districtId.toString().slice(0, 4) | cityName}}{{item.districtId.toString().slice(0, 6) | cityName}}<span *ngIf="item.districtId.toString().length == 8">{{item.districtId | cityName}}</span></span>
+					<span *ngIf="!item.districtId">暂无</span>
+				</td>
+				<td>{{item.otherAccountQq || '暂无'}}</td>	
+				<td>{{item.otherAccountWx || '暂无'}}</td>	
+			</tr>
+		</table>
+	</div>
+	<div class="part2 z-bg-white">
+		<div>
+			<h2 class="z-title-md-style mb20">店铺员工</h2>
+			<p *ngIf="!employeeList.length">暂无员工信息</p>
+			<table class="z-table-sm" *ngIf="employeeList.length">
+				<tr>
+					<th width="150">员工姓名</th>
+					<th>联系号码</th>
+					<th>入职日期</th>
+					<th>工作内容</th>
+					<th>是否离职</th>
+					<th>离职日期</th>
+				</tr>
+				<tr *ngFor="let item of employeeList">
+					<td>{{item.nickname || '暂无'}}</td>
+					<td>{{item.mobile || '暂无'}}</td>
+					<td>{{item.enterDate || '暂无'}}</td>
+					<td>
+						<p style="max-width: 350px;">{{item.jobDescription || '暂无'}}</p>
+					</td>
+					<td>
+						<span *ngIf="item.isQuit == 2">是</span>
+						<span *ngIf="item.isQuit == 1">否</span>
+						<span *ngIf="!item.isQuit">暂无</span>
+					</td>
+					<td>{{item.quitDate || '暂无'}}</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<div class="part2 z-bg-white" id="zhuanrang">
+		<div>
+			<h2 class="z-title-md-style mb20">转让信息</h2>
+			<div class="detail-group">
+				<span class="detail-title">转让状态：</span>
+				<div class="detail-content">
+					<span *ngIf="detail.transferStatus">{{detail.transferStatus | transferStatus}}</span>
+					<span *ngIf="!detail.transferStatus">暂无</span>
+				</div>
+			</div>
+			<div class="detail-group">
+				<span class="detail-title">转让费：</span>
+				<div class="detail-content">
+					<span *ngIf="detail.transferFee">{{detail.transferFee/1000000}}万元</span>
+					<span *ngIf="detail.transferCanFace === 1"> 不可面议</span>
+					<span *ngIf="detail.transferCanFace === 2"> 可面议</span>
+					<span *ngIf="!detail.transferFee && !detail.transferCanFace">暂无</span>
+				</div>
+			</div>
+			<div class="detail-group">
+				<span class="detail-title">可否空转：</span>
+				<div class="detail-content">
+					<span *ngIf="detail.transferCanEmpty === 1">不可空转</span>
+					<span *ngIf="detail.transferCanEmpty === 2">可空转</span>
+					<span *ngIf="!detail.transferCanEmpty">暂无</span>
+				</div>
+			</div>
+			<div class="detail-group" *ngIf="detail.transferCanEmpty === 2">
+				<span class="detail-title">空转转让费：</span>
+				<div class="detail-content">
+					<span *ngIf="detail.transferFaceFee">{{detail.transferFaceFee/1000000}}万元</span>
+					<span *ngIf="!detail.transferFaceFee">暂无</span>
+				</div>
+			</div>
+			<div class="detail-group">
+				<span class="detail-title">转让内容：</span>
+				<div class="detail-content">
+					<span *ngIf="detail.transferContent">{{detail.transferContent}}</span>
+					<span *ngIf="!detail.transferContent">暂无</span>
+				</div>
+			</div>
+			<div class="detail-group">
+				<span class="detail-title">转让原因：</span>
+				<div class="detail-content">
+					<span *ngIf="detail.transferReason">{{detail.transferReason}}</span>
+					<span *ngIf="!detail.transferReason">暂无</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="part2 z-bg-white certificate" id="tupian">
+		<div class="picInfo">
+			<h2 class="z-title-md-style mb20">图片信息</h2>
+			<div>
+				<span (click)="imgToggle=false" [class.active]="!imgToggle">门面</span>
+				<span (click)="imgToggle=true" [class.active]="imgToggle">环境</span>
+			</div>
+			<div *ngIf="!imgToggle">
+				<ul class="clearfix" *ngIf="shopFrontImgs.length">
+					<li *ngFor="let item of shopFrontImgs">
+						<img src="{{item.url}}" width="220" height="180">
+					</li>
+				</ul>
+				<p *ngIf="!shopFrontImgs.length">暂无图片</p>
+			</div>
+			<div *ngIf="imgToggle">
+				<ul class="clearfix" *ngIf="environmentImgs.length">
+					<li *ngFor="let item of environmentImgs">
+						<img src="{{item.url}}" width="220" height="180">
+					</li>
+				</ul>
+				<p *ngIf="!environmentImgs.length">暂无图片</p>
+			</div>
+		</div>
+	</div>
+	<div class="part2 z-bg-white certificate">
+		<div class="clearfix">
+			<h2 class="z-title-md-style mb20">证件信息</h2>
+			<p *ngIf="!certificateList.length">暂无证件信息</p>
+			<div>
+				<span *ngFor="let item of certificateList; let i = index;">
+					{{item.type | certificateType}}<span *ngIf="i < certificateList.length - 1">、</span>
+				</span>				
+			</div>
+			<ul class="clearfix" *ngIf="certificatePicList.length">
+				<li *ngFor="let item of certificatePicList">
+					<img src="{{item.url}}" width="220" height="180">
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="part2 z-bg-white" id="weizhi">
+		<div>
+			<h2 class="z-title-md-style mb20">位置信息</h2>
+			<div class="position" *ngIf="position">
+				<app-map [(point)]="position" [clickable]="false" [hideSearch]="1"></app-map>
+			</div>
+			<p *ngIf="!position">暂无位置信息</p>
+		</div>
+	</div>
+</div>
+
+<!-- 目录导航 -->
+<ul class="fixBar">
+	<li class="iconfont icon-15" title="回到顶部" (click)="scrollTo()"></li>
+</ul>
+
+<!-- 左侧导航 -->
+<div class="fixNav" [class.active]="hideNav">
+	<dl>
+		<dd [class.active]="scrollActive == 'jianzhu'" (click)="scrollTo('jianzhu')">建筑信息</dd>
+		<dd [class.active]="scrollActive == 'wuye'" (click)="scrollTo('wuye')">物业信息</dd>
+		<dd [class.active]="scrollActive == 'dianpu'" (click)="scrollTo('dianpu')">店铺信息</dd>
+		<dd [class.active]="scrollActive == 'jingying'" (click)="scrollTo('jingying')">经营者信息</dd>
+		<dd [class.active]="scrollActive == 'zhuanrang'" (click)="scrollTo('zhuanrang')">转让信息</dd>
+		<dd [class.active]="scrollActive == 'tupian'" (click)="scrollTo('tupian')">图片</dd>
+		<dd [class.active]="scrollActive == 'weizhi'" (click)="scrollTo('weizhi')">位置</dd>
+	</dl>
+	<div class="toLeft" (click)="hideNav = !hideNav">
+		<i class="iconfont icon-arrow-left1" *ngIf="!hideNav" title="隐藏目录"></i>
+		<i class="iconfont icon-arrow-right1" *ngIf="hideNav" title="显示目录"></i>
+	</div>
+</div>
+
+<!-- 编辑历史 -->
+<!-- <div class="history" [class.active]="showHistory">
+	<p>暂无编辑历史</p>
+	<div class="content">
+    <div *ngFor="let item of historyList" class="history-way">
+      <p class="f14">{{item.operateTime|date:'yyyy-MM-dd'}}&nbsp;{{item.operName}}{{item.subject}}</p>
+      <p class="f12">{{item.content}}</p>
+    </div>
+	</div>
+	<div class="toRight" (click)="showHistory = !showHistory">
+		<i class="iconfont icon-arrow-left1" *ngIf="!showHistory" title="显示编辑历史"></i>
+		<i class="iconfont icon-arrow-right1" *ngIf="showHistory" title="隐藏编辑历史"></i>
+	</div>
+</div> -->
