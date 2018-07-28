@@ -54,7 +54,7 @@
         <h2 class="z-title-md-style">操作快捷入口</h2>
         <ul class="clearfix">
             <li>
-                <div routerLink="/shopService">
+                <div routerLink="/shop/list">
                     <span></span>
                     <p>店铺信息</p>
                 </div>
@@ -72,7 +72,7 @@
                 </div>
             </li> -->
             <li *ngIf="login && permission['10000101']">
-                <div routerLink="/releaseStore">
+                <div routerLink="/shop/category">
                     <span class="icon-2"></span>
                     <p>发布信息</p>
                 </div>
@@ -84,13 +84,13 @@
                 </div>
             </li> -->
             <li *ngIf="permission['0001']">
-                <div routerLink="/userManage">
+                <div routerLink="/user/userManage">
                     <span></span>
                     <p>用户管理</p>
                 </div>
             </li>
             <li *ngIf="permission['0002']">
-                <div routerLink="/teamManage">
+                <div routerLink="/team/teamManage">
                     <span class="icon-2"></span>
                     <p>团队管理</p>
                 </div>

@@ -55,7 +55,8 @@ export class LayoutComponent implements OnInit {
   logout() {
     this.http.post('user/logout', '', data => {
       this.tip.setValue('退出登录成功！');
-      this.router.navigateByUrl('/login');
+      window.location.reload();
+      this.router.navigateByUrl('/home');
       this.cookie.deleteAll();
       localStorage.removeItem('permitDistrict');
     });

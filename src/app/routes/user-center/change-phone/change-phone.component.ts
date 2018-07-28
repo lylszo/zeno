@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {CommonService} from "../../../service/common.service";
-import {HttpService} from "../../../service/http.service";
-import {TipPopService} from "../../../service/tipPop.service";
+import {CommonService} from "../../../shared/service/common.service";
+import {HttpService} from "../../../shared/service/http.service";
+import {TipPopService} from "../../../shared/service/tipPop.service";
 import {Router, RouterStateSnapshot} from "@angular/router";
 import {CookieService} from "ngx-cookie-service";
 
@@ -73,7 +73,7 @@ export class ChangePhoneComponent implements OnInit {
         this.tip.setValue('绑定成功', false);
         this.http.get('user/0', '', data => {
           this.cookie.set('userDetail', JSON.stringify(data));
-          this.router.navigateByUrl('/admin/dataSet');
+          this.router.navigateByUrl('/person/dataSet');
         })
       }, (err) => {
         if (err.code == '3021') {

@@ -1,6 +1,151 @@
 <div class="layout">
-	<app-toolbar></app-toolbar>
-	<app-sidebar></app-sidebar>
+	<div class="toolbar">
+		<div class="left clearfix">
+			<i class="iconfont icon-caidanlan" (click)="show()"></i>
+			<a class="logo" routerLink="/home">
+				<img src="./assets/imgs/logo.png">
+			</a>
+		</div>
+	    <div class="position">
+	      <div class="positionContent">
+	        <i class="iconfont icon-dingwei f14"></i>
+	        {{currentCity?.name}}
+	      </div>
+	      <div class="changeCity" [class.active]="cityBox">
+	        <p class="blue">点击切换城市</p>
+	        <div class="list">
+	            <table>
+	                <tr *ngFor="let item of districts">
+	                  <td width="45">
+	                      <span class="alpah">{{item.alpha}}</span>
+	                  </td>
+	                  <td>
+	                      <ul class="clearfix">
+	                        <li class="district" *ngFor="let v of item.list" (click)="chooseCity(v)">
+	                          {{v.name}}
+	                        </li>
+	                        </ul>
+	                  </td>
+	                </tr>
+	            </table>
+	          </div>
+	      </div>
+	    </div>
+		<div class="right">
+			<div class="item">
+				<div class="phone vcode" title="APP下载">
+					<i class="iconfont icon-shouji1"></i>
+          <div id="vcodeImg">
+            <div class="dib ml5">
+              <img src="../../../assets/imgs/anzhuo.png" alt="扫一扫二维码"><br>
+              <p class="text-center">安卓下载</p>
+            </div>
+            <div class="dib ml10">
+              <img src="../../../assets/imgs/IOS.png" alt="扫一扫二维码"><br>
+              <p class="text-center">IOS下载</p>
+            </div>
+          </div>
+				</div>
+			</div>
+			<div class="item" routerLink="/person/news">
+				<div class="message" title="消息提醒">
+					<i class="iconfont icon-xiaoxi">
+						<!--<span>1</span>-->
+					</i>
+				</div>
+			</div>
+			<div *ngIf="!login" class="item person" routerLink="/login">
+				<div class="pic">
+					<i class="iconfont icon-nanrentouxiang"></i>
+				</div>
+				<span class="text">请登录</span>	
+			</div>
+			<div *ngIf="login" class="item person">
+				<div class="pic">
+					<img *ngIf="personUrl" src="{{personUrl}}">
+					<i *ngIf="!personUrl" class="iconfont icon-nanrentouxiang"></i>
+				</div>
+				<span class="text">{{userDetail?.name}}</span>				
+				<div class="downList">
+					<ul>
+						<li routerLink="/person/dataSet">资料设置</li>
+						<li routerLink="/person/changePwd">密码修改</li>
+			            <li routerLink="/person/news">我的消息</li>
+						<!-- <li routerLink="/person/historyLog">活动日志</li> -->
+						<li (click)="logout()">退出登录</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="sidebar" [class.hidden]="!showSiderbar">
+		<div class="level-1" routerLink="/home" routerLinkActive="active">
+			首页
+		</div>
+
+	    <div>
+	      <div class="level-1" [class.active]="shop" (click)="shop=!shop">
+	        信息大厅
+	        <i class="iconfont icon-right f13 bold"></i>
+	      </div>
+	      <div class="children">
+	        <div class="level-2"  routerLink="/shop/list" routerLinkActive="active">
+	          店铺信息
+	        </div>
+	        <div class="level-2" *ngIf="permission['10000101']" routerLink="/shop/category" routerLinkActive="active">
+	          发布信息
+	        </div>
+	      </div>
+	    </div>
+
+	    <div *ngIf="permission['0001']">
+	      <div class="level-1" [class.active]="user" (click)="user=!user">
+	        用户管理
+	        <i class="iconfont icon-right f13 bold"></i>
+	      </div>
+	      <div class="children">
+	        <div class="level-2" *ngIf="permission['000101']" routerLink="/user/userManage" routerLinkActive="active">
+	          用户管理
+	        </div>
+	      </div>
+	    </div>
+
+	    <div *ngIf="permission['0002']">
+	      <div class="level-1" [class.active]="team" (click)="team=!team">
+	        团队管理
+	        <i class="iconfont icon-right f13 bold"></i>
+	      </div>
+	      <div class="children">
+	        <div class="level-2" *ngIf="permission['000201']" routerLink="/team/teamManage" routerLinkActive="active">
+	          团队管理
+	        </div>
+	      </div>
+	    </div>
+
+		<div *ngIf="permission['0000']">
+	      <div class="level-1" [class.active]="system" (click)="system=!system">
+	        系统管理
+	        <i class="iconfont icon-right f13 bold"></i>
+	      </div>
+	      <div class="children">
+	        <div class="level-2" *ngIf="permission['000002']"  routerLink="/system/role" routerLinkActive="active">
+	          角色管理
+	        </div>
+	        <div class="level-2" *ngIf="permission['000001']"  routerLink="/system/module" routerLinkActive="active">
+	          功能模块管理
+	        </div>
+	        <div class="level-2" *ngIf="permission['000003']"  routerLink="/system/district" routerLinkActive="active">
+	          区域管理
+	        </div>
+	        <div class="level-2" *ngIf="permission['000004']"  routerLink="/system/tag" routerLinkActive="active">
+	          标签库管理
+	        </div>
+	        <div class="level-2" *ngIf="permission['000005']"  routerLink="/system/rule" routerLinkActive="active">
+	          规则库管理
+	        </div>
+	      </div>
+	    </div>
+	</div>
 	<div class="main" [class.hidden]="!showSiderbar">
 		<div class="w">
 			<router-outlet></router-outlet>

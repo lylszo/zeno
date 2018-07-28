@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpResponse, HttpParams, HttpHeaders} from '@angular/common/http';
 import {CookieService} from 'ngx-cookie-service';
-import {config} from '../config/config';
+import {config} from '../../config/config';
 import {TipPopService} from './tipPop.service';
 import { Router } from '@angular/router';
 

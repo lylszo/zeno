@@ -45,50 +45,20 @@ export class LoginComponent implements OnInit, OnDestroy {
         let time = 24 * 60 * 60 * 1000;  // 设置24小时
         let timer = new Date(new Date().getTime() + time);
         this.cookie.set("Authorization", "Bearer " + data.token, timer);  // 登录的时候将token保存在cookie里面
-        if (this.router.url === '/loginAdmin') {
-          this.http.get('user/permissions', '', (permit) => {
-            if (permit && permit.length) {
-              permit.forEach(value => {
-                value = value.trim();
-                this.permitObj[value] = '1';
-                let code = value.substr(0, 4);
-                if (!this.permitObj[code]) {
-                  this.permitObj[code] = '1';
-                }
-              });
-              let hasPermit = false;
-              for(let o in this.permitObj){
-                if(/^00/.test(o)){
-                  hasPermit = true;
-                }
+        this.router.navigate(['/home']);
+        this.http.get('user/permissions', '', (permit) => {
+          if (permit && permit.length) {
+            permit.forEach(value => {
+              value = value.trim();
+              this.permitObj[value] = '1';
+              let code = value.substr(0, 4);
+              if (!this.permitObj[code]) {
+                this.permitObj[code] = '1';
               }
-              if (hasPermit) {
-                this.router.navigate(['/admin']);
-              } else {
-                this.tip.setValue('您暂无管理平台权限', true);
-              }
-              this.cookie.set('permit', JSON.stringify(this.permitObj));
-            } else {
-              this.tip.setValue('您暂无管理平台权限', true);
-            }
-          });
-        } else {
-          this.router.navigate(['/admin']);
-          this.http.get('user/permissions', '', (permit) => {
-            if (permit && permit.length) {
-              permit.forEach(value => {
-                value = value.trim();
-                this.permitObj[value] = '1';
-                let code = value.substr(0, 4);
-                if (!this.permitObj[code]) {
-                  this.permitObj[code] = '1';
-                }
-              });
-              this.cookie.set('permit', JSON.stringify(this.permitObj));
-            }
-          });
-        }
-
+            });
+            this.cookie.set('permit', JSON.stringify(this.permitObj));
+          }
+        });
       })
     }
   }

@@ -1,6 +1,6 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule, FormGroup } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { NgProgressModule } from "@ngx-progressbar/core";
@@ -9,7 +9,6 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { NgProgressHttpModule } from "@ngx-progressbar/http";
 import { NgProgressRouterModule } from "@ngx-progressbar/router";
 import { BsDatepickerModule  } from 'ngx-bootstrap/datepicker';
-
 
 import { CookieService } from 'ngx-cookie-service';
 import { TipPopService } from './service/tipPop.service';
@@ -34,15 +33,14 @@ import { OperateVipModePipe } from './pipe/operate-vip-mode.pipe';
 import { TransferStatusPipe } from './pipe/transfer-status.pipe';
 import { CertificateTypePipe } from './pipe/certificate-type.pipe';
 
-import { demoDirective } from './directives/demo/flot.directive';
+import { DemoDirective } from './directives/demo.directive';
 
 @NgModule({
     imports: [
-        BrowserModule,
+        FormsModule,
+        ReactiveFormsModule,
         PaginationModule.forRoot(),
         ModalModule.forRoot(),
-        FormsModule,
-        BrowserAnimationsModule,
         NgProgressModule.forRoot(),
         NgProgressHttpModule,
         NgProgressRouterModule,
@@ -73,24 +71,21 @@ import { demoDirective } from './directives/demo/flot.directive';
         TransferStatusPipe,
         CertificateTypePipe,
 
-        demoDirective
+        DemoDirective
     ],
     exports: [
-        BrowserModule,
+        CommonModule,
+        FormsModule,
+        RouterModule,
+        ReactiveFormsModule,
         PaginationModule,
         ModalModule,
-        FormsModule,
-        BrowserAnimationsModule,
         NgProgressModule,
         ModalModule,
         PaginationModule,
         NgProgressHttpModule,
         NgProgressRouterModule,
         BsDatepickerModule,
-        Guard,
-        DatePipe,
-        CookieService,
-        TipPopService,
         DecimalPipe,
         CityNamePipe,
         ParentPropertyPipe,
@@ -108,7 +103,7 @@ import { demoDirective } from './directives/demo/flot.directive';
         OperateVipModePipe,
         TransferStatusPipe,
         CertificateTypePipe,
-        demoDirective
+        DemoDirective
     ]
 })
 

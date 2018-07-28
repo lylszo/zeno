@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 
-import {Page} from "../../../component-common/pagination/page.model";
-import {HttpService} from "../../../service/http.service";
+import {Page} from "../../../component/pagination/page.model";
+import {HttpService} from "../../../shared/service/http.service";
 import {Router} from "@angular/router";
 import {Location} from "@angular/common";
 
@@ -58,7 +58,7 @@ export class NewsComponent implements OnInit {
 
   // 查看详情
   detail(id) {
-    this.router.navigateByUrl('/admin/newsDetail/' + id);
+    this.router.navigateByUrl('/person/newsDetail/' + id);
   }
 
 }

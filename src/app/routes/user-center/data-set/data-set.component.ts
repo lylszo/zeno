@@ -1,13 +1,13 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpService} from "../../../service/http.service";
+import {HttpService} from "../../../shared/service/http.service";
 import {Router} from "@angular/router";
 import {Location} from "@angular/common";
 
-import {CommonService} from "../../../service/common.service";
-import {TipPopService} from "../../../service/tipPop.service";
+import {CommonService} from "../../../shared/service/common.service";
+import {TipPopService} from "../../../shared/service/tipPop.service";
 import {CookieService} from "ngx-cookie-service";
-import {City} from "../../user-manage/city.model";
-import {Photo} from "../../../component-common/previewimg/photo.model";
+import {City} from "../../user-manage/user-manage/city.model";
+import {Photo} from "../../../component/previewimg/photo.model";
 import {isUndefined} from "util";
 
 @Component({
@@ -87,7 +87,7 @@ export class DataSetComponent implements OnInit {
   }
 
   goChangePhone(): void {
-    this.router.navigateByUrl('/admin/changePhone');
+    this.router.navigateByUrl('/person/changePhone');
   }
 
 }

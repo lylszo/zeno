@@ -1,20 +1,21 @@
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { SharedModule } from '../shared/shared.module';
 
 import { LayoutComponent } from './layout.component';
-import { SidebarComponent } from './sidebar/sidebar.component';
-import { ToolbarComponent } from './toolbar/toolbar.component';
+// import { SidebarComponent } from './sidebar/sidebar.component';
+// import { ToolbarComponent } from './toolbar/toolbar.component';
+
 @NgModule({
-    imports: [ RouterModule ],
+    imports: [ SharedModule ],
     declarations: [
-        LayoutComponent,
-        SidebarComponent,
-        ToolbarComponent
+        LayoutComponent
+        // SidebarComponent,
+        // ToolbarComponent
     ],
     exports: [
-        LayoutComponent,
-        SidebarComponent,
-        ToolbarComponent
+        LayoutComponent
+        // SidebarComponent,
+        // ToolbarComponent
     ]
 })
 export class LayoutModule { }

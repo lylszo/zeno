@@ -6,7 +6,9 @@ import { HashLocationStrategy , LocationStrategy } from '@angular/common';
 
 import { AppComponent } from './app.component';
 
+import { ComponentModule } from './component/component.module';
 import { LayoutModule } from './layout/layout.module';
+import { SharedModule } from './shared/shared.module';
 import { RoutesModule } from './routes/routes.module';
 
 @NgModule({
@@ -15,7 +17,9 @@ import { RoutesModule } from './routes/routes.module';
   ],
   imports: [
     BrowserModule,
+    ComponentModule,
     LayoutModule,
+    SharedModule.forRoot(),
     RoutesModule,
     HttpClientModule,
   ],

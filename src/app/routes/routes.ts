@@ -12,7 +12,12 @@ export const routes = [
         component: LayoutComponent,
         children: [
             { path: '', redirectTo: 'home', pathMatch: 'full' },
-            { path: 'home', loadChildren: './home/home.module#HomeModule' }
+            { path: 'home', loadChildren: './home/home.module#HomeModule' },
+            { path: 'system', loadChildren: './system-manage/system-manage.module#SystemManageModule' },
+            { path: 'team', loadChildren: './team-manage/team-manage.module#TeamManageModule' },
+            { path: 'user', loadChildren: './user-manage/user-manage.module#UserManageModule' },
+            { path: 'person', loadChildren: './user-center/user-center.module#UserCenterModule' },
+            { path: 'shop', loadChildren: './shop/shop.module#ShopModule' },
         ]
     },
 

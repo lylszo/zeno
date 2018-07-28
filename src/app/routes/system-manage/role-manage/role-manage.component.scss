@@ -1,0 +1,105 @@
+.role-manage{
+  width: 100%;
+}
+.body-ul{
+
+}
+.body-ul > li{
+  float: left;
+  border: 1px solid #dddddd;
+  padding:10px 20px;
+}
+.side-li{
+  width: 28%;
+  height: 700px;
+  overflow-y: auto;
+  border-bottom: none;
+  background: #f8f9fa;
+  font-size: 16px;
+  box-shadow: 10px 0 8px -2px rgba(0, 0, 0, 0.15);
+}
+.operator-li{
+  margin-left: 3px;
+  width: 68%;
+  background: #ffffff;
+  height: 700px;
+  overflow-y: auto;
+}
+.role-operate{
+  font-size: 16px;
+  //font-weight: bold;
+  margin-top: 10px;
+}
+.menu-item{
+  font-size: 14px;
+  font-weight: bold;
+}
+.items{
+  float: left;
+  font-size: 14px;
+  font-weight: normal;
+}
+.save{
+  margin-left: 3px;
+  padding: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  &:hover{
+    color: #1972d6;
+    background: #f0f0f0;
+  }
+}
+.cancel{
+  margin-left: 3px;
+  padding: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  &:hover{
+    color: #dd0031;
+    background: #f0f0f0;
+  }
+}
+.role-name-div{
+  position: relative;
+  padding: 10px 2px;
+  cursor: pointer;
+  &:hover{
+    color: #1972d6;
+    background: #f0f0f0;
+  }
+}
+.role-modify{
+  position: absolute;
+  width: 10%;
+  display: inline-block;
+  height: 20px;
+  float: right;
+  z-index: 100;
+}
+.role-name-span{
+  display: inline-block;
+  width: 90%;
+}
+.role-name-div:after{
+  position: absolute;
+  content: '';
+  display: inline-block;
+  //margin-left: -19px;
+  top: 15px;
+  width: 15px;
+  height: 15px;
+  z-index: 1;
+  background: url("../../../../assets/imgs/sprite.png");
+  background-position:-117px -101px;
+  opacity: 0;
+}
+.role-name-div:hover:after{
+  opacity: 1;
+}
+.pd{
+  padding: 10px 2px;
+}
+.target{
+  color: #1972d6;
+  background: #f0f0f0;
+}

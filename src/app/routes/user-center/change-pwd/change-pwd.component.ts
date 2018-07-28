@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {HttpService} from "../../../service/http.service";
-import {CommonService} from "../../../service/common.service";
-import {TipPopService} from "../../../service/tipPop.service";
+import {HttpService} from "../../../shared/service/http.service";
+import {CommonService} from "../../../shared/service/common.service";
+import {TipPopService} from "../../../shared/service/tipPop.service";
 
 @Component({
   selector: 'app-change-pwd',
